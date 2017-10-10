@@ -7,13 +7,18 @@ all: game.hex
 $(PREFIX)/font.8o $(PREFIX)/font-data.8o: Makefile generate-font.py assets/font/5.font
 		./generate-font.py assets/font/5.font font 1100 $(PREFIX)
 
+$(PREFIX)/map_data.8o: Makefile generate-map.py assets/map.json
+		./generate-map.py assets/map.json $(PREFIX)/map_data.8o
+
 game.8o: \
 	Makefile assets/* sources/*.8o \
 	$(PREFIX)/font.8o $(PREFIX)/font_data.8o \
+	$(PREFIX)/map_data.8o
 
 		cat sources/main.8o > $@
 		cat $(PREFIX)/font.8o >> $@
 		cat $(PREFIX)/font_data.8o >> $@
+		cat $(PREFIX)/map_data.8o >> $@
 
 game.bin: game.8o
 	./octo/octo game.8o $@
