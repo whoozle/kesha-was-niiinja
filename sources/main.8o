@@ -2,5 +2,7 @@
 	hires
 	plane 3
 
+	render_screen
+
 : main_loop
 	jump main_loop

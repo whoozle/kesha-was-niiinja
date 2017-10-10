@@ -5,14 +5,20 @@ import json
 
 parser = argparse.ArgumentParser(description='Decompile bin to hex')
 parser.add_argument('source', help='input file')
+parser.add_argument('address', help='address to load from')
 parser.add_argument('destination', help='destination')
 
 args = parser.parse_args()
+addr = int(args.address, 16)
+
 with open(args.source) as fi, open(args.destination, 'w') as fo:
 	map = json.load(fi)
 	width, height = map['width'], map['height']
 	size = width * height
 
+	fo.write(":org 0x%04x\n" %addr)
+	fo.write(":const map_data_hi 0x%02x\n" %(addr >> 8))
+	fo.write(":const map_data_lo 0x%02x\n" %(addr & 0xff))
 	fo.write(':const map_width %d\n' %width)
 	fo.write(':const map_height %d\n' %height)
 
