@@ -1,3 +1,6 @@
 : main
 	hires
 	plane 3
+
+: main_loop
+	jump main_loop
