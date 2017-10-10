@@ -1,15 +1,88 @@
-:org 0x100
-: current_map_offset
-	0
+:org 0x300
 
 : render_line
-	v0 := va
-	v1 := vb
-	v2 := map_width
+	v0 := 1
+	v1 := 16
+	loop
+		0xf0 0x00
+		: map_current_offset
+		0x30 0x00 #map offset + starting offset
 
-	i := long tile_tileset_data
+		load v4 - v4 #current tile
+
+		i := map_current_offset
+		load v5 - v6
+
+		:next map_tile_increment
+		v6 += 1
+		v5 += vf
+		save v5 - v6
+
+		if v4 == 0 then
+			jump next_tile
+
+		v4 += -1
+		v3 := v4
+
+		#hi of v3:v4 << 4
+		v3 >>= v3
+		v3 >>= v3
+		v3 >>= v3
+		v3 >>= v3
+
+		v3 += 0x60 #tiles hi offset
+
+		#lo of v3:v4 << 4
+		v4 <<= v4
+		v4 <<= v4
+		v4 <<= v4
+		v4 <<= v4
+
+		i := current_tile_offset
+		save v3 - v4
+
+		0xf0 0x00
+		: current_tile_offset
+		00 00
+
+		sprite va vb 8
+
+	: next_tile
+		:next render_line_dx
+		va += 8
+
+		:next render_line_dy
+		vb += 0
+
+		v1 += -1
+		if v1 != 0 then
+	again
 
 	return
 
 : render_screen
+	v0 := 0x31
+	v1 := 0x00
+	i := map_current_offset
+	save v0 - v1
+	va := 0
+	vb := 0
+	render_line
+
+	v0 := 0x31
+	v1 := 0x80
+	i := map_current_offset
+	save v0 - v1
+	va := 0
+	vb := 8
+	render_line
+
+	v0 := 0x32
+	v1 := 0x00
+	i := map_current_offset
+	save v0 - v1
+	va := 0
+	vb := 16
+	render_line
+
 	return

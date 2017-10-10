@@ -4,5 +4,4 @@
 
 	render_screen
 
-: main_loop
-	jump main_loop
+	loop again
