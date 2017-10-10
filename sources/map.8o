@@ -1,0 +1,11 @@
+: current_map_offset
+	0
+
+: render_line
+	v0 := va
+	v1 := vb
+	v2 := map_width
+
+	i := long tile_tileset_data
+
+	return
