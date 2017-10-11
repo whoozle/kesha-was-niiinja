@@ -24,8 +24,8 @@ game.8o: \
 		cat sources/main.8o > $@
 		cat sources/map.8o >> $@
 		cat $(PREFIX)/font.8o >> $@
-		cat $(PREFIX)/font_data.8o >> $@
 		cat $(PREFIX)/map_data.8o >> $@
+		cat $(PREFIX)/font_data.8o >> $@
 		echo ":org 0x6000" >> $@
 		cat $(PREFIX)/tiles.8o >> $@
 
