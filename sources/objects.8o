@@ -1,0 +1,4 @@
+: tick_object_gem
+	i := long tile_gem_0_0
+	sprite vc vd 8
+	return
