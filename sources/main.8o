@@ -1,16 +1,23 @@
 : main
 	hires
 	plane 3
-
-	va := 0x40
-	vb := 0x40
-	render_screen
-
-	v0 := key
 	clear
+
+#	va := 0x40
+#	vb := 0x40
+#	render_screen
+#
+#	v0 := key
+#	clear
 
 	va := 0x30
 	vb := 0x00
 	render_screen
 
-	loop again
+	loop
+		va := 15
+		sleep
+
+		v0 := 0
+		map_tick_objects
+	again
