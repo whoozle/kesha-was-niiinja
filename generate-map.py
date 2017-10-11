@@ -72,6 +72,12 @@ with open(args.source) as fi, open(args.destination, 'w') as fo:
 			fo.write("va := %d\nvb := %d\nvc := %d\nvd := %d\ntick_object_%s\n" %(screen_id, idx, x, y, name))
 			idx += 1
 		fo.write("return\n") #optimize this return
+
+	for name, n in indices.iteritems():
+		fo.write(': object_storage_%s\n' %name)
+		for i in xrange(n):
+			fo.write('0\n')
+
 	fo.write(":org 0x%04x\n" %addr)
 	fo.write(': map_data\n')
 	for y in xrange(height):
