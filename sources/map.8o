@@ -3,18 +3,18 @@
 : render_line
 	v0 := 1
 	v1 := 16
+	:next map_offset_increment
+	v2 := 1
 	loop
 		0xf0 0x00
 		: map_current_offset
-		0x30 0x00 #map offset + starting offset
+		0x00 0x00 #map offset + starting offset
 
 		load v4 - v4 #current tile
 
 		i := map_current_offset
 		load v5 - v6
-
-		:next map_tile_increment
-		v6 += 1
+		v6 += v2
 		v5 += vf
 		save v5 - v6
 
@@ -48,10 +48,10 @@
 		sprite va vb 8
 
 	: next_tile
-		:next render_line_dx
+		:next map_line_dx
 		va += 8
 
-		:next render_line_dy
+		:next map_line_dy
 		vb += 0
 
 		v1 += -1
@@ -61,28 +61,38 @@
 	return
 
 : render_screen
-	v0 := 0x31
-	v1 := 0x00
 	i := map_current_offset
-	save v0 - v1
-	va := 0
-	vb := 0
-	render_line
+	save va - vb
 
-	v0 := 0x31
-	v1 := 0x80
-	i := map_current_offset
-	save v0 - v1
-	va := 0
-	vb := 8
-	render_line
+	v0 := 8
+	i := map_line_dx
+	save v0 - v0
 
-	v0 := 0x32
-	v1 := 0x00
-	i := map_current_offset
-	save v0 - v1
-	va := 0
-	vb := 16
-	render_line
+	v0 := 0
+	i := map_line_dy
+	save v0 - v0
+
+	v0 := 1
+	i := map_offset_increment
+	save v0 - v0
+
+	vc := 0
+	v7 := 0x70 # map_width - 16
+
+	loop
+		va := 0
+		vb := ve
+		render_line
+
+		i := map_current_offset
+		load v0 - v1
+		v1 += v7
+		v0 += vf
+		save v0 - v1
+
+		vc += 8
+
+		if vc < 64 then
+	again
 
 	return
