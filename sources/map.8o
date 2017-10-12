@@ -1,4 +1,4 @@
-:org 0x300
+:org 0x400
 
 : render_line
 	v0 := 1

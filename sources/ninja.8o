@@ -1,14 +1,22 @@
-: ninja_current_animation_frame
-	0
-
 :const ninja_speed_left -2
 :const ninja_speed_right 2
+
+: ninja_current_animation_frame
+	0
 
 : ninja_current_pos
 	40 40
 
 : ninja_current_dir
 	0
+: ninja_jump_counter #do not move it, current_dir reads it
+	0
+
+:const ninja_jump_ticks 8
+
+
+: ninja_jump_table
+	0 5 5 4 2 -2 -4 -5 -5
 
 : ninja_last_dir
 	ninja_speed_right
@@ -22,27 +30,53 @@
 	if v1 key then
 		v2 += ninja_speed_right
 
+	v1 := 5
+	if v1 key begin
+		i := ninja_jump_counter
+		load v1 - v1
+		if v1 == 0 begin
+			v1 := ninja_jump_ticks
+			save v1 - v1
+		end
+	end
+
 	i := ninja_current_dir
 	save v2 - v2
 	return
 
 : ninja_tick
 	i := ninja_current_dir
-	load vd - vd
+	load vc - vd
 
-	if vd == 0 then
+	v0 := vc
+	v0 |= vd
+
+	if v0 == 0 then
 		return
 
 	ninja_draw
 
-	i := ninja_current_pos
-	load v1 - v1
-	v1 += vd
-	save v1 - v1
-
+	#jump height
+	v3 := 0
 	if vd != 0 begin
-		i := ninja_last_dir
+		i := ninja_jump_table
+		i += vd
+		load v3 - v3
+		vd += -1
+		i := ninja_jump_counter
 		save vd - vd
+	end
+
+	i := ninja_current_pos
+	load v1 - v2
+	v1 += vc
+	v2 += v3
+
+	save v1 - v2
+
+	if vc != 0 begin
+		i := ninja_last_dir
+		save vc - vc
 	end
 
 	ninja_next_animation
