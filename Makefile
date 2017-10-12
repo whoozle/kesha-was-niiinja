@@ -12,7 +12,7 @@ $(PREFIX)/map_data.8o: Makefile generate-map.py assets/map.json
 
 $(PREFIX)/tiles.8o: Makefile ./generate-texture.py assets/*.png assets/*/*.png
 		./generate-texture.py assets/tileset.png tileset 2 8 > $@
-		./generate-texture.py assets/tiles/gems.png gem 2 8 >> $@
+		./generate-texture.py --map2=3 assets/tiles/gems.png gem 2 8 >> $@
 
 
 game.8o: \

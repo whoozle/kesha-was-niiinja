@@ -8,6 +8,10 @@ parser.add_argument('source', help='input file')
 parser.add_argument('name', help='name')
 parser.add_argument('planes', type=int, help='planes (1/2)')
 parser.add_argument('tile-size', type=int, help='tile size (8/16)')
+parser.add_argument('--map0', type=int, help='map bg color to chip8 color')
+parser.add_argument('--map1', type=int, help='map palette color 1 to chip8 color')
+parser.add_argument('--map2', type=int, help='map palette color 1 to chip8 color')
+parser.add_argument('--map3', type=int, help='map palette color 1 to chip8 color')
 args = parser.parse_args()
 
 tex = png.Reader(args.source)
@@ -23,8 +27,21 @@ def label(name):
 nx = (w + tw - 1) / tw
 ny = (h + th - 1) / th
 
-#palette_hack = { 0: 3, 3: 0, 1: 1, 2: 2 }
-palette_hack = { 0: 0, 1: 1, 2: 2, 3: 3 }
+replace_color = [0, 1, 2, 3]
+
+def replace(c1, c2):
+	old = replace_color[c1]
+	replace_color[c1] = c2
+	replace_color[c2] = old
+
+if args.map0 is not None:
+	replace(0, args.map0)
+if args.map1 is not None:
+	replace(1, args.map1)
+if args.map2 is not None:
+	replace(2, args.map2)
+if args.map3 is not None:
+	replace(3, args.map3)
 
 def get_pixel(x, y, plane):
 	if x < 0 or x >= w:
@@ -32,7 +49,7 @@ def get_pixel(x, y, plane):
 	if y < 0 or y >= h:
 		return 0
 
-	value = palette_hack[pixels[y * w + x]]
+	value = replace_color[pixels[y * w + x]]
 	bit = 1 << plane
 	return 1 if value & bit else 0
 
