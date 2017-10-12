@@ -10,6 +10,9 @@
 : ninja_current_dir
 	0
 
+: ninja_last_dir
+	ninja_speed_right
+
 : ninja_process_input
 	v1 := 7
 	v2 := 0
@@ -31,10 +34,17 @@
 		return
 
 	ninja_draw
+
 	i := ninja_current_pos
 	load v1 - v1
 	v1 += vd
 	save v1 - v1
+
+	if vd != 0 begin
+		i := ninja_last_dir
+		save vd - vd
+	end
+
 	ninja_next_animation
 	jump ninja_draw
 
@@ -61,12 +71,21 @@
 	i := ninja_current_pos
 	load v1 - v2
 
+	i := ninja_last_dir
+	load v3 - v3
+
+	v4 := 0
+	if v3 > 128 then
+		v4 := 48
+
 	i := long tile_ninja_0_0
 	i += v0
+	i += v4
 	sprite v1 v2 8
 
 	i := long tile_ninja_1_0
 	i += v0
+	i += v4
 	v2 += 8
 	sprite v1 v2 8
 
