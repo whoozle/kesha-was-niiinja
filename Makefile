@@ -23,6 +23,7 @@ game.8o: \
 	$(PREFIX)/tiles.8o
 
 		cat sources/main.8o > $@
+		cat sources/ninja.8o >> $@
 		cat sources/objects.8o >> $@
 		cat sources/utils.8o >> $@
 		cat sources/map.8o >> $@

@@ -14,10 +14,21 @@
 	vb := 0x00
 	render_screen
 
-	loop
-		va := 15
-		sleep
+	va := 10
+	vb := 10
+	ninja_draw
+
+: main_loop
+		v0 := delay
+		if v0 != 0
+			then jump main_loop
+
+		v0 := 15
+		delay := v0
 
 		v0 := 0
 		map_tick_objects
-	again
+
+		ninja_next_animation
+
+	jump main_loop
