@@ -19,16 +19,19 @@
 	ninja_draw
 
 : main_loop
-		v0 := delay
-		if v0 != 0
-			then jump main_loop
+		vd := 1
+		ninja_process_input
 
-		v0 := 15
+		v0 := delay
+		if v0 != 0 then
+			jump main_loop
+
+		v0 := 4
 		delay := v0
 
 		v0 := 0
 		map_tick_objects
 
-		ninja_next_animation
+		ninja_tick
 
 	jump main_loop

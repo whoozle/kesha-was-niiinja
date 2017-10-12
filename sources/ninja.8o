@@ -1,20 +1,50 @@
 : ninja_current_animation_frame
 	0
 
+:const ninja_speed_left -2
+:const ninja_speed_right 2
+
 : ninja_current_pos
 	40 40
 
-: ninja_next_animation
-	ninja_draw
+: ninja_current_dir
+	0
 
+: ninja_process_input
+	v1 := 7
+	v2 := 0
+	if v1 key then
+		v2 += ninja_speed_left
+	v1 := 9
+	if v1 key then
+		v2 += ninja_speed_right
+
+	i := ninja_current_dir
+	save v2 - v2
+	return
+
+: ninja_tick
+	i := ninja_current_dir
+	load vd - vd
+
+	if vd == 0 then
+		return
+
+	ninja_draw
+	i := ninja_current_pos
+	load v1 - v1
+	v1 += vd
+	save v1 - v1
+	ninja_next_animation
+	jump ninja_draw
+
+: ninja_next_animation
 	i := ninja_current_animation_frame
 	load v0 - v0
 	v0 += 1
 	if v0 >= 4 then
 		v0 := 0
 	save v0 - v0
-
-	ninja_draw
 	return
 
 : ninja_draw
