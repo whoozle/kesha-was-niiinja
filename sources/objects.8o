@@ -1,3 +1,12 @@
+: objects_tick
+	i := screen_pos
+	load v0 - v1
+	v0 <<= v0
+	v0 <<= v0
+	v0 <<= v0
+	v0 |= v1
+	jump0 map_tick_objects
+
 : tick_object_gem
 	i := object_storage_gem
 	i += vb

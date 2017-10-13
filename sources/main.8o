@@ -20,9 +20,7 @@
 		v0 := 4
 		delay := v0
 
-		v0 := 0
-		map_tick_objects
-
+		objects_tick
 		ninja_tick
 
 	jump main_loop
