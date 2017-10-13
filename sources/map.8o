@@ -114,3 +114,39 @@
 	again
 
 	return
+
+: map_screen_to_tile_pos
+	i := screen_pos
+	load v0 - v1
+
+	v0 <<= v0 #*16
+	v0 <<= v0
+	v0 <<= v0
+	v0 <<= v0
+
+	v1 <<= v1 #*8
+	v1 <<= v1
+	v1 <<= v1
+
+	v2 := va
+	v2 >>= v2
+	v2 >>= 1
+	v2 >>= 1
+
+	v3 := vb
+	v3 >>= v3
+	v3 >>= v3
+	v3 >>= v3
+
+	v0 += v2
+	v1 += v3
+
+	return
+
+: map_is_wall
+	map_screen_to_tile_pos
+	#continue
+
+	i := long map_walls_data
+	v0 := 0
+	return
