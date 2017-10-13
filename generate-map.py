@@ -11,6 +11,22 @@ parser.add_argument('destination', help='destination')
 args = parser.parse_args()
 addr = int(args.address, 16)
 
+def update_layer(data, layer):
+	lw, lh = layer['width'], layer['height']
+	lx, ly = layer['x'], layer['y']
+	ldata = layer['data']
+
+	for y in xrange(lh):
+		for x in xrange(lw):
+			if x + lx < 0 or x + lx >= width or y + ly < 0 or y + ly >= height:
+				continue
+
+			tid = ldata[y * lw + x]
+			offset = (y + ly) * width + x + lx
+			if data[offset] > 0:
+				raise Exception('duplicate tile at layer %s @ %d, %d' %(layer['name'], x, y))
+			data[offset] = tid
+
 with open(args.source) as fi, open(args.destination, 'w') as fo:
 	map = json.load(fi)
 	width, height = map['width'], map['height']
@@ -26,24 +42,18 @@ with open(args.source) as fi, open(args.destination, 'w') as fo:
 
 
 	data = [0 for i in xrange(size)]
+	walls_data = [0 for i in xrange(size)]
+
 	for layer in map['layers']:
 		if 'data' in layer:
-			lw, lh = layer['width'], layer['height']
-			lx, ly = layer['x'], layer['y']
-			ldata = layer['data']
+			if layer['name'] == 'Walls':
+				update_layer(walls_data, layer)
+				continue
+
 			if not layer['visible']:
 				continue
 
-			for y in xrange(lh):
-				for x in xrange(lw):
-					if x + lx < 0 or x + lx >= width or y + ly < 0 or y + ly >= height:
-						continue
-
-					tid = ldata[y * lw + x]
-					offset = (y + ly) * width + x + lx
-					if data[offset] > 0:
-						raise Exception('duplicate tile at layer %s @ %d, %d' %(layer['name'], x, y))
-					data[offset] = tid
+			update_layer(data, layer)
 		elif 'objects' in layer:
 			lobjs = layer['objects']
 			for lobj in lobjs:
@@ -85,3 +95,13 @@ with open(args.source) as fi, open(args.destination, 'w') as fo:
 		for x in xrange(width):
 			row.append('0x%02x' %data[y * width + x])
 		fo.write(' '.join(row) + '\n')
+
+	walls_data_packed = []
+	for idx in xrange(0, len(walls_data), 8):
+		tiles = walls_data[idx: idx + 8]
+		value = 0
+		for idx, tid in enumerate(tiles):
+			value |= (0x80 >> idx) if tid > 0 else 0
+		walls_data_packed.append('0x%02x' %value)
+
+	fo.write(': map_walls_data\n%s\n' % ' '.join(walls_data_packed))
