@@ -81,7 +81,7 @@
 
 	loop
 		va := 0
-		vb := ve
+		vb := vc
 		render_line
 
 		i := map_current_offset
