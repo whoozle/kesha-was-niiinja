@@ -42,8 +42,14 @@ game.hex: game.bin ./generate-hex.py
 xclip: game.hex
 	cat game.hex | xclip
 
+xclip-src: game.8o
+	cat game.8o | xclip
+
 pbcopy: game.hex
 	cat game.hex | pbcopy
+
+pbcopy-src: game.8o
+	cat game.8o | pbcopy
 
 clean:
 		rm -f game.bin game.8o game.hex .compiled/*
