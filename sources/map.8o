@@ -1,5 +1,9 @@
 :org 0x400
 
+: screen_pos
+: screen_y 4
+: screen_x 4
+
 : render_line
 	v0 := 1
 	v1 := 16
@@ -61,8 +65,22 @@
 	return
 
 : render_screen
+	i := screen_pos
+	load v0 - v1
+
+	v0 <<= v0
+	v0 <<= v0
+	#1024 bytes per 128x64 map
+
+	v1 <<= v1
+	v1 <<= v1
+	v1 <<= v1
+	v1 <<= v1
+
+	v0 += 0x30
+
 	i := map_current_offset
-	save va - vb
+	save v0 - v1
 
 	v0 := 8
 	i := map_line_dx
