@@ -145,7 +145,7 @@
 	# now we have global tile coordinates here v0 - y, v1 - x
 
 	v3 := 7
-	v3 &= v0 #bit in wall
+	v3 &= v1 #x[0-8]bit in wall
 	i := map_wall_bits
 	i += v3
 	load v3 - v3
@@ -177,7 +177,6 @@
 	0x00 0x00
 	load v0 - v0
 	v0 &= v3
-	:breakpoint wall
 	return
 
 : map_wall_bits
