@@ -75,7 +75,6 @@
 		i := ninja_falling
 		save ve - ve
 		vb += -16
-		jump ninja_add_current_pos
 	end
 
 	#jump height
