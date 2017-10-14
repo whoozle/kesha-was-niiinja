@@ -104,4 +104,5 @@ with open(args.source) as fi, open(args.destination, 'w') as fo:
 			value |= (0x80 >> idx) if tid > 0 else 0
 		walls_data_packed.append('0x%02x' %value)
 
+	fo.write(":org 0x%04x\n" %((addr + width * height + 0xff) / 0x100 * 0x100))
 	fo.write(': map_walls_data\n%s\n' % ' '.join(walls_data_packed))
