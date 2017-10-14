@@ -66,10 +66,14 @@
 	if ve != 0 begin
 		vb += 16 #square below
 		map_is_wall
-		:breakpoint wall
-		ve := 0
-		if v0 == 0 then
+		if v0 != 0 begin
+			ve := 0
+		end
+		if v0 == 0 begin
 			ve := ninja_speed_down
+		end
+		i := ninja_falling
+		save ve - ve
 		vb += -16
 		jump ninja_add_current_pos
 	end
