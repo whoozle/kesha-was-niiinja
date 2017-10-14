@@ -85,7 +85,6 @@
 	vb := v2 #fixme: replace original registers
 
 	vb += 16 #square below
-	map_screen_to_tile
 
 	ninja_next_animation
 	jump ninja_draw

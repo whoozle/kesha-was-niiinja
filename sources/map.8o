@@ -64,10 +64,7 @@
 
 	return
 
-: render_screen
-	i := screen_pos
-	load v0 - v1
-
+: calculate_current_map_offset_v01
 	v0 <<= v0
 	v0 <<= v0
 	#1024 bytes per 128x64 map
@@ -77,7 +74,15 @@
 	v1 <<= v1
 	v1 <<= v1
 
-	v0 += 0x30
+	return
+
+: render_screen
+	i := screen_pos
+	load v0 - v1
+
+	calculate_current_map_offset_v01
+
+	v0 += 0x30 #map_hi
 
 	i := map_current_offset
 	save v0 - v1
@@ -115,38 +120,14 @@
 
 	return
 
-: map_screen_to_tile_pos
-	i := screen_pos
-	load v0 - v1
-
-	v0 <<= v0 #*16
-	v0 <<= v0
-	v0 <<= v0
-	v0 <<= v0
-
-	v1 <<= v1 #*8
-	v1 <<= v1
-	v1 <<= v1
-
-	v2 := va
-	v2 >>= v2
-	v2 >>= 1
-	v2 >>= 1
-
-	v3 := vb
-	v3 >>= v3
-	v3 >>= v3
-	v3 >>= v3
-
-	v0 += v2
-	v1 += v3
-
-	return
+: wall_bit_mask
+	0x80 0x40 0x20 0x10 0x08 0x04 0x02 0x01
 
 : map_is_wall
-	map_screen_to_tile_pos
-	#continue
+	v0 := vb
+	v1 := va
 
-	i := long map_walls_data
-	v0 := 0
+	calculate_current_map_offset_v01
+	
+
 	return
