@@ -190,7 +190,7 @@
 		if vc < 64 then
 	again
 
-	return
+	jump objects_screen_entered
 
 : map_scroll_offset
 0 0
@@ -245,4 +245,4 @@
 		vc += 1
 		if vc != 16 then
 	again
-	return
+	jump objects_screen_entered

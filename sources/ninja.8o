@@ -97,6 +97,7 @@
 
 	if vc == ninja_speed_right then
 		va += 8
+
 	map_is_wall
 
 	if vc == ninja_speed_right then
@@ -105,6 +106,13 @@
 	if v0 == 0 begin
 		i := ninja_current_pos
 		save va - vb
+		if va >= 120 begin
+			map_scroll_right
+			i := ninja_current_pos
+			load va - vb
+			va := 0
+			save va - vb
+		end
 	end
 
 	ninja_next_animation

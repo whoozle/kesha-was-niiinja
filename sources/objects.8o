@@ -45,3 +45,6 @@
 	v0 := 2
 	save v0 - v0
 	jump gem_action_glow
+
+: objects_screen_entered
+	return
