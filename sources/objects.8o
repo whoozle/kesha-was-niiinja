@@ -5,6 +5,7 @@
 	v0 <<= v0
 	v0 <<= v0
 	v0 |= v1
+	v0 <<= v0
 	jump0 map_tick_objects
 
 : tick_object_gem
