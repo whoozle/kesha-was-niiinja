@@ -98,7 +98,9 @@
 	if vc == ninja_speed_right then
 		va += 8
 
+	vb += 8
 	map_is_wall
+	vb += -8
 
 	if vc == ninja_speed_right then
 		va += -8
@@ -106,15 +108,27 @@
 	if v0 == 0 begin
 		i := ninja_current_pos
 		save va - vb
+
+		if va >= 0x80 begin #negative
+			map_scroll_left
+			i := ninja_current_pos
+			load va - vb
+			va := 120
+			save va - vb
+			jump ninja_tick_exit
+		end
+
 		if va >= 120 begin
 			map_scroll_right
 			i := ninja_current_pos
 			load va - vb
-			va := 0
+			va := ninja_speed_right # just a little gap
 			save va - vb
+			#jump ninja_tick_exit #fixme: reenable if not last statement
 		end
 	end
 
+: ninja_tick_exit
 	ninja_next_animation
 	jump ninja_draw
 

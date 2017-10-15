@@ -195,9 +195,38 @@
 : map_scroll_offset
 0 0
 
+: map_scroll_left
+	i := map_scroll_screen_dx
+	v0 := -1
+	save v0 - v0
+	i := map_scroll_line_x
+	v0 := 0
+	save v0 - v0
+	i := map_scroll_scroll_1
+	v0 := 0xfb #scroll-left
+	save v0 - v0
+	i := map_scroll_scroll_2
+	save v0 - v0
+	jump map_scroll_generic
+
 : map_scroll_right
+	i := map_scroll_screen_dx
+	v0 := 1
+	save v0 - v0
+	i := map_scroll_line_x
+	v0 := 120
+	save v0 - v0
+	i := map_scroll_scroll_1
+	v0 := 0xfc #scroll-left
+	save v0 - v0
+	i := map_scroll_scroll_2
+	save v0 - v0
+	jump map_scroll_generic
+
+: map_scroll_generic
 	i := screen_x
 	load v0 - v0
+	:next map_scroll_screen_dx
 	v0 += 1
 	save v0 - v0
 
@@ -222,13 +251,16 @@
 
 	vc := 0
 	loop
+		:next map_scroll_scroll_1
 		scroll-left
 		va := 1
 		sleep
+		:next map_scroll_scroll_2
 		scroll-left
 		va := 1
 		sleep
 
+		:next map_scroll_line_x
 		va := 120
 		vb := 0
 		render_line
