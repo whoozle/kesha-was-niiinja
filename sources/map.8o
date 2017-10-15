@@ -191,5 +191,13 @@
 	load v0 - v0
 	v0 += 1
 	save v0 - v0
-	render_screen
+
+	vc := 32
+	loop
+		scroll-left
+		va := 1
+		sleep
+		vc += -1
+		if vc != 0 then
+	again
 	return
