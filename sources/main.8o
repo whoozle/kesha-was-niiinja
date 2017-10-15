@@ -4,9 +4,6 @@
 
 	render_screen
 
-	map_scroll_right
-	loop again
-
 	va := 10
 	vb := 10
 	ninja_draw

@@ -6,7 +6,7 @@
 	0
 
 : ninja_current_pos
-	40 16
+	16 40
 
 : ninja_current_dir
 	0
