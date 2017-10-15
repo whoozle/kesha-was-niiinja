@@ -87,16 +87,24 @@
 		save vd - vd
 	end
 
-: ninja_add_current_pos
 	va += vc
 	vb += ve
-
-	i := ninja_current_pos
-	save va - vb
 
 	if vc != 0 begin
 		i := ninja_last_dir
 		save vc - vc
+	end
+
+	if vc == ninja_speed_right then
+		va += 8
+	map_is_wall
+
+	if vc == ninja_speed_right then
+		va += -8
+
+	if v0 == 0 begin
+		i := ninja_current_pos
+		save va - vb
 	end
 
 	ninja_next_animation
