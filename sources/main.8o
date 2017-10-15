@@ -1,9 +1,11 @@
 : main
 	hires
 	plane 3
-	clear
 
 	render_screen
+
+	map_scroll_right
+	loop again
 
 	va := 10
 	vb := 10

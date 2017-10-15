@@ -1,8 +1,8 @@
 :org 0x400
 
 : screen_pos
-: screen_y 0
-: screen_x 0
+: screen_y 4
+: screen_x 4
 
 : render_line
 	v0 := 1
@@ -60,57 +60,6 @@
 
 		v1 += -1
 		if v1 != 0 then
-	again
-
-	return
-
-: render_screen
-	i := screen_pos
-	load v0 - v1
-
-	v0 <<= v0
-	v0 <<= v0
-	#1024 bytes per 128x64 map
-
-	v1 <<= v1
-	v1 <<= v1
-	v1 <<= v1
-	v1 <<= v1
-
-	v0 += 0x30 # map_data_hi
-
-	i := map_current_offset
-	save v0 - v1
-
-	v0 := 8
-	i := map_line_dx
-	save v0 - v0
-
-	v0 := 0
-	i := map_line_dy
-	save v0 - v0
-
-	v0 := 1
-	i := map_offset_increment
-	save v0 - v0
-
-	vc := 0
-	v7 := 0x70 # map_width - 16
-
-	loop
-		va := 0
-		vb := vc
-		render_line
-
-		i := map_current_offset
-		load v0 - v1
-		v1 += v7
-		v0 += vf
-		save v0 - v1
-
-		vc += 8
-
-		if vc < 64 then
 	again
 
 	return
@@ -181,3 +130,66 @@
 
 : map_wall_bits
 0x80 0x40 0x20 0x10 0x08 0x04 0x02 0x01
+
+: map_update_offset
+	i := screen_pos
+	load v0 - v1
+
+	v0 <<= v0
+	v0 <<= v0
+	#1024 bytes per 128x64 map
+
+	v1 <<= v1
+	v1 <<= v1
+	v1 <<= v1
+	v1 <<= v1
+
+	v0 += 0x30 # map_data_hi
+
+	i := map_current_offset
+	save v0 - v1
+	return
+
+: render_screen
+	clear
+	map_update_offset
+	v0 := 8
+	i := map_line_dx
+	save v0 - v0
+
+	v0 := 0
+	i := map_line_dy
+	save v0 - v0
+
+	v0 := 1
+	i := map_offset_increment
+	save v0 - v0
+
+	vc := 0
+	v7 := 0x70 # map_width - 16
+
+	loop
+		va := 0
+		vb := vc
+		render_line
+
+		i := map_current_offset
+		load v0 - v1
+		v1 += v7
+		v0 += vf
+		save v0 - v1
+
+		vc += 8
+
+		if vc < 64 then
+	again
+
+	return
+
+: map_scroll_right
+	i := screen_x
+	load v0 - v0
+	v0 += 1
+	save v0 - v0
+	render_screen
+	return
