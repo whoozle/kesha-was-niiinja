@@ -82,13 +82,16 @@
 	va += vc
 	vb += ve
 
+	vb += 8
 	if vd == 0 then
-		vb += 16 #square below
+		vb += 8 #square below feet
 
 	map_is_wall
 
 	if vd == 0 then
-		vb += -16
+		vb += -8
+
+	vb += -8
 	vb -= ve
 	va -= vc
 
