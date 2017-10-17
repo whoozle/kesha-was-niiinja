@@ -66,12 +66,13 @@
 	if ve != 0 begin
 		vb += 16 #square below
 		map_is_wall
-		if v0 != 0 begin
+
+		if v0 != 0 then
 			ve := 0
-		end
-		if v0 == 0 begin
+
+		if v0 == 0 then
 			ve := ninja_speed_down
-		end
+
 		i := ninja_falling
 		save ve - ve
 		vb += -16
