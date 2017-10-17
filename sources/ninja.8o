@@ -17,7 +17,7 @@
 : ninja_jump_counter	#do not move it, current_dir reads it
 	0
 : ninja_falling			#do not move it, reading 3 registers at once
-	1
+	4 #speed down
 
 :const ninja_jump_ticks 8
 
@@ -78,24 +78,28 @@
 		save vd - vd
 	end
 
-	if vd == 0 begin
-		vb += 16 #square below
-		map_is_wall
-
-		if v0 != 0 then
-			ve := 0
-
-		if v0 == 0 then
-			ve += ninja_speed_down
-
-		i := ninja_falling
-		save ve - ve
-		vb += -16
-	end
-
-
 	va += vc
 	vb += ve
+
+	if vd == 0 then
+		vb += 16 #square below
+
+	map_is_wall
+
+	if vd == 0 then
+		vb += -16
+	vb -= ve
+	va -= vc
+
+	if v0 != 0 then
+		ve := 0
+
+	v0 |= vd # in jump, skip gravity
+	if v0 == 0 then
+		ve := ninja_speed_down
+
+	i := ninja_falling
+	save ve - ve
 
 	if vc != 0 begin
 		i := ninja_last_dir
@@ -107,9 +111,13 @@
 	if vc == ninja_speed_left then
 		va += -1
 
+	va += vc
+	vb += ve
 	vb += 8
 	map_is_wall
 	vb += -8
+	vb -= ve #skip restore here?
+	va -= vc
 
 	if vc == ninja_speed_right then
 		va += -7
@@ -117,6 +125,9 @@
 		va += 1
 
 	if v0 == 0 begin
+		va += vc
+		vb += ve
+
 		i := ninja_current_pos
 		save va - vb
 
