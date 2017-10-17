@@ -76,6 +76,7 @@
 		vd += -1
 		i := ninja_jump_counter
 		save vd - vd
+		vd += 1 #keep current jump counter
 	end
 
 	va += vc
