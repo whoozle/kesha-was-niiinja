@@ -192,30 +192,51 @@
 0 0
 
 : map_scroll_left
+	v0 := 15 #start from right column
+	i := map_initial_scroll_offset
+	save v0 - v0
+
+	v0 := -1 #decrement screen x by 1
 	i := map_scroll_screen_dx
-	v0 := -1
 	save v0 - v0
+
+	v0 := 0  #render tiles at x = 0
 	i := map_scroll_line_x
-	v0 := 0
 	save v0 - v0
+
+	v0 := 0xfb #scroll-left instruction
 	i := map_scroll_scroll_1
-	v0 := 0xfb #scroll-left
 	save v0 - v0
 	i := map_scroll_scroll_2
+	save v0 - v0
+
+	v0 := -1
+	i := map_scroll_offset_dx
 	save v0 - v0
 	jump map_scroll_generic
 
 : map_scroll_right
-	i := map_scroll_screen_dx
+	v0 := 0
+	i := map_initial_scroll_offset
+	save v0 - v0
+
 	v0 := 1
+	i := map_scroll_screen_dx
 	save v0 - v0
-	i := map_scroll_line_x
+
 	v0 := 120
+	i := map_scroll_line_x
 	save v0 - v0
-	i := map_scroll_scroll_1
+
 	v0 := 0xfc #scroll-left
+	i := map_scroll_scroll_1
 	save v0 - v0
+
 	i := map_scroll_scroll_2
+	save v0 - v0
+
+	v0 := 1
+	i := map_scroll_offset_dx
 	save v0 - v0
 	jump map_scroll_generic
 
@@ -241,6 +262,12 @@
 
 	map_get_offset
 	i := map_scroll_offset
+	:next map_initial_scroll_offset
+	v2 := 0
+	v1 += v2
+	v0 += vf
+	if v2 == -1 then
+		v0 += -1
 	save v0 - v1
 	i := map_current_offset
 	save v0 - v1
@@ -262,9 +289,12 @@
 
 		i := map_scroll_offset
 		load v0 - v1
-		v2 := 1
+		:next map_scroll_offset_dx
+		v2 := 0
 		v1 += v2
 		v0 += vf
+		if v2 == -1 then
+			v0 += -1
 		save v0 - v1
 		i := map_current_offset
 		save v0 - v1
