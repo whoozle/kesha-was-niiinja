@@ -2,6 +2,10 @@
 :const ninja_speed_right 2
 :const ninja_speed_down 4
 
+: screen_pos
+: screen_y 0
+: screen_x 0
+
 : ninja_current_animation_frame
 	0
 
@@ -25,15 +29,16 @@
 	ninja_speed_right
 
 : ninja_process_input
-	v1 := 7
 	v2 := 0
+	v1 := 7		# A - left
 	if v1 key then
 		v2 += ninja_speed_left
-	v1 := 9
+
+	v1 := 9		# D - jump
 	if v1 key then
 		v2 += ninja_speed_right
 
-	v1 := 5
+	v1 := 5		# W - jump
 	if v1 key begin
 		i := ninja_jump_counter
 		load v1 - v1
@@ -63,21 +68,6 @@
 	i := ninja_current_pos
 	load va - vb
 
-	if ve != 0 begin
-		vb += 16 #square below
-		map_is_wall
-
-		if v0 != 0 then
-			ve := 0
-
-		if v0 == 0 then
-			ve := ninja_speed_down
-
-		i := ninja_falling
-		save ve - ve
-		vb += -16
-	end
-
 	#jump height
 	if vd != 0 begin
 		i := ninja_jump_table
@@ -88,6 +78,22 @@
 		save vd - vd
 	end
 
+	if vd == 0 begin
+		vb += 16 #square below
+		map_is_wall
+
+		if v0 != 0 then
+			ve := 0
+
+		if v0 == 0 then
+			ve += ninja_speed_down
+
+		i := ninja_falling
+		save ve - ve
+		vb += -16
+	end
+
+
 	va += vc
 	vb += ve
 
@@ -97,14 +103,18 @@
 	end
 
 	if vc == ninja_speed_right then
-		va += 8
+		va += 7
+	if vc == ninja_speed_left then
+		va += -1
 
 	vb += 8
 	map_is_wall
 	vb += -8
 
 	if vc == ninja_speed_right then
-		va += -8
+		va += -7
+	if vc == ninja_speed_left then
+		va += 1
 
 	if v0 == 0 begin
 		i := ninja_current_pos

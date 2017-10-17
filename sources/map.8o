@@ -1,9 +1,5 @@
 :org 0x400
 
-: screen_pos
-: screen_y 4
-: screen_x 4
-
 : map_offset_increment
 	0 1
 
