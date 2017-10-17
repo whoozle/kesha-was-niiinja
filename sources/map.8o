@@ -223,7 +223,7 @@
 	i := screen_x
 	load v0 - v0
 	:next map_scroll_screen_dx
-	v0 += 1
+	v0 += 0
 	save v0 - v0
 
 	v0 := 0
@@ -253,11 +253,10 @@
 		sleep
 		:next map_scroll_scroll_2
 		scroll-left
-		va := 1
 		sleep
 
 		:next map_scroll_line_x
-		va := 120
+		va := 0
 		vb := 0
 		render_line
 
