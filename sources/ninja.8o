@@ -170,7 +170,7 @@
 	load v3 - v3
 
 	v4 := 0
-	if v3 > 128 then
+	if v3 != ninja_speed_right then #left
 		v4 := 48
 
 	i := long tile_ninja_0_0
