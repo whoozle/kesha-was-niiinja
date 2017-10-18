@@ -85,6 +85,10 @@
 			v9 := 0
 	end
 
+	if vd == 0 begin
+		ve := ninja_speed_down
+	end
+
 	if v9 == 0 then
 		jump ninja_jump_up
 
@@ -100,10 +104,6 @@
 
 	if v0 != 0 then
 		ve := 0
-
-	v0 |= vd # in jump, skip gravity
-	if v0 == 0 then
-		ve := ninja_speed_down
 
 : ninja_jump_up
 
