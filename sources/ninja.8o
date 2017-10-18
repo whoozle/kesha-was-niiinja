@@ -159,7 +159,7 @@
 		va += vc
 		save va - vb
 
-		if va >= 0x80 begin #negative
+		if va >= 0x80 begin #left (negative)
 			map_scroll_left
 			jump ninja_tick_exit
 		end
@@ -169,7 +169,7 @@
 			jump ninja_tick_exit
 		end
 
-		if vb >= 128 begin #up
+		if vb >= 0x80 begin #up (negative)
 			map_scroll_up
 			jump ninja_tick_exit
 		end
