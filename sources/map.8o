@@ -298,8 +298,9 @@
 		v2 := 0
 		v1 += v2
 		v0 += vf
-		if v2 == -1 then
-			v0 += -1
+
+		:next map_scroll_offset_delta_dir
+		v0 += 0
 		save v0 - v1
 		i := map_current_offset
 		save v0 - v1
@@ -338,6 +339,8 @@
 	v0 := -1
 	i := map_scroll_offset_delta_lo
 	save v0 - v0
+	i := map_scroll_offset_delta_dir
+	save v0 - v0
 
 	map_scroll_generic_h
 	jump map_scroll_generic
@@ -372,6 +375,10 @@
 
 	v0 := 1
 	i := map_scroll_offset_delta_lo
+	save v0 - v0
+
+	v0 := 0
+	i := map_scroll_offset_delta_dir
 	save v0 - v0
 
 	map_scroll_generic_h
@@ -411,6 +418,10 @@
 	i := map_scroll_offset_delta_lo
 	save v0 - v0
 
+	v0 := 0
+	i := map_scroll_offset_delta_dir
+	save v0 - v0
+
 	map_scroll_generic_v
 	jump map_scroll_generic
 
@@ -448,6 +459,10 @@
 
 	v0 := -128
 	i := map_scroll_offset_delta_lo
+	save v0 - v0
+
+	v0 := -1
+	i := map_scroll_offset_delta_dir
 	save v0 - v0
 
 	map_scroll_generic_v
