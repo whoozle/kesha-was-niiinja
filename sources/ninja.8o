@@ -125,8 +125,6 @@
 
 	if vc == ninja_speed_right then
 		va += 7
-	if vc == ninja_speed_left then
-		va += -1
 
 	va += vc
 	vb += ve
@@ -138,8 +136,6 @@
 
 	if vc == ninja_speed_right then
 		va += -7
-	if vc == ninja_speed_left then
-		va += 1
 
 	vb += ve
 
