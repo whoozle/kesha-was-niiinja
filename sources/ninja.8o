@@ -23,7 +23,7 @@
 
 
 : ninja_jump_table
-	0 5 5 4 2 -2 -4 -5 -5
+	0 6 6 4 2 -2 -4 -6 -6
 
 : ninja_last_dir
 	ninja_speed_right
