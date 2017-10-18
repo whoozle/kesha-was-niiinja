@@ -103,7 +103,11 @@
 		ve := ninja_speed_down
 
 	i := ninja_falling
-	save ve - ve
+	if ve != 0 then
+		v0 := ninja_speed_down
+	if ve == 0 then
+		v0 := 0
+	save v0 - v0
 
 	if vc != 0 begin
 		i := ninja_last_dir
