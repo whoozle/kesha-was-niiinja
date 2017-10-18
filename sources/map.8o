@@ -419,7 +419,7 @@
 	i := map_initial_scroll_offset_lo
 	save v0 - v0
 
-	v0 := 0x03
+	v0 := 0x03 # -7 * 128 (0x380)
 	i := map_initial_scroll_offset_hi
 	save v0 - v0
 
