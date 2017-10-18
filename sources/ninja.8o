@@ -161,37 +161,21 @@
 
 		if va >= 0x80 begin #negative
 			map_scroll_left
-			i := ninja_current_pos
-			load va - vb
-			va := 120
-			save va - vb
 			jump ninja_tick_exit
 		end
 
 		if va >= 120 begin
 			map_scroll_right
-			i := ninja_current_pos
-			load va - vb
-			va := ninja_speed_right # just a little gap
-			save va - vb
-			#jump ninja_tick_exit #fixme: reenable if not last statement
+			jump ninja_tick_exit
 		end
 
 		if vb >= 128 begin #up
 			map_scroll_up
-			i := ninja_current_pos
-			load va - vb
-			vb := 40
-			save va - vb
 			jump ninja_tick_exit
 		end
 
 		if vb >= 56 begin #down
 			map_scroll_down
-			i := ninja_current_pos
-			load va - vb
-			vb := 0
-			save va - vb
 			jump ninja_tick_exit
 		end
 

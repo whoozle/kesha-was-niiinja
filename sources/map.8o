@@ -311,6 +311,16 @@
 	jump objects_screen_entered
 
 : map_scroll_left
+	i := screen_x
+	load v0 - v0
+	if v0 == 0 then
+		return
+
+	i := ninja_current_pos
+	load va - vb
+	va := 120
+	save va - vb
+
 	v0 := 15 #start from right column
 	i := map_initial_scroll_offset_lo
 	save v0 - v0
@@ -346,6 +356,16 @@
 	jump map_scroll_generic
 
 : map_scroll_right
+	i := screen_x
+	load v0 - v0
+	if v0 == 7 then
+		return
+
+	i := ninja_current_pos
+	load va - vb
+	va := ninja_speed_right # just a little gap
+	save va - vb
+
 	v0 := 0
 	i := map_initial_scroll_offset_lo
 	save v0 - v0
@@ -385,6 +405,16 @@
 	jump map_scroll_generic
 
 : map_scroll_down
+	i := screen_y
+	load v0 - v0
+	if v0 == 7 then
+		return
+
+	i := ninja_current_pos
+	load va - vb
+	vb := 0
+	save va - vb
+
 	v0 := 0
 	i := map_initial_scroll_offset_lo
 	save v0 - v0
@@ -426,6 +456,16 @@
 	jump map_scroll_generic
 
 : map_scroll_up
+	i := screen_y
+	load v0 - v0
+	if v0 == 0 then
+		return
+
+	i := ninja_current_pos
+	load va - vb
+	vb := 40
+	save va - vb
+
 	v0 := 0x80
 	i := map_initial_scroll_offset_lo
 	save v0 - v0
