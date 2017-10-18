@@ -294,7 +294,7 @@
 
 		i := map_scroll_offset
 		load v0 - v1
-		:next map_scroll_offset_dx
+		:next map_scroll_offset_delta_lo
 		v2 := 0
 		v1 += v2
 		v0 += vf
@@ -336,7 +336,7 @@
 	save v0 - v0
 
 	v0 := -1
-	i := map_scroll_offset_dx
+	i := map_scroll_offset_delta_lo
 	save v0 - v0
 
 	map_scroll_generic_h
@@ -371,7 +371,7 @@
 	save v0 - v0
 
 	v0 := 1
-	i := map_scroll_offset_dx
+	i := map_scroll_offset_delta_lo
 	save v0 - v0
 
 	map_scroll_generic_h
@@ -408,7 +408,7 @@
 	save v0 - v0
 
 	v0 := 128
-	i := map_scroll_offset_dx
+	i := map_scroll_offset_delta_lo
 	save v0 - v0
 
 	map_scroll_generic_v
@@ -447,7 +447,7 @@
 	save v0 - v0
 
 	v0 := -128
-	i := map_scroll_offset_dx
+	i := map_scroll_offset_delta_lo
 	save v0 - v0
 
 	map_scroll_generic_v
