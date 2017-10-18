@@ -215,15 +215,26 @@
 	if v3 != ninja_speed_right then #left
 		v4 := 48
 
-	i := long tile_ninja_0_0
-	i += v0
-	i += v4
-	sprite v1 v2 8
+	v5 := 0x80
+	v5 &= v2
 
-	i := long tile_ninja_1_0
-	i += v0
-	i += v4
+	if v5 == 0 begin
+		i := long tile_ninja_0_0
+		i += v0
+		i += v4
+		sprite v1 v2 8
+	end
+
 	v2 += 8
-	sprite v1 v2 8
+
+	v5 := 0x80
+	v5 &= v2
+
+	if v5 == 0 begin
+		i := long tile_ninja_1_0
+		i += v0
+		i += v4
+		sprite v1 v2 8
+	end
 
 	return
