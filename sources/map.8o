@@ -191,55 +191,6 @@
 : map_scroll_offset
 0 0
 
-: map_scroll_left
-	v0 := 15 #start from right column
-	i := map_initial_scroll_offset
-	save v0 - v0
-
-	v0 := -1 #decrement screen x by 1
-	i := map_scroll_screen_dx
-	save v0 - v0
-
-	v0 := 0  #render tiles at x = 0
-	i := map_scroll_line_x
-	save v0 - v0
-
-	v0 := 0xfb #scroll-left instruction
-	i := map_scroll_scroll_1
-	save v0 - v0
-	i := map_scroll_scroll_2
-	save v0 - v0
-
-	v0 := -1
-	i := map_scroll_offset_dx
-	save v0 - v0
-	jump map_scroll_generic
-
-: map_scroll_right
-	v0 := 0
-	i := map_initial_scroll_offset
-	save v0 - v0
-
-	v0 := 1
-	i := map_scroll_screen_dx
-	save v0 - v0
-
-	v0 := 120
-	i := map_scroll_line_x
-	save v0 - v0
-
-	v0 := 0xfc #scroll-left
-	i := map_scroll_scroll_1
-	save v0 - v0
-
-	i := map_scroll_scroll_2
-	save v0 - v0
-
-	v0 := 1
-	i := map_scroll_offset_dx
-	save v0 - v0
-	jump map_scroll_generic
-
 : map_scroll_generic
 	i := screen_x
 	load v0 - v0
@@ -303,3 +254,52 @@
 		if vc != 16 then
 	again
 	jump objects_screen_entered
+
+: map_scroll_left
+	v0 := 15 #start from right column
+	i := map_initial_scroll_offset
+	save v0 - v0
+
+	v0 := -1 #decrement screen x by 1
+	i := map_scroll_screen_dx
+	save v0 - v0
+
+	v0 := 0  #render tiles at x = 0
+	i := map_scroll_line_x
+	save v0 - v0
+
+	v0 := 0xfb #scroll-left instruction
+	i := map_scroll_scroll_1
+	save v0 - v0
+	i := map_scroll_scroll_2
+	save v0 - v0
+
+	v0 := -1
+	i := map_scroll_offset_dx
+	save v0 - v0
+	jump map_scroll_generic
+
+: map_scroll_right
+	v0 := 0
+	i := map_initial_scroll_offset
+	save v0 - v0
+
+	v0 := 1
+	i := map_scroll_screen_dx
+	save v0 - v0
+
+	v0 := 120
+	i := map_scroll_line_x
+	save v0 - v0
+
+	v0 := 0xfc #scroll-left
+	i := map_scroll_scroll_1
+	save v0 - v0
+
+	i := map_scroll_scroll_2
+	save v0 - v0
+
+	v0 := 1
+	i := map_scroll_offset_dx
+	save v0 - v0
+	jump map_scroll_generic
