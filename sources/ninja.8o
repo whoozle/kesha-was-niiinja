@@ -157,6 +157,15 @@
 			#jump ninja_tick_exit #fixme: reenable if not last statement
 		end
 
+		if vb >= 128 begin #up
+			map_scroll_up
+			i := ninja_current_pos
+			load va - vb
+			vb := 40
+			save va - vb
+			jump ninja_tick_exit
+		end
+
 		if vb >= 56 begin #down
 			map_scroll_down
 			i := ninja_current_pos

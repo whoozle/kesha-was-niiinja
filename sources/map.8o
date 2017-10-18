@@ -210,6 +210,10 @@
 	i := map_offset_increment
 	save v0 - v1
 
+	v0 := 0
+	i := map_initial_scroll_offset_hi
+	save v0 - v0
+
 	v0 := 8
 	i := render_line_count
 	save v0 - v0
@@ -233,6 +237,9 @@
 	i := map_offset_increment
 	save v0 - v1
 
+	i := map_initial_scroll_offset_hi
+	save v0 - v0
+
 	v0 := 16
 	i := render_line_count
 	save v0 - v0
@@ -254,11 +261,15 @@
 
 	map_get_offset
 	i := map_scroll_offset
-	:next map_initial_scroll_offset
+	:next map_initial_scroll_offset_lo
 	v2 := 0
 	v1 += v2
 	v0 += vf
+	:next map_initial_scroll_offset_hi
+	v0 += 0
 	if v2 == -1 then
+		v0 += -1
+	if v2 == -128 then
 		v0 += -1
 	save v0 - v1
 	i := map_current_offset
@@ -300,7 +311,7 @@
 
 : map_scroll_left
 	v0 := 15 #start from right column
-	i := map_initial_scroll_offset
+	i := map_initial_scroll_offset_lo
 	save v0 - v0
 
 	v0 := -1 #decrement screen x by 1
@@ -333,7 +344,7 @@
 
 : map_scroll_right
 	v0 := 0
-	i := map_initial_scroll_offset
+	i := map_initial_scroll_offset_lo
 	save v0 - v0
 
 	v0 := 1 #screen_x += 1
@@ -368,7 +379,9 @@
 
 : map_scroll_down
 	v0 := 0
-	i := map_initial_scroll_offset
+	i := map_initial_scroll_offset_lo
+	save v0 - v0
+	i := map_initial_scroll_offset_hi
 	save v0 - v0
 
 	v0 := 0 #no change to screen x
@@ -395,6 +408,45 @@
 	save v0 - v0
 
 	v0 := 128
+	i := map_scroll_offset_dx
+	save v0 - v0
+
+	map_scroll_generic_v
+	jump map_scroll_generic
+
+: map_scroll_up
+	v0 := 0x80
+	i := map_initial_scroll_offset_lo
+	save v0 - v0
+
+	v0 := 0x03
+	i := map_initial_scroll_offset_hi
+	save v0 - v0
+
+	v0 := 0 #no change to screen x
+	i := map_scroll_screen_dx
+	save v0 - v0
+
+	v0 := -1 #no change to screen y
+	i := map_scroll_screen_dy
+	save v0 - v0
+
+	v0 := 0
+	i := map_scroll_line_x
+	save v0 - v0
+
+	v0 := 0
+	i := map_scroll_line_y # render tiles at (120, 0)
+	save v0 - v0
+
+	v0 := 0xc4 #scroll-down 4
+	i := map_scroll_scroll_1
+	save v0 - v0
+
+	i := map_scroll_scroll_2
+	save v0 - v0
+
+	v0 := -128
 	i := map_scroll_offset_dx
 	save v0 - v0
 
