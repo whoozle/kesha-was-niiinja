@@ -68,6 +68,8 @@
 	i := ninja_current_pos
 	load va - vb
 
+	v9 := 16 #collision probe offset, freefall, under feet
+
 	#jump height
 	if vd != 0 begin
 		i := ninja_jump_table
@@ -77,21 +79,19 @@
 		i := ninja_jump_counter
 		save vd - vd
 		vd += 1 #keep current jump counter
+		v0 := 0x80
+		v0 &= ve
+		if v0 != 0 then #negative offset, going up
+			v9 := -1
 	end
 
 	va += vc
 	vb += ve
-
-	vb += 8
-	if vd == 0 then
-		vb += 8 #square below feet
+	vb += v9
 
 	map_is_wall
 
-	if vd == 0 then
-		vb += -8
-
-	vb += -8
+	vb -= v9
 	vb -= ve
 	va -= vc
 
