@@ -213,6 +213,10 @@
 	v0 := 8
 	i := render_line_count
 	save v0 - v0
+
+	v0 := 16
+	i := map_scroll_generic_count
+	save v0 - v0
 	return
 
 : map_scroll_generic_v
@@ -231,6 +235,10 @@
 
 	v0 := 16
 	i := render_line_count
+	save v0 - v0
+
+	v0 := 8
+	i := map_scroll_generic_count
 	save v0 - v0
 	return
 
@@ -256,6 +264,7 @@
 	i := map_current_offset
 	save v0 - v1
 
+	:next map_scroll_generic_count
 	vc := 0
 	loop
 		:next map_scroll_scroll_1
@@ -284,8 +293,8 @@
 		i := map_current_offset
 		save v0 - v1
 
-		vc += 1
-		if vc != 16 then
+		vc += -1
+		if vc != 0 then
 	again
 	jump objects_screen_entered
 
