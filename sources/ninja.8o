@@ -82,8 +82,11 @@
 		v0 := 0x80
 		v0 &= ve
 		if v0 != 0 then #negative offset, going up
-			v9 := 8
+			v9 := 0
 	end
+
+	if v9 == 0 then
+		jump ninja_jump_up
 
 	va += vc
 	vb += ve
@@ -101,6 +104,8 @@
 	v0 |= vd # in jump, skip gravity
 	if v0 == 0 then
 		ve := ninja_speed_down
+
+: ninja_jump_up
 
 	i := ninja_falling
 	if ve != 0 then
@@ -132,11 +137,13 @@
 	if vc == ninja_speed_left then
 		va += 1
 
+	vb += ve
+
+	i := ninja_current_pos
+	save va - vb
+
 	if v0 == 0 begin
 		va += vc
-		vb += ve
-
-		i := ninja_current_pos
 		save va - vb
 
 		if va >= 0x80 begin #negative
