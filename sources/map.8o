@@ -237,6 +237,7 @@
 
 		:next map_scroll_line_x
 		va := 0
+		:next map_scroll_line_y
 		vb := 0
 		render_line
 
@@ -274,6 +275,9 @@
 	i := map_scroll_line_x
 	save v0 - v0
 
+	i := map_scroll_line_y # at y = 0
+	save v0 - v0
+
 	v0 := 0xfb #scroll-left instruction
 	i := map_scroll_scroll_1
 	save v0 - v0
@@ -300,6 +304,10 @@
 
 	v0 := 120
 	i := map_scroll_line_x
+	save v0 - v0
+
+	v0 := 0
+	i := map_scroll_line_y # render tiles at (120, 0)
 	save v0 - v0
 
 	v0 := 0xfc #scroll-left
