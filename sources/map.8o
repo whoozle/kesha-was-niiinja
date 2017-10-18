@@ -5,7 +5,8 @@
 
 : render_line
 	v0 := 1
-	v1 := 16
+	:next render_line_count
+	v1 := 0
 	i := map_offset_increment
 	load v7 - v8
 	loop
@@ -204,6 +205,10 @@
 	v1 := 128
 	i := map_offset_increment
 	save v0 - v1
+
+	v0 := 16
+	i := render_line_count
+	save v0 - v0
 	return
 
 : map_scroll_generic_v
@@ -219,6 +224,10 @@
 	v1 := 1
 	i := map_offset_increment
 	save v0 - v1
+
+	v0 := 8
+	i := render_line_count
+	save v0 - v0
 	return
 
 
