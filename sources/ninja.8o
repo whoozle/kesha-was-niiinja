@@ -126,13 +126,19 @@
 	if vc == ninja_speed_right then
 		va += 7
 
+	if v9 == 0 then #jump up
+		ve += 16
+	if v9 != 0 then
+		ve += 8
 	va += vc
 	vb += ve
-	vb += 8
 	map_is_wall
-	vb += -8
 	vb -= ve #skip restore here?
 	va -= vc
+	if v9 == 0 then #jump up
+		ve += -16
+	if v9 != 0 then
+		ve += -8
 
 	if vc == ninja_speed_right then
 		va += -7
