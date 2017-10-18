@@ -102,8 +102,12 @@
 	vb -= ve
 	va -= vc
 
-	if v0 != 0 then
+	if v0 != 0 begin #hit wall under ninja's feet, align y to next block
+		vb += 7
+		v1 := 0xf8
+		vb &= v1
 		ve := 0
+	end
 
 : ninja_jump_up
 
