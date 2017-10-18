@@ -82,7 +82,7 @@
 		v0 := 0x80
 		v0 &= ve
 		if v0 != 0 then #negative offset, going up
-			v9 := -1
+			v9 := 8
 	end
 
 	va += vc
