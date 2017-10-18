@@ -92,6 +92,11 @@
 	if v9 == 0 then
 		jump ninja_jump_up
 
+	i := ninja_last_dir
+	load v8 - v8
+
+	if v8 == ninja_speed_left then
+		va += 7
 	va += vc
 	vb += ve
 	vb += v9
@@ -101,6 +106,8 @@
 	vb -= v9
 	vb -= ve
 	va -= vc
+	if v8 == ninja_speed_left then
+		va += -7
 
 	if v0 != 0 begin #hit wall under ninja's feet, align y to next block
 		vb += 7
