@@ -372,7 +372,7 @@
 	i := map_scroll_scroll_2
 	save v0 - v0
 
-	v0 := 112
+	v0 := 128
 	i := map_scroll_offset_dx
 	save v0 - v0
 
