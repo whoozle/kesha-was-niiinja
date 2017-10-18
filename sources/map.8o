@@ -191,15 +191,7 @@
 : map_scroll_offset
 0 0
 
-: map_scroll_generic
-	i := screen_x
-	load v0 - v1
-	:next map_scroll_screen_dx
-	v0 += 0
-	:next map_scroll_screen_dy
-	v1 += 0
-	save v0 - v1
-
+: map_scroll_generic_h
 	v0 := 0
 	i := map_line_dx
 	save v0 - v0
@@ -211,6 +203,32 @@
 	v0 := 0
 	v1 := 128
 	i := map_offset_increment
+	save v0 - v1
+	return
+
+: map_scroll_generic_v
+	v0 := 8
+	i := map_line_dx
+	save v0 - v0
+
+	v0 := 0
+	i := map_line_dy
+	save v0 - v0
+
+	v0 := 0
+	v1 := 1
+	i := map_offset_increment
+	save v0 - v1
+	return
+
+
+: map_scroll_generic
+	i := screen_y
+	load v0 - v1
+	:next map_scroll_screen_dx
+	v1 += 0
+	:next map_scroll_screen_dy
+	v0 += 0
 	save v0 - v1
 
 	map_get_offset
@@ -287,6 +305,8 @@
 	v0 := -1
 	i := map_scroll_offset_dx
 	save v0 - v0
+
+	map_scroll_generic_h
 	jump map_scroll_generic
 
 : map_scroll_right
@@ -320,4 +340,41 @@
 	v0 := 1
 	i := map_scroll_offset_dx
 	save v0 - v0
+
+	map_scroll_generic_h
+	jump map_scroll_generic
+
+: map_scroll_down
+	v0 := 0
+	i := map_initial_scroll_offset
+	save v0 - v0
+
+	v0 := 0 #no change to screen x
+	i := map_scroll_screen_dx
+	save v0 - v0
+
+	v0 := 1 #no change to screen y
+	i := map_scroll_screen_dy
+	save v0 - v0
+
+	v0 := 0
+	i := map_scroll_line_x
+	save v0 - v0
+
+	v0 := 56
+	i := map_scroll_line_y # render tiles at (120, 0)
+	save v0 - v0
+
+	v0 := 0xd4 #scroll-up 4
+	i := map_scroll_scroll_1
+	save v0 - v0
+
+	i := map_scroll_scroll_2
+	save v0 - v0
+
+	v0 := 112
+	i := map_scroll_offset_dx
+	save v0 - v0
+
+	map_scroll_generic_v
 	jump map_scroll_generic
