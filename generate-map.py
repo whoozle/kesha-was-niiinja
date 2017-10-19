@@ -69,19 +69,26 @@ with open(args.source) as fi, open(args.destination, 'w') as fo:
 	fo.write('\n\n: map_tick_objects\n')
 	for screen_id in xrange(vscreens * hscreens):
 		fo.write('jump map_tick_objects_%d\n' %screen_id if screen_id in objects else 'jump map_tick_objects_ret\n')
-	fo.write(': map_tick_objects_ret\nreturn\n')
+	fo.write(': map_tick_objects_ret\nreturn\n\n')
 
+	indices = {}
+	init = ""
+	tick = ""
 	for screen_id in xrange(vscreens * hscreens):
 		if screen_id not in objects:
 			continue
-		fo.write(": map_tick_objects_%d\n" %screen_id)
-		indices = {}
+
+		tick += "\n: map_tick_objects_%d\n" %screen_id
 		for name, x, y in objects[screen_id]:
 			idx = indices.setdefault(name, 0)
 			indices[name] = idx + 1
-			fo.write("va := %d\nvb := %d\nvc := %d\nvd := %d\ntick_object_%s\n" %(screen_id, idx, x, y, name))
+			init += "\n: _init_object_%s_%d\n\tva := %d\n\tvb := %d\n\tvc := %d\n\tvd := %d\n\treturn\n" %(name, idx, screen_id, idx, x, y)
+			tick += "\t_init_object_%s_%d\n\ttick_object_%s\n" %(name, idx, name)
 			idx += 1
-		fo.write("return\n") #optimize this return
+		tick += "\treturn\n\n"
+
+	fo.write(init)
+	fo.write(tick)
 
 	for name, n in indices.iteritems():
 		fo.write(': object_storage_%s\n' %name)
