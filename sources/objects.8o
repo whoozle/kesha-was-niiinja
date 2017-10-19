@@ -7,4 +7,4 @@
 	jump0 map_draw_objects
 
 : objects_screen_entered
-	return
+	jump objects_draw
