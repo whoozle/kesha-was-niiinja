@@ -17,7 +17,7 @@ $(PREFIX)/tiles.8o: Makefile ./generate-texture.py assets/*.png assets/tiles/*.p
 
 
 game.8o: \
-	Makefile assets/* sources/*.8o \
+	Makefile assets/* sources/*.8o sources/object/*.8o \
 	$(PREFIX)/font.8o $(PREFIX)/font_data.8o \
 	$(PREFIX)/map_data.8o \
 	$(PREFIX)/tiles.8o
@@ -27,6 +27,7 @@ game.8o: \
 		cat sources/objects.8o >> $@
 		cat sources/utils.8o >> $@
 		cat sources/map.8o >> $@
+		cat sources/object/gem.8o >> $@
 		cat $(PREFIX)/font.8o >> $@
 		cat $(PREFIX)/map_data.8o >> $@
 		cat $(PREFIX)/font_data.8o >> $@

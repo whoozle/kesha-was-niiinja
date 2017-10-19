@@ -1,0 +1,33 @@
+: tick_object_gem
+	i := object_storage_gem
+	i += vb
+	load v0 - v0
+	jump0 gem_actions
+
+: gem_actions
+	jump gem_action_idle
+	jump gem_action_restore
+
+: object_gem_draw
+	i := long tile_gem_0_0
+	sprite vc vd 8
+	return
+
+: gem_action_idle
+	v0 := random 15
+	if v0 != 0 then return
+	v0 := 4
+	save v0 - v0
+
+	#intentional fall-though
+
+: gem_action_glow
+	object_gem_draw
+	i := long tile_gem_0_1
+	sprite vc vd 8
+	return
+
+: gem_action_restore
+	v0 := 1
+	save v0 - v0
+	jump gem_action_glow

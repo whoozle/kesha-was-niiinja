@@ -1,5 +1,15 @@
 :org 0x400
 
+: map_get_screen_index
+	i := screen_pos
+	load v0 - v1
+	v0 <<= v0
+	v0 <<= v0
+	v0 <<= v0
+	v0 |= v1
+	v0 <<= v0
+	return
+
 : map_offset_increment
 	0 1
 
@@ -251,7 +261,7 @@
 
 
 : map_scroll_generic
-	i := screen_y
+	i := screen_pos
 	load v0 - v1
 	:next map_scroll_screen_dx
 	v1 += 0
