@@ -71,24 +71,34 @@ with open(args.source) as fi, open(args.destination, 'w') as fo:
 		fo.write('jump map_tick_objects_%d\n' %screen_id if screen_id in objects else 'jump map_tick_objects_ret\n')
 	fo.write(': map_tick_objects_ret\nreturn\n\n')
 
+	fo.write('\n\n: map_draw_objects\n')
+	for screen_id in xrange(vscreens * hscreens):
+		fo.write('jump map_draw_objects_%d\n' %screen_id if screen_id in objects else 'jump map_draw_objects_ret\n')
+	fo.write(': map_draw_objects_ret\nreturn\n\n')
+
 	indices = {}
 	init = ""
 	tick = ""
+	draw = ""
 	for screen_id in xrange(vscreens * hscreens):
 		if screen_id not in objects:
 			continue
 
 		tick += "\n: map_tick_objects_%d\n" %screen_id
+		draw += "\n: map_draw_objects_%d\n" %screen_id
 		for name, x, y in objects[screen_id]:
 			idx = indices.setdefault(name, 0)
 			indices[name] = idx + 1
 			init += "\n: _init_object_%s_%d\n\tva := %d\n\tvb := %d\n\tvc := %d\n\tvd := %d\n\treturn\n" %(name, idx, screen_id, idx, x, y)
 			tick += "\t_init_object_%s_%d\n\ttick_object_%s\n" %(name, idx, name)
+			draw += "\t_init_object_%s_%d\n\tobject_%s_draw\n" %(name, idx, name)
 			idx += 1
 		tick += "\treturn\n\n"
+		draw += "\treturn\n\n"
 
 	fo.write(init)
 	fo.write(tick)
+	fo.write(draw)
 
 	for name, n in indices.iteritems():
 		fo.write(': object_storage_%s\n' %name)
