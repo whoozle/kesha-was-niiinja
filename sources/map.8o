@@ -258,7 +258,7 @@
 
 
 : map_scroll_generic
-	i := screen_pos
+	i := screen_pos #fixme: remove me
 	load v0 - v1
 	:next map_scroll_screen_dx
 	v1 += 0
@@ -274,10 +274,7 @@
 	v0 += vf
 	:next map_initial_scroll_offset_hi
 	v0 += 0
-	if v2 == -1 then
-		v0 += -1
-	if v2 == -128 then
-		v0 += -1
+
 	save v0 - v1
 	i := map_current_offset
 	save v0 - v1
