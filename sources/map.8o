@@ -258,14 +258,6 @@
 
 
 : map_scroll_generic
-	i := screen_pos #fixme: remove me
-	load v0 - v1
-	:next map_scroll_screen_dx
-	v1 += 0
-	:next map_scroll_screen_dy
-	v0 += 0
-	save v0 - v1
-
 	map_get_offset
 	i := map_scroll_offset
 	:next map_initial_scroll_offset_lo
@@ -320,6 +312,9 @@
 	if v0 == 0 then
 		return
 
+	v0 += -1
+	save v0 - v0
+
 	i := ninja_current_pos
 	load va - vb
 	va := 120
@@ -327,14 +322,6 @@
 
 	v0 := 15 #start from right column
 	i := map_initial_scroll_offset_lo
-	save v0 - v0
-
-	v0 := -1 #decrement screen x by 1
-	i := map_scroll_screen_dx
-	save v0 - v0
-
-	v0 := 0 #no change to screen y
-	i := map_scroll_screen_dy
 	save v0 - v0
 
 	v0 := 0  #render tiles at x = 0
@@ -365,6 +352,9 @@
 	if v0 == 7 then
 		return
 
+	v0 += 1
+	save v0 - v0
+
 	i := ninja_current_pos
 	load va - vb
 	va := ninja_speed_right # just a little gap
@@ -372,14 +362,6 @@
 
 	v0 := 0
 	i := map_initial_scroll_offset_lo
-	save v0 - v0
-
-	v0 := 1 #screen_x += 1
-	i := map_scroll_screen_dx
-	save v0 - v0
-
-	v0 := 0 #no change to screen y
-	i := map_scroll_screen_dy
 	save v0 - v0
 
 	v0 := 120
@@ -414,6 +396,9 @@
 	if v0 == 7 then
 		return
 
+	v0 += 1
+	save v0 - v0
+
 	i := ninja_current_pos
 	load va - vb
 	vb := 0
@@ -423,14 +408,6 @@
 	i := map_initial_scroll_offset_lo
 	save v0 - v0
 	i := map_initial_scroll_offset_hi
-	save v0 - v0
-
-	v0 := 0 #no change to screen x
-	i := map_scroll_screen_dx
-	save v0 - v0
-
-	v0 := 1 #no change to screen y
-	i := map_scroll_screen_dy
 	save v0 - v0
 
 	v0 := 0
@@ -465,6 +442,9 @@
 	if v0 == 0 then
 		return
 
+	v0 += -1
+	save v0 - v0
+
 	i := ninja_current_pos
 	load va - vb
 	vb := 40
@@ -476,14 +456,6 @@
 
 	v0 := 0x03 # -7 * 128 (0x380)
 	i := map_initial_scroll_offset_hi
-	save v0 - v0
-
-	v0 := 0 #no change to screen x
-	i := map_scroll_screen_dx
-	save v0 - v0
-
-	v0 := -1 #no change to screen y
-	i := map_scroll_screen_dy
 	save v0 - v0
 
 	v0 := 0
