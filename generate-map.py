@@ -89,9 +89,18 @@ with open(args.source) as fi, open(args.destination, 'w') as fo:
 		for name, x, y in objects[screen_id]:
 			idx = indices.setdefault(name, 0)
 			indices[name] = idx + 1
-			init += "\n: _init_object_%s_%d\n\tva := %d\n\tvb := %d\n\tvc := %d\n\tvd := %d\n\treturn\n" %(name, idx, screen_id, idx, x, y)
-			tick += "\t_init_object_%s_%d\n\ttick_object_%s\n" %(name, idx, name)
-			draw += "\t_init_object_%s_%d\n\tobject_%s_draw\n" %(name, idx, name)
+			init += """
+: _init_object_%s_%d
+	va := %d
+	vb := %d
+	vc := %d
+	vd := %d
+	i := object_storage_%s_%d
+	load v0 - v0
+	return
+""" %(name, idx, screen_id, idx, x, y, name, idx)
+			tick += "\t_init_object_%s_%d\n\tif v0 != -1 then tick_object_%s\n" %(name, idx, name)
+			draw += "\t_init_object_%s_%d\n\tif v0 != -1 then object_%s_draw\n" %(name, idx, name)
 			idx += 1
 		tick += "\treturn\n\n"
 		draw += "\treturn\n\n"
@@ -103,6 +112,7 @@ with open(args.source) as fi, open(args.destination, 'w') as fo:
 	for name, n in indices.iteritems():
 		fo.write(': object_storage_%s\n' %name)
 		for i in xrange(n):
+			fo.write(': object_storage_%s_%d\n' %(name, i))
 			fo.write('0\n')
 
 	fo.write(":org 0x%04x\n" %addr)
