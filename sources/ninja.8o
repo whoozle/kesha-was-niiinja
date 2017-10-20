@@ -6,12 +6,11 @@
 : screen_y 0
 : screen_x 0
 
-: ninja_current_animation_frame
-	0
-
 : ninja_current_pos
 	16 40
 
+: ninja_current_animation_frame
+	0
 : ninja_current_dir
 	0
 : ninja_jump_counter	#do not move it, current_dir reads it
