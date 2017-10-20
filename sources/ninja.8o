@@ -19,6 +19,7 @@
 	4 #speed down
 
 :const ninja_jump_ticks 8
+:const ninja_jump_y_min -18
 
 : ninja_jump_table
 	0 6 6 4 2 -2 -4 -6 -6
@@ -176,7 +177,8 @@
 		end
 
 		if vb >= 0x80 begin #up (negative)
-			map_scroll_up
+			if vb < ninja_jump_y_min then #
+				map_scroll_up
 			jump ninja_tick_exit
 		end
 
