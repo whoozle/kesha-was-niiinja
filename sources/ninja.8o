@@ -171,6 +171,11 @@
 			jump ninja_tick_exit
 		end
 
+		if va == 0 begin #left == 0
+			map_scroll_left
+			jump ninja_tick_exit
+		end
+
 		if va >= 120 begin
 			map_scroll_right
 			jump ninja_tick_exit
