@@ -22,8 +22,6 @@
 	return
 
 : object_gem_tick
-	i := object_storage_gem
-	i += vb
 	load v0 - v0
 	jump0 gem_actions
 
