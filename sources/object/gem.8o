@@ -1,10 +1,24 @@
+: gem_sound
+	0xAA 0xAA 0xAA 0xAA
+	0xCC 0xCC 0xCC 0xCC
+	0xF0 0xF0 0xF0 0xF0
+	0xFF 0x00 0xFF 0x00
+
 : object_gem_draw
 	i := long tile_gem_0_0
 	sprite vc vd 8
 	return
 
 : object_gem_collide
-	:breakpoint gem
+	v1 := -1
+	save v1 - v1 # remove gem
+	if v0 == 2 then
+		gem_action_restore
+	object_gem_draw
+	i := gem_sound
+	audio
+	v0 := 2
+	buzzer := v0
 	return
 
 : object_gem_tick
