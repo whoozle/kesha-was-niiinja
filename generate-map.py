@@ -66,26 +66,31 @@ with open(args.source) as fi, open(args.destination, 'w') as fo:
 		else:
 			print 'unhandled layer %s' %layer
 
-	fo.write('\n\n: map_tick_objects\n')
+	fo.write('\n: _map_ret\nreturn\n')
+	fo.write('\n: map_tick_objects\n')
 	for screen_id in xrange(vscreens * hscreens):
-		fo.write('jump map_tick_objects_%d\n' %screen_id if screen_id in objects else 'jump map_tick_objects_ret\n')
-	fo.write(': map_tick_objects_ret\nreturn\n\n')
+		fo.write('jump map_tick_objects_%d\n' %screen_id if screen_id in objects else 'jump _map_ret\n')
 
 	fo.write('\n\n: map_draw_objects\n')
 	for screen_id in xrange(vscreens * hscreens):
-		fo.write('jump map_draw_objects_%d\n' %screen_id if screen_id in objects else 'jump map_draw_objects_ret\n')
-	fo.write(': map_draw_objects_ret\nreturn\n\n')
+		fo.write('jump map_draw_objects_%d\n' %screen_id if screen_id in objects else 'jump _map_ret\n')
+
+	fo.write('\n\n: map_collide_objects\n')
+	for screen_id in xrange(vscreens * hscreens):
+		fo.write('jump map_collide_objects_%d\n' %screen_id if screen_id in objects else 'jump _map_ret\n')
 
 	indices = {}
 	init = ""
 	tick = ""
 	draw = ""
+	collide = ""
 	for screen_id in xrange(vscreens * hscreens):
 		if screen_id not in objects:
 			continue
 
 		tick += "\n: map_tick_objects_%d\n" %screen_id
 		draw += "\n: map_draw_objects_%d\n" %screen_id
+		collide += "\n: map_collide_objects_%d\n" %screen_id
 		for name, x, y in objects[screen_id]:
 			idx = indices.setdefault(name, 0)
 			indices[name] = idx + 1
@@ -104,10 +109,12 @@ with open(args.source) as fi, open(args.destination, 'w') as fo:
 			idx += 1
 		tick += "\treturn\n\n"
 		draw += "\treturn\n\n"
+		collide += "\treturn\n\n"
 
 	fo.write(init)
 	fo.write(tick)
 	fo.write(draw)
+	fo.write(collide)
 
 	for name, n in indices.iteritems():
 		fo.write(': object_storage_%s\n' %name)

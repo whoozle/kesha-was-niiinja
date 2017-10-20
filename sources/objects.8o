@@ -8,3 +8,7 @@
 
 : objects_screen_entered
 	jump objects_draw
+
+: objects_collide
+	map_get_screen_index
+	jump0 map_collide_objects
