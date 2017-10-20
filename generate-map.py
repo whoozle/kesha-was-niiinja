@@ -114,7 +114,8 @@ with open(args.source) as fi, open(args.destination, 'w') as fo:
 		v0 += %d
 		if v0 < 8 begin
 			_init_object_%s_%d
-			object_%s_collide
+			if v0 != -1 then
+				object_%s_collide
 		end
 	end
 """ %(4 - x, 12 - y, name, idx, name) # | x - objx | <= 4, [-4; 4], +4 -> [0; 8], +12 for ninja center
