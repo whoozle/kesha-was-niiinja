@@ -247,9 +247,6 @@
 	i := map_offset_increment
 	save v0 - v1
 
-	i := map_initial_scroll_offset_hi
-	save v0 - v0
-
 	v0 := 16
 	i := render_line_count
 	save v0 - v0
