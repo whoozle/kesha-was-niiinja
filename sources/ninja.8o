@@ -20,9 +20,12 @@
 
 :const ninja_jump_ticks 8
 
-
 : ninja_jump_table
 	0 6 6 4 2 -2 -4 -6 -6
+
+: ninja_jump_sound
+	0xF0 0xF0 0xF0 0xF0 0xcc 0xcc 0xcc 0xcc
+	0xaa 0xaa 0xaa 0xaa 0xaa 0xaa 0xaa 0xaa
 
 : ninja_last_dir
 	ninja_speed_right
@@ -44,6 +47,10 @@
 		if v1 == 0 begin
 			v1 := ninja_jump_ticks
 			save v1 - v1
+			i := ninja_jump_sound
+			audio
+			v3 := 2
+			buzzer := v3
 		end
 	end
 
