@@ -104,8 +104,20 @@ with open(args.source) as fi, open(args.destination, 'w') as fo:
 	load v0 - v0
 	return
 """ %(name, idx, screen_id, idx, x, y, name, idx)
-			tick += "\t_init_object_%s_%d\n\tif v0 != -1 then tick_object_%s\n" %(name, idx, name)
+			tick += "\t_init_object_%s_%d\n\tif v0 != -1 then object_%s_tick\n" %(name, idx, name)
 			draw += "\t_init_object_%s_%d\n\tif v0 != -1 then object_%s_draw\n" %(name, idx, name)
+			collide += """
+	v0 := va
+	v0 += %d
+	if v0 < 8 begin
+		v0 := vb
+		v0 += %d
+		if v0 < 8 begin
+			_init_object_%s_%d
+			object_%s_collide
+		end
+	end
+""" %(4 - x, 12 - y, name, idx, name) # | x - objx | <= 4, [-4; 4], +4 -> [0; 8], +12 for ninja center
 			idx += 1
 		tick += "\treturn\n\n"
 		draw += "\treturn\n\n"

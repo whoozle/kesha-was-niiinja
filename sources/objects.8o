@@ -11,4 +11,6 @@
 
 : objects_collide
 	map_get_screen_index
+	i := ninja_current_pos
+	load va - vb
 	jump0 map_collide_objects

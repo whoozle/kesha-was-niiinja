@@ -1,4 +1,13 @@
-: tick_object_gem
+: object_gem_draw
+	i := long tile_gem_0_0
+	sprite vc vd 8
+	return
+
+: object_gem_collide
+	:breakpoint gem
+	return
+
+: object_gem_tick
 	i := object_storage_gem
 	i += vb
 	load v0 - v0
@@ -7,11 +16,6 @@
 : gem_actions
 	jump gem_action_idle
 	jump gem_action_restore
-
-: object_gem_draw
-	i := long tile_gem_0_0
-	sprite vc vd 8
-	return
 
 : gem_action_idle
 	v0 := random 0x1f
