@@ -1,5 +1,3 @@
-:org 0x400
-
 : map_get_screen_index
 	i := screen_pos
 	load v0 - v1

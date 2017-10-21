@@ -69,18 +69,18 @@ with open(args.source) as fi, open(map_data_path, 'w') as fmap_data, open(map_he
 		else:
 			print 'unhandled layer %s' %layer
 
-	fmap_data.write('\n: _map_ret\nreturn\n')
-	fmap_data.write('\n: map_tick_objects\n')
+	fmap_header.write('\n: _map_ret\nreturn\n')
+	fmap_header.write('\n: map_tick_objects\n')
 	for screen_id in xrange(vscreens * hscreens):
-		fmap_data.write('jump map_tick_objects_%d\n' %screen_id if screen_id in objects else 'jump _map_ret\n')
+		fmap_header.write('jump map_tick_objects_%d\n' %screen_id if screen_id in objects else 'jump _map_ret\n')
 
-	fmap_data.write('\n\n: map_draw_objects\n')
+	fmap_header.write('\n\n: map_draw_objects\n')
 	for screen_id in xrange(vscreens * hscreens):
-		fmap_data.write('jump map_draw_objects_%d\n' %screen_id if screen_id in objects else 'jump _map_ret\n')
+		fmap_header.write('jump map_draw_objects_%d\n' %screen_id if screen_id in objects else 'jump _map_ret\n')
 
-	fmap_data.write('\n\n: map_collide_objects\n')
+	fmap_header.write('\n\n: map_collide_objects\n')
 	for screen_id in xrange(vscreens * hscreens):
-		fmap_data.write('jump map_collide_objects_%d\n' %screen_id if screen_id in objects else 'jump _map_ret\n')
+		fmap_header.write('jump map_collide_objects_%d\n' %screen_id if screen_id in objects else 'jump _map_ret\n')
 
 	indices = {}
 	init = ""
@@ -127,16 +127,16 @@ with open(args.source) as fi, open(map_data_path, 'w') as fmap_data, open(map_he
 		draw += "\treturn\n\n"
 		collide += "\treturn\n\n"
 
-	fmap_data.write(init)
-	fmap_data.write(tick)
-	fmap_data.write(draw)
-	fmap_data.write(collide)
+	fmap_header.write(init)
+	fmap_header.write(tick)
+	fmap_header.write(draw)
+	fmap_header.write(collide)
 
 	for name, n in indices.iteritems():
-		fmap_data.write(': object_storage_%s\n' %name)
+		fmap_header.write(': object_storage_%s\n' %name)
 		for i in xrange(n):
-			fmap_data.write(': object_storage_%s_%d\n' %(name, i))
-			fmap_data.write('0\n')
+			fmap_header.write(': object_storage_%s_%d\n' %(name, i))
+			fmap_header.write('0\n')
 
 	fmap_data.write(":org 0x%04x\n" %addr)
 	fmap_data.write(': map_data\n')
