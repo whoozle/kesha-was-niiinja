@@ -125,7 +125,7 @@ with open(args.source) as fi, open(map_data_path, 'w') as fmap_data, open(map_he
 				object_%s_collide
 		end
 	end
-""" %(w / 2 - x, 8 - h / 2 - y, name, idx, name) # | x - objx | <= 4, [-4; 4], +4 -> [0; 8], +12 for ninja center
+""" %(w / 2 - x, 12 + h / 2 - y, name, idx, name) # | x - objx | <= 4, [-4; 4], +4 -> [0; 8], +12 for ninja center
 			idx += 1
 		tick += "\treturn\n\n"
 		draw += "\treturn\n\n"
