@@ -2,6 +2,7 @@
 	hires
 	plane 3
 
+	objects_init
 	render_screen
 
 	va := 10
