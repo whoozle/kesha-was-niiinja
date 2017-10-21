@@ -2,11 +2,14 @@
 0xF0 0xF0 0xF0 0xF0 0xcc 0xcc 0xcc 0xcc 0xF0 0xF0 0xF0 0xF0 0xcc 0xcc 0xcc 0xcc
 
 : object_teleport_draw
-	i := long tile_teleport_0_0
+	if v0 == 0 then
+		i := long tile_teleport_0_0
 	if v0 == 1 then
 		i := long tile_teleport_0_1
 	if v0 == 2 then
 		i := long tile_teleport_0_2
+	if v0 == 3 then
+		i := long tile_teleport_0_3
 	sprite vc vd 0
 	return
 
@@ -21,8 +24,20 @@
 	object_teleport_draw
 	i := object_storage_teleport
 	i += vb
-	v0 += 1
-	if v0 >= 3 then
-		v0 := 0
+
+	if v0 != 0 then
+		v0 += 1
+
+	if v0 >= 4 then
+		v0 := 1
 	save v0 - v0
 	jump object_teleport_draw
+
+: teleport_activate
+	vb := 1
+
+: teleport_set_activate
+	i := object_storage_teleport
+	i += va
+	save v0 - v0
+	return
