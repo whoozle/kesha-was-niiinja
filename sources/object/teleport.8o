@@ -2,14 +2,15 @@
 0xF0 0xF0 0xF0 0xF0 0xcc 0xcc 0xcc 0xcc 0xF0 0xF0 0xF0 0xF0 0xcc 0xcc 0xcc 0xcc
 
 : object_teleport_draw
-	if v0 == 0 then
-		i := long tile_teleport_0_0
-	if v0 == 1 then
-		i := long tile_teleport_0_1
-	if v0 == 2 then
-		i := long tile_teleport_0_2
-	if v0 == 3 then
-		i := long tile_teleport_0_3
+	i := long tile_teleport_0_0
+	v1 := v0
+	v1 <<= v1
+	v1 <<= v1
+	v1 <<= v1
+	v1 <<= v1
+	v1 <<= v1
+	v1 <<= v1
+	i += v1
 	sprite vc vd 0
 	return
 
