@@ -17,6 +17,8 @@
 	0
 : ninja_falling			#do not move it, reading 3 registers at once
 	4 #speed down
+: ninja_can_jump
+	1
 
 :const ninja_jump_ticks 8
 :const ninja_jump_y_min -18
@@ -43,15 +45,22 @@
 
 	v1 := 5		# W - jump
 	if v1 key begin
-		i := ninja_jump_counter
+		i := ninja_can_jump
 		load v1 - v1
-		if v1 == 0 begin
-			v1 := ninja_jump_ticks
+		if v1 != 0 begin
+			v1 := 0
 			save v1 - v1
-			i := ninja_jump_sound
-			audio
-			v3 := 2
-			buzzer := v3
+			i := ninja_jump_counter
+			load v1 - v1
+			if v1 == 0 begin
+				save v1 - v1
+				v1 := ninja_jump_ticks
+				save v1 - v1
+				i := ninja_jump_sound
+				audio
+				v3 := 2
+				buzzer := v3
+			end
 		end
 	end
 
@@ -121,6 +130,9 @@
 		v1 := 0xf8
 		vb &= v1
 		ve := 0
+		i := ninja_can_jump
+		v1 := 1
+		save v1 - v1
 	end
 
 : ninja_jump_up
