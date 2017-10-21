@@ -22,7 +22,6 @@
 	return
 
 : object_gem_tick
-	load v0 - v0
 	jump0 gem_actions
 
 : gem_actions

@@ -1,0 +1,28 @@
+: teleport_sound
+0xF0 0xF0 0xF0 0xF0 0xcc 0xcc 0xcc 0xcc 0xF0 0xF0 0xF0 0xF0 0xcc 0xcc 0xcc 0xcc
+
+: object_teleport_draw
+	i := long tile_teleport_0_0
+	if v0 == 1 then
+		i := long tile_teleport_0_1
+	if v0 == 2 then
+		i := long tile_teleport_0_2
+	sprite vc vd 0
+	return
+
+: object_teleport_collide
+	i := teleport_sound
+	audio
+	v0 := 2
+	buzzer := v0
+	return
+
+: object_teleport_tick
+	object_teleport_draw
+	i := object_storage_teleport
+	i += vb
+	v0 += 1
+	if v0 >= 3 then
+		v0 := 0
+	save v0 - v0
+	jump object_teleport_draw

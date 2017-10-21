@@ -92,6 +92,17 @@
                  "width":5.09090909090912,
                  "x":1009.45454545455,
                  "y":370
+                }, 
+                {
+                 "height":16,
+                 "id":27,
+                 "name":"teleport",
+                 "rotation":0,
+                 "type":"tree",
+                 "visible":true,
+                 "width":16,
+                 "x":448,
+                 "y":288
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -105,12 +116,12 @@
          "name":"Walls",
          "opacity":1,
          "type":"tilelayer",
-         "visible":true,
+         "visible":false,
          "width":128,
          "x":0,
          "y":0
         }],
- "nextobjectid":27,
+ "nextobjectid":33,
  "orientation":"orthogonal",
  "renderorder":"left-up",
  "tiledversion":"1.0.3",
