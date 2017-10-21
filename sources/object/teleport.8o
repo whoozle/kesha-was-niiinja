@@ -43,5 +43,5 @@
 : teleport_set_activate
 	i := object_storage_teleport
 	i += va
-	save v0 - v0
+	save vb - vb
 	return
