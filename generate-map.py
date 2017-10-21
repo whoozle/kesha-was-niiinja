@@ -60,12 +60,12 @@ with open(args.source) as fi, open(map_data_path, 'w') as fmap_data, open(map_he
 		elif 'objects' in layer:
 			lobjs = layer['objects']
 			for lobj in lobjs:
-				name, x, y = lobj['name'], int(lobj['x']), int(lobj['y'])
+				name, x, y, w, h = lobj['name'], int(lobj['x']), int(lobj['y']), int(lobj['width']), int(lobj['height'])
 				sx, sy = x / screen_width, y / screen_height #screen coordinates
 				screen_id = sy * hscreens + sx
 				#print 'screen_id', screen_id, name, x, y
 				screen_objects = objects.setdefault(screen_id, [])
-				screen_objects.append((name, x - sx * screen_width, y - sy * screen_height))
+				screen_objects.append((name, x - sx * screen_width, y - sy * screen_height, w, h))
 		else:
 			print 'unhandled layer %s' %layer
 
@@ -97,7 +97,7 @@ with open(args.source) as fi, open(map_data_path, 'w') as fmap_data, open(map_he
 		tick += "\n: map_tick_objects_%d\n" %screen_id
 		draw += "\n: map_draw_objects_%d\n" %screen_id
 		collide += "\n: map_collide_objects_%d\n" %screen_id
-		for screen_idx, (name, x, y) in enumerate(objects[screen_id]):
+		for screen_idx, (name, x, y, w, h) in enumerate(objects[screen_id]):
 			idx = indices.setdefault(name, 0)
 			fmap_header.write(":const screen_%d_%d_%s_%d %d\n" %(screen_y, screen_x, name, screen_idx, idx))
 			indices[name] = idx + 1
@@ -125,7 +125,7 @@ with open(args.source) as fi, open(map_data_path, 'w') as fmap_data, open(map_he
 				object_%s_collide
 		end
 	end
-""" %(4 - x, 12 - y, name, idx, name) # | x - objx | <= 4, [-4; 4], +4 -> [0; 8], +12 for ninja center
+""" %(w / 2 - x, 8 - h / 2 - y, name, idx, name) # | x - objx | <= 4, [-4; 4], +4 -> [0; 8], +12 for ninja center
 			idx += 1
 		tick += "\treturn\n\n"
 		draw += "\treturn\n\n"
