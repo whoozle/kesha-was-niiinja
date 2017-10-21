@@ -33,6 +33,10 @@
 	save v0 - v0
 	jump object_teleport_draw
 
+: teleport_deactivate
+	vb := 0
+	jump teleport_set_activate
+
 : teleport_activate
 	vb := 1
 
