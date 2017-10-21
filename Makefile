@@ -7,8 +7,8 @@ all: game.hex
 $(PREFIX)/font.8o $(PREFIX)/font-data.8o: Makefile generate-font.py assets/font/5.font
 		./generate-font.py assets/font/5.font font 1100 $(PREFIX)
 
-$(PREFIX)/map_data.8o: Makefile generate-map.py assets/map.json
-		./generate-map.py assets/map.json 3000 $(PREFIX)/map_data.8o
+$(PREFIX)/map.8o $(PREFIX)/map_data.8o: Makefile generate-map.py assets/map.json
+		./generate-map.py assets/map.json 3000 $(PREFIX)
 
 $(PREFIX)/tiles.8o: Makefile ./generate-texture.py assets/*.png assets/tiles/*.png
 		./generate-texture.py assets/tileset.png tileset 2 8 > $@
@@ -24,6 +24,7 @@ game.8o: \
 	$(PREFIX)/tiles.8o
 
 		cat sources/main.8o > $@
+		cat $(PREFIX)/map.8o >> $@
 		cat sources/ninja.8o >> $@
 		cat sources/objects.8o >> $@
 		cat sources/utils.8o >> $@
