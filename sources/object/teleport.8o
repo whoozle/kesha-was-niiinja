@@ -15,10 +15,18 @@
 	return
 
 : object_teleport_collide
-	i := teleport_sound
-	audio
-	v0 := 2
-	buzzer := v0
+	if v0 != 0 begin
+		object_teleport_draw
+		i := object_storage_teleport
+		i += vb
+		v0 := 0
+		save v0 - v0
+		object_teleport_draw
+		i := teleport_sound
+		audio
+		v0 := 10
+		buzzer := v0
+	end
 	return
 
 : object_teleport_tick
