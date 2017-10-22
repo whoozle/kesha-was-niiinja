@@ -180,6 +180,17 @@
                  "width":4.54545454545456,
                  "x":234,
                  "y":17.6363636363636
+                }, 
+                {
+                 "height":6.63636363636364,
+                 "id":50,
+                 "name":"gem",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":6.63636363636363,
+                 "x":296.727272727273,
+                 "y":8.72727272727273
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -198,7 +209,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":49,
+ "nextobjectid":51,
  "orientation":"orthogonal",
  "renderorder":"left-up",
  "tiledversion":"1.0.3",
