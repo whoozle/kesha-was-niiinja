@@ -98,6 +98,7 @@ with open(args.source) as fi, open(map_data_path, 'w') as fmap_data, open(map_he
 		tick += "\n: map_tick_objects_%d\n" %screen_id
 		draw += "\n: map_draw_objects_%d\n" %screen_id
 		collide += "\n: map_collide_objects_%d\n" %screen_id
+		collide += "i := ninja_action_state\nload v1 - v1\n"
 		for name, x, y, w, h in objects[screen_id]:
 			idx = indices.setdefault(name, 0)
 			indices[name] = idx + 1

@@ -22,5 +22,6 @@
 
 		objects_tick
 		ninja_tick
+		ninja_action_finish
 
 	jump main_loop
