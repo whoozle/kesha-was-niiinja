@@ -2,11 +2,24 @@
 	return
 
 : object_switch_collide
+	if v1 != 1 then #action pressed
+		return
+
+	v2 := 1
+	object_switch_draw
+	v0 ^= v2
+	object_switch_draw
+
+	i := object_storage_switch
+	i += vb
+	save v0 - v0
+	ninja_action_ok
 	return
 
 : object_switch_draw
 	i := long tile_switch_0_0
-	if v0 == 1 then
+	if v0 == 1 begin
 		i := long tile_switch_0_1
+	end
 	sprite vc vd 8
 	return
