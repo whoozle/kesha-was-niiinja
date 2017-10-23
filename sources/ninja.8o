@@ -7,7 +7,7 @@
 : screen_x 0
 
 : ninja_current_pos
-	16 40
+	22 40
 
 : ninja_current_animation_frame
 	0
