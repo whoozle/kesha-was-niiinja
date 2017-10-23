@@ -130,7 +130,7 @@ with open(args.source) as fi, open(map_data_path, 'w') as fmap_data, open(map_he
 		end
 	end
 """ %(w / 2 - x, w, 12 - h / 2 - y, h, name, idx, name) # | x - objx | <= 4, [-4; 4], +4 -> [0; 8], +12 for ninja center
-			print name, idx, x, y, w, h
+			#print name, idx, x, y, w, h
 		tick += "\treturn\n\n"
 		draw += "\treturn\n\n"
 		collide += "\treturn\n\n"
