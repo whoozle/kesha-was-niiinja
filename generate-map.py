@@ -91,16 +91,19 @@ with open(args.source) as fi, open(map_data_path, 'w') as fmap_data, open(map_he
 		if screen_id not in objects:
 			continue
 
+		local_indices = {}
 		screen_y = screen_id / hscreens
 		screen_x = screen_id % hscreens
 
 		tick += "\n: map_tick_objects_%d\n" %screen_id
 		draw += "\n: map_draw_objects_%d\n" %screen_id
 		collide += "\n: map_collide_objects_%d\n" %screen_id
-		for screen_idx, (name, x, y, w, h) in enumerate(objects[screen_id]):
+		for name, x, y, w, h in objects[screen_id]:
 			idx = indices.setdefault(name, 0)
-			fmap_header.write(":const screen_%d_%d_%s_%d %d\n" %(screen_y, screen_x, name, screen_idx, idx))
 			indices[name] = idx + 1
+			local_idx = local_indices.setdefault(name, 0)
+			local_indices[name] = local_idx + 1
+			fmap_header.write(":const screen_%d_%d_%s_%d %d\n" %(screen_y, screen_x, name, local_idx, idx))
 			init += """
 : _init_object_%s_%d
 	va := %d

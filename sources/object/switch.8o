@@ -1,0 +1,12 @@
+: object_switch_tick
+	return
+
+: object_switch_collide
+	return
+
+: object_switch_draw
+	i := long tile_switch_0_0
+	if v0 == 1 then
+		i := long tile_switch_0_1
+	sprite vc vd 8
+	return

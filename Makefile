@@ -33,6 +33,8 @@ game.8o: \
 		cat sources/map.8o >> $@
 		cat sources/object/gem.8o >> $@
 		cat sources/object/teleport.8o >> $@
+		cat sources/object/switch.8o >> $@
+		cat sources/object/indicator.8o >> $@
 		cat $(PREFIX)/font.8o >> $@
 		cat $(PREFIX)/map_data.8o >> $@
 		cat $(PREFIX)/font_data.8o >> $@

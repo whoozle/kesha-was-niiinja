@@ -1,0 +1,8 @@
+: object_indicator_collide
+	return
+
+: object_indicator_tick
+	return
+
+: object_indicator_draw
+	return
