@@ -98,7 +98,7 @@ with open(args.source) as fi, open(map_data_path, 'w') as fmap_data, open(map_he
 		tick += "\n: map_tick_objects_%d\n" %screen_id
 		draw += "\n: map_draw_objects_%d\n" %screen_id
 		collide += "\n: map_collide_objects_%d\n" %screen_id
-		collide += "i := ninja_action_state\nload v1 - v1\n"
+		collide += "\ti := ninja_action_state\n\tload v1 - v1\n"
 		for name, x, y, w, h in objects[screen_id]:
 			idx = indices.setdefault(name, 0)
 			indices[name] = idx + 1
@@ -120,17 +120,17 @@ with open(args.source) as fi, open(map_data_path, 'w') as fmap_data, open(map_he
 			collide += """
 	v0 := va
 	v0 += %d
-	if v0 < 8 begin
+	if v0 <= %d begin
 		v0 := vb
 		v0 += %d
-		if v0 < 8 begin
+		if v0 <= %d begin
 			_init_object_%s_%d
 			if v0 != -1 then
 				object_%s_collide
 		end
 	end
-""" %(w / 2 - x, 12 + h / 2 - y, name, idx, name) # | x - objx | <= 4, [-4; 4], +4 -> [0; 8], +12 for ninja center
-			idx += 1
+""" %(w / 2 - x, w, 12 - h / 2 - y, h, name, idx, name) # | x - objx | <= 4, [-4; 4], +4 -> [0; 8], +12 for ninja center
+			print name, idx, x, y, w, h
 		tick += "\treturn\n\n"
 		draw += "\treturn\n\n"
 		collide += "\treturn\n\n"
