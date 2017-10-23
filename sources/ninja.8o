@@ -114,8 +114,13 @@
 	v0 |= vd
 	v0 |= ve
 
-	if v0 == 0 then
+	if v0 == 0 begin
+		i := ninja_action_state
+		load v0 - v0
+		if v0 == 1 then
+			objects_collide
 		return
+	end
 
 	ninja_draw
 
