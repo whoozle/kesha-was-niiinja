@@ -29,6 +29,8 @@
 
 	v1 := v0
 	v1 += -8 #height
+	if v1 > 8 then
+		v1 := 8
 
 	v2 := 8
 	v2 -= v1

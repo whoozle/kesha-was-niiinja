@@ -1,3 +1,59 @@
+: indicator_update_fish_add
+	i := object_storage_switch
+	i += vb
+	return
+
+: fish_switch_weights
+	1 2 3 4 5 6 7 8
+
+: indicator_update_fish_impl
+	i := object_storage_switch
+	i += v2
+	load v2 - v2
+	if v2 == 0 then #switched off
+		return
+
+	i := fish_switch_weights
+	i += v1 #add switch index
+	load v1 - v1 # load weight
+	v0 += v1
+	return
+
+: indicator_update_fish
+	_init_object_indicator_0
+	object_indicator_draw
+
+	v0 := 0
+	v1 := 0
+	v2 := screen_1_0_switch_0
+	indicator_update_fish_impl
+
+	v1 := 1
+	v2 := screen_1_0_switch_1
+	indicator_update_fish_impl
+
+	v1 := 2
+	v2 := screen_1_0_switch_2
+	indicator_update_fish_impl
+
+	v1 := 3
+	v2 := screen_1_0_switch_3
+	indicator_update_fish_impl
+
+	v1 := 4
+	v2 := screen_1_0_switch_4
+	indicator_update_fish_impl
+
+	v1 := 5
+	v2 := screen_1_0_switch_5
+	indicator_update_fish_impl
+
+	i := object_storage_indicator
+	i += vb
+	save v0 - v0
+	object_indicator_draw
+	return
+
 : object_switch_tick
 	return
 
@@ -14,6 +70,13 @@
 	i += vb
 	save v0 - v0
 	ninja_action_ok
+
+	if vb == screen_1_0_switch_0 then indicator_update_fish
+	if vb == screen_1_0_switch_1 then indicator_update_fish
+	if vb == screen_1_0_switch_2 then indicator_update_fish
+	if vb == screen_1_0_switch_3 then indicator_update_fish
+	if vb == screen_1_0_switch_4 then indicator_update_fish
+	if vb == screen_1_0_switch_5 then indicator_update_fish
 	return
 
 : object_switch_draw
