@@ -84,7 +84,7 @@
 		if v1 -key then
 			v4 += 1
 
-		if v4 == 3 then #if all keys are released, 1 -> 2
+		if v4 == 3 then #if all keys are released, 2 -> 0
 			v3 := 0
 		save v3 - v3
 	end
