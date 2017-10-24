@@ -1,3 +1,10 @@
+:macro offsetof ADDR {
+	:calc a1 { 0xFF & ADDR >> 8 }
+	:calc a2 { 0xFF & ADDR      }
+	:byte a1
+	:byte a2
+}
+
 : main
 	hires
 	plane 3

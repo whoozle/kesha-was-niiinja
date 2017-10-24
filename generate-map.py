@@ -93,7 +93,7 @@ with open(args.source) as fi, open(map_data_path, 'w') as fmap_data, open(map_he
 			if idx == 0: #first object
 				init += """
 : object_{name}_storage_addr
-	i := object_storage_{name}
+	i := long object_storage_{name}
 	i += va
 	return
 
@@ -179,12 +179,12 @@ with open(args.source) as fi, open(map_data_path, 'w') as fmap_data, open(map_he
 
 	fmap_data.write('\n: map_tick_objects_list\n')
 	for screen_id in xrange(vscreens * hscreens):
-		fmap_data.write(':offset map_tick_objects_%d\n' %screen_id if screen_id in objects else '0 0\n')
+		fmap_data.write('offsetof map_tick_objects_%d\n' %screen_id if screen_id in objects else '0 0\n')
 
 	fmap_data.write('\n\n: map_draw_objects_list\n')
 	for screen_id in xrange(vscreens * hscreens):
-		fmap_data.write(':offset map_draw_objects_%d\n' %screen_id if screen_id in objects else '0 0\n')
+		fmap_data.write('offsetof map_draw_objects_%d\n' %screen_id if screen_id in objects else '0 0\n')
 
 	fmap_data.write('\n\n: map_collide_objects_list\n')
 	for screen_id in xrange(vscreens * hscreens):
-		fmap_data.write(':offset map_collide_objects_%d\n' %screen_id if screen_id in objects else '0 0\n')
+		fmap_data.write('offsetof map_collide_objects_%d\n' %screen_id if screen_id in objects else '0 0\n')
