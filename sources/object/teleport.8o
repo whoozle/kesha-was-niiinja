@@ -14,8 +14,7 @@
 : object_teleport_collide
 	if v0 != 0 begin
 		object_teleport_draw
-		i := object_storage_teleport
-		i += vb
+		object_teleport_storage_addr
 		v0 := 0
 		save v0 - v0
 		object_teleport_draw
@@ -28,8 +27,7 @@
 
 : object_teleport_tick
 	object_teleport_draw
-	i := object_storage_teleport
-	i += vb
+	object_teleport_storage_addr
 
 	if v0 != 0 then
 		v0 += 1
