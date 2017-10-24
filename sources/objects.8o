@@ -15,7 +15,6 @@
 	i := long map_draw_objects_list
 	i += v0
 	load v0 - v1
-	:breakpoint objects
 	jump call_v0_v1
 
 : objects_collide
