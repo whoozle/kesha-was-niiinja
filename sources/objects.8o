@@ -5,17 +5,29 @@
 
 : objects_tick
 	map_get_screen_index
-	jump0 map_tick_objects
+	i := long map_tick_objects_list
+	i += v0
+	load v0 - v1
+	jump call_v0_v1
 
 : objects_draw
 	map_get_screen_index
-	jump0 map_draw_objects
-
-: objects_screen_entered
-	jump objects_draw
+	i := long map_draw_objects_list
+	i += v0
+	load v0 - v1
+	:breakpoint objects
+	jump call_v0_v1
 
 : objects_collide
 	map_get_screen_index
+
+	i := long map_collide_objects_list
+	i += v0
+	load v0 - v1
+
 	i := ninja_current_pos
 	load va - vb
-	jump0 map_collide_objects
+	jump call_v0_v1
+
+: objects_screen_entered
+	jump objects_draw

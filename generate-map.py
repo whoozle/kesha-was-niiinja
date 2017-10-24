@@ -69,18 +69,6 @@ with open(args.source) as fi, open(map_data_path, 'w') as fmap_data, open(map_he
 		else:
 			print 'unhandled layer %s' %layer
 
-	fmap_header.write('\n: _map_ret\nreturn\n')
-	fmap_header.write('\n: map_tick_objects\n')
-	for screen_id in xrange(vscreens * hscreens):
-		fmap_header.write('jump map_tick_objects_%d\n' %screen_id if screen_id in objects else 'jump _map_ret\n')
-
-	fmap_header.write('\n\n: map_draw_objects\n')
-	for screen_id in xrange(vscreens * hscreens):
-		fmap_header.write('jump map_draw_objects_%d\n' %screen_id if screen_id in objects else 'jump _map_ret\n')
-
-	fmap_header.write('\n\n: map_collide_objects\n')
-	for screen_id in xrange(vscreens * hscreens):
-		fmap_header.write('jump map_collide_objects_%d\n' %screen_id if screen_id in objects else 'jump _map_ret\n')
 
 	indices = {}
 	object_init_data = {}
@@ -188,3 +176,15 @@ with open(args.source) as fi, open(map_data_path, 'w') as fmap_data, open(map_he
 	for name, data in object_init_data.iteritems():
 		from __builtin__ import map
 		fmap_data.write(': object_%s_init_data\n%s\n' %(name, ' '.join(map(str, data))))
+
+	fmap_data.write('\n: map_tick_objects_list\n')
+	for screen_id in xrange(vscreens * hscreens):
+		fmap_data.write(':offset map_tick_objects_%d\n' %screen_id if screen_id in objects else '0 0\n')
+
+	fmap_data.write('\n\n: map_draw_objects_list\n')
+	for screen_id in xrange(vscreens * hscreens):
+		fmap_data.write(':offset map_draw_objects_%d\n' %screen_id if screen_id in objects else '0 0\n')
+
+	fmap_data.write('\n\n: map_collide_objects_list\n')
+	for screen_id in xrange(vscreens * hscreens):
+		fmap_data.write(':offset map_collide_objects_%d\n' %screen_id if screen_id in objects else '0 0\n')
