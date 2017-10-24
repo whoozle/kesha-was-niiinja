@@ -106,15 +106,16 @@ with open(args.source) as fi, open(map_data_path, 'w') as fmap_data, open(map_he
 			local_indices[name] = local_idx + 1
 			fmap_header.write(":const screen_%d_%d_%s_%d %d\n" %(screen_y, screen_x, name, local_idx, idx))
 			init += """
-: _init_object_%s_%d
-	va := %d
-	vb := %d
-	vc := %d
-	vd := %d
-	i := object_storage_%s_%d
+: _init_data_object_{name}_{idx}
+	{screen_id} {idx} {x} {y}
+
+: _init_object_{name}_{idx}
+	i := _init_data_object_{name}_{idx}
+	load va - vd
+	i := object_storage_{name}_{idx}
 	load v0 - v0
 	return
-""" %(name, idx, screen_id, idx, x, y, name, idx)
+""".format(name = name, idx = idx, screen_id = screen_id, x = x, y = y )
 			tick += "\t_init_object_%s_%d\n\tif v0 != -1 then object_%s_tick\n" %(name, idx, name)
 			draw += "\t_init_object_%s_%d\n\tif v0 != -1 then object_%s_draw\n" %(name, idx, name)
 			collide += """
