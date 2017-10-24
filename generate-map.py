@@ -101,6 +101,19 @@ with open(args.source) as fi, open(map_data_path, 'w') as fmap_data, open(map_he
 		collide += "\ti := ninja_action_state\n\tload v1 - v1\n"
 		for name, x, y, w, h in objects[screen_id]:
 			idx = indices.setdefault(name, 0)
+			if idx == 0: #first object
+				init += """
+: object_{name}_storage_addr
+	i := object_storage_{name}
+	i += vb
+	return
+
+: object_{name}_load_state
+	object_{name}_storage_addr
+	load v0 - v0
+	return
+
+""".format(name = name)
 			indices[name] = idx + 1
 			local_idx = local_indices.setdefault(name, 0)
 			local_indices[name] = local_idx + 1
@@ -112,9 +125,7 @@ with open(args.source) as fi, open(map_data_path, 'w') as fmap_data, open(map_he
 : _init_object_{name}_{idx}
 	i := _init_data_object_{name}_{idx}
 	load va - vd
-	i := object_storage_{name}_{idx}
-	load v0 - v0
-	return
+	jump object_{name}_load_state
 """.format(name = name, idx = idx, screen_id = screen_id, x = x, y = y )
 			tick += "\t_init_object_%s_%d\n\tif v0 != -1 then object_%s_tick\n" %(name, idx, name)
 			draw += "\t_init_object_%s_%d\n\tif v0 != -1 then object_%s_draw\n" %(name, idx, name)
