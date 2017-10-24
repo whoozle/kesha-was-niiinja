@@ -105,11 +105,12 @@ with open(args.source) as fi, open(map_data_path, 'w') as fmap_data, open(map_he
 	i += va
 	return
 
-: object_{name}_collide_load_v2
+: object_{name}_collide_v9
 	i := long object_{name}_collide_data
-	v2 += v2
-	v2 += v2 #*4
-	i += v2
+	i += v9
+	i += v9
+	i += v9
+	i += v9
 	load v2 - v5 # dx, w, dy, h
 
 	v0 := va
@@ -118,8 +119,12 @@ with open(args.source) as fi, open(map_data_path, 'w') as fmap_data, open(map_he
 		v0 := vb
 		v0 += v4
 		if v0 <= v5 begin
-			v0 := 1
-			return
+			va := v9
+			object_{name}_init
+			if v0 != -1 begin
+				object_{name}_collide
+				v0 := 1
+			end
 		end
 	end
 	v0 := 0
@@ -151,13 +156,9 @@ with open(args.source) as fi, open(map_data_path, 'w') as fmap_data, open(map_he
 			collide_data = object_collide_data.setdefault(name, [])
 			collide_data += (w / 2 - x, w, 12 - h / 2 - y, h) # | x - objx | <= 4, [-4; 4], +4 -> [0; 8], +12 for ninja center
 			collide += """
-	v2 := {idx}
-	object_{name}_collide_load_v2
-	if v0 != 0 begin
-		_init_object_{name}_{idx}
-		if v0 != -1 then
-			jump object_{name}_collide
-	end
+	v9 := {idx}
+	object_{name}_collide_v9
+	if v0 != 0 then return
 
 """.format(idx = idx, name = name)
 			#print name, idx, x, y, w, h
