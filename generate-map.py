@@ -72,6 +72,7 @@ with open(args.source) as fi, open(map_data_path, 'w') as fmap_data, open(map_he
 
 	indices = {}
 	object_init_data = {}
+	object_collide_data = {}
 	init = ""
 	tick = ""
 	draw = ""
@@ -97,19 +98,41 @@ with open(args.source) as fi, open(map_data_path, 'w') as fmap_data, open(map_he
 	i += va
 	return
 
-: object_{name}_init
+: object_{name}_init_addr
 	i := long object_{name}_init_data
 	i += va
 	i += va
 	i += va
+	return
+
+: object_{name}_collide_load_v2
+	i := long object_{name}_collide_data
+	v2 += v2
+	v2 += v2 #*4
+	i += v2
+	load v2 - v5 # dx, w, dy, h
+
+	v0 := va
+	v0 += v2
+	if v0 <= v3 begin
+		v0 := vb
+		v0 += v4
+		if v0 <= v5 begin
+			v0 := 1
+			return
+		end
+	end
+	v0 := 0
+	return
+
+: object_{name}_init
+	object_{name}_init_addr
 	load vb - vd
 
 : object_{name}_load_state
 	object_{name}_storage_addr
 	load v0 - v0
 	return
-
-
 
 """.format(name = name)
 			indices[name] = idx + 1
@@ -125,19 +148,18 @@ with open(args.source) as fi, open(map_data_path, 'w') as fmap_data, open(map_he
 """.format(name = name, idx = idx, screen_id = screen_id, x = x, y = y )
 			tick += "\t_init_object_%s_%d\n\tif v0 != -1 then object_%s_tick\n" %(name, idx, name)
 			draw += "\t_init_object_%s_%d\n\tif v0 != -1 then object_%s_draw\n" %(name, idx, name)
+			collide_data = object_collide_data.setdefault(name, [])
+			collide_data += (w / 2 - x, w, 12 - h / 2 - y, h) # | x - objx | <= 4, [-4; 4], +4 -> [0; 8], +12 for ninja center
 			collide += """
-	v0 := va
-	v0 += %d
-	if v0 <= %d begin
-		v0 := vb
-		v0 += %d
-		if v0 <= %d begin
-			_init_object_%s_%d
-			if v0 != -1 then
-				object_%s_collide
-		end
+	v2 := {idx}
+	object_{name}_collide_load_v2
+	if v0 != 0 begin
+		_init_object_{name}_{idx}
+		if v0 != -1 then
+			jump object_{name}_collide
 	end
-""" %(w / 2 - x, w, 12 - h / 2 - y, h, name, idx, name) # | x - objx | <= 4, [-4; 4], +4 -> [0; 8], +12 for ninja center
+
+""".format(idx = idx, name = name)
 			#print name, idx, x, y, w, h
 		tick += "\treturn\n\n"
 		draw += "\treturn\n\n"
@@ -167,9 +189,13 @@ with open(args.source) as fi, open(map_data_path, 'w') as fmap_data, open(map_he
 	fmap_data.write(":org 0x%04x\n" %((addr + width * height + 0xff) / 0x100 * 0x100))
 	fmap_data.write(': map_walls_data\n%s\n' % ' '.join(walls_data_packed))
 
+	from __builtin__ import map #fixme: rename map in this file
+
 	for name, data in object_init_data.iteritems():
-		from __builtin__ import map
 		fmap_data.write(': object_%s_init_data\n%s\n' %(name, ' '.join(map(str, data))))
+
+	for name, data in object_collide_data.iteritems():
+		fmap_data.write(': object_%s_collide_data\n%s\n' %(name, ' '.join(map(str, data))))
 
 	fmap_data.write('\n: map_tick_objects_list\n')
 	for screen_id in xrange(vscreens * hscreens):
