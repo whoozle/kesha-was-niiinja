@@ -65,12 +65,12 @@
 	save v0 - v0
 	ninja_action_ok
 
-	if vb == screen_1_0_switch_0 then indicator_update_fish
-	if vb == screen_1_0_switch_1 then indicator_update_fish
-	if vb == screen_1_0_switch_2 then indicator_update_fish
-	if vb == screen_1_0_switch_3 then indicator_update_fish
-	if vb == screen_1_0_switch_4 then indicator_update_fish
-	if vb == screen_1_0_switch_5 then indicator_update_fish
+	if va == screen_1_0_switch_0 then indicator_update_fish
+	if va == screen_1_0_switch_1 then indicator_update_fish
+	if va == screen_1_0_switch_2 then indicator_update_fish
+	if va == screen_1_0_switch_3 then indicator_update_fish
+	if va == screen_1_0_switch_4 then indicator_update_fish
+	if va == screen_1_0_switch_5 then indicator_update_fish
 	return
 
 : object_switch_draw

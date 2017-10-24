@@ -83,6 +83,7 @@ with open(args.source) as fi, open(map_data_path, 'w') as fmap_data, open(map_he
 		fmap_header.write('jump map_collide_objects_%d\n' %screen_id if screen_id in objects else 'jump _map_ret\n')
 
 	indices = {}
+	object_init_data = {}
 	init = ""
 	tick = ""
 	draw = ""
@@ -105,27 +106,34 @@ with open(args.source) as fi, open(map_data_path, 'w') as fmap_data, open(map_he
 				init += """
 : object_{name}_storage_addr
 	i := object_storage_{name}
-	i += vb
+	i += va
 	return
+
+: object_{name}_init
+	i := long object_{name}_init_data
+	i += va
+	i += va
+	i += va
+	load vb - vd
 
 : object_{name}_load_state
 	object_{name}_storage_addr
 	load v0 - v0
 	return
 
+
+
 """.format(name = name)
 			indices[name] = idx + 1
 			local_idx = local_indices.setdefault(name, 0)
 			local_indices[name] = local_idx + 1
+			init_data = object_init_data.setdefault(name, [])
+			init_data += (screen_id, x, y)
 			fmap_header.write(":const screen_%d_%d_%s_%d %d\n" %(screen_y, screen_x, name, local_idx, idx))
 			init += """
-: _init_data_object_{name}_{idx}
-	{screen_id} {idx} {x} {y}
-
 : _init_object_{name}_{idx}
-	i := _init_data_object_{name}_{idx}
-	load va - vd
-	jump object_{name}_load_state
+	va := {idx}
+	jump object_{name}_init
 """.format(name = name, idx = idx, screen_id = screen_id, x = x, y = y )
 			tick += "\t_init_object_%s_%d\n\tif v0 != -1 then object_%s_tick\n" %(name, idx, name)
 			draw += "\t_init_object_%s_%d\n\tif v0 != -1 then object_%s_draw\n" %(name, idx, name)
@@ -176,3 +184,7 @@ with open(args.source) as fi, open(map_data_path, 'w') as fmap_data, open(map_he
 
 	fmap_data.write(":org 0x%04x\n" %((addr + width * height + 0xff) / 0x100 * 0x100))
 	fmap_data.write(': map_walls_data\n%s\n' % ' '.join(walls_data_packed))
+
+	for name, data in object_init_data.iteritems():
+		from __builtin__ import map
+		fmap_data.write(': object_%s_init_data\n%s\n' %(name, ' '.join(map(str, data))))
