@@ -15,7 +15,7 @@
 	return
 
 : indicator_update_fish
-	_init_object_indicator_0
+	object_indicator_0_init
 	object_indicator_draw
 
 	v0 := 0

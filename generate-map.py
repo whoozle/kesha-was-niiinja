@@ -147,12 +147,12 @@ with open(args.source) as fi, open(map_data_path, 'w') as fmap_data, open(map_he
 			init_data += (screen_id, x, y)
 			fmap_header.write(":const screen_%d_%d_%s_%d %d\n" %(screen_y, screen_x, name, local_idx, idx))
 			init += """
-: _init_object_{name}_{idx}
+: object_{name}_{idx}_init
 	va := {idx}
 	jump object_{name}_init
 """.format(name = name, idx = idx, screen_id = screen_id, x = x, y = y )
-			tick += "\t_init_object_%s_%d\n\tif v0 != -1 then object_%s_tick\n" %(name, idx, name)
-			draw += "\t_init_object_%s_%d\n\tif v0 != -1 then object_%s_draw\n" %(name, idx, name)
+			tick += "\tobject_%s_%d_init\n\tif v0 != -1 then object_%s_tick\n" %(name, idx, name)
+			draw += "\tobject_%s_%d_init\n\tif v0 != -1 then object_%s_draw\n" %(name, idx, name)
 			collide_data = object_collide_data.setdefault(name, [])
 			collide_data += (w / 2 - x, w, 12 - h / 2 - y, h) # | x - objx | <= 4, [-4; 4], +4 -> [0; 8], +12 for ninja center
 			collide += """
