@@ -148,12 +148,6 @@ with open(args.source) as fi, open(map_data_path, 'w') as fmap_data, open(map_he
 	fmap_header.write(draw)
 	fmap_header.write(collide)
 
-	for name, n in indices.iteritems():
-		fmap_header.write(': object_storage_%s\n' %name)
-		for i in xrange(n):
-			fmap_header.write(': object_storage_%s_%d\n' %(name, i))
-			fmap_header.write('0\n')
-
 	fmap_data.write(":org 0x%04x\n" %addr)
 	fmap_data.write(': map_data\n')
 	for y in xrange(height):
@@ -188,3 +182,9 @@ with open(args.source) as fi, open(map_data_path, 'w') as fmap_data, open(map_he
 	fmap_data.write('\n\n: map_collide_objects_list\n')
 	for screen_id in xrange(vscreens * hscreens):
 		fmap_data.write('offsetof map_collide_objects_%d\n' %screen_id if screen_id in objects else '0 0\n')
+
+	for name, n in indices.iteritems():
+		fmap_data.write(': object_storage_%s\n' %name)
+		for i in xrange(n):
+			fmap_data.write(': object_storage_%s_%d\n' %(name, i))
+			fmap_data.write('0\n')

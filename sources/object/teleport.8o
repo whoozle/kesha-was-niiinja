@@ -45,7 +45,6 @@
 	vb := 1
 
 : teleport_set_activate
-	i := object_storage_teleport
-	i += va
+	object_teleport_storage_addr
 	save vb - vb
 	return
