@@ -28,14 +28,6 @@
 : ninja_jump_table
 	0 6 6 4 2 -2 -4 -6 -6
 
-: ninja_jump_sound
-	0xF0 0xF0 0xF0 0xF0 0xcc 0xcc 0xcc 0xcc
-	0xaa 0xaa 0xaa 0xaa 0xaa 0xaa 0xaa 0xaa
-
-: ninja_bad_action_sound
-	0xff 0xff 0xff 0xff 0x00 0x00 0x00 0x00
-	0xff 0xff 0xff 0xff 0x00 0x00 0x00 0x00
-
 : ninja_last_dir
 	ninja_speed_right
 
@@ -62,7 +54,7 @@
 				save v1 - v1
 				v1 := ninja_jump_ticks
 				save v1 - v1
-				i := ninja_jump_sound
+				i := long ninja_jump_sound
 				audio
 				v3 := 2
 				buzzer := v3
@@ -271,7 +263,7 @@
 	v0 := 2
 	save v0 - v0
 
-	i := ninja_bad_action_sound
+	i := long ninja_bad_action_sound
 	audio
 	v1 := 4
 	buzzer := v1
