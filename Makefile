@@ -17,6 +17,9 @@ $(PREFIX)/tiles.8o: Makefile ./generate-texture.py assets/*.png assets/tiles/*.p
 		./generate-texture.py assets/tiles/teleport.png teleport 2 16 >> $@
 		./generate-texture.py --map1=2 --map2=3 --map0=1 assets/tiles/indicator.png indicator 2 8 >> $@
 		./generate-texture.py assets/tiles/switch.png switch 2 8 >> $@
+		./generate-texture.py assets/tiles/baby.png baby 2 16 >> $@
+		./generate-texture.py assets/tiles/professor.png professor 2 8 >> $@
+		./generate-texture.py assets/tiles/kiosk.png kiosk 2 8 >> $@
 
 
 game.8o: \
@@ -35,6 +38,9 @@ game.8o: \
 		cat sources/object/teleport.8o >> $@
 		cat sources/object/switch.8o >> $@
 		cat sources/object/indicator.8o >> $@
+		cat sources/object/professor.8o >> $@
+		cat sources/object/baby.8o >> $@
+		cat sources/object/kiosk.8o >> $@
 		cat $(PREFIX)/font.8o >> $@
 		cat $(PREFIX)/map_data.8o >> $@
 		cat $(PREFIX)/font_data.8o >> $@

@@ -1,0 +1,9 @@
+: object_professor_collide
+: object_professor_tick
+	return
+
+: object_professor_draw
+	v0 := 4
+	v1 := 6
+	i := long tile_professor_data
+	jump object_draw_tiles

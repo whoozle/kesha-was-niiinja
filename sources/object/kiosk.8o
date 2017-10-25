@@ -1,0 +1,9 @@
+: object_kiosk_collide
+: object_kiosk_tick
+	return
+
+: object_kiosk_draw
+	v0 := 2
+	v1 := 6
+	i := long tile_kiosk_data
+	jump object_draw_tiles

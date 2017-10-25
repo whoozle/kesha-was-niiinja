@@ -30,3 +30,24 @@
 
 : objects_screen_entered
 	jump objects_draw
+
+: object_draw_tiles #v0/v1 - width/height
+	v2 := 0
+	v4 := vd #y
+	v6 := 16
+	loop
+		v3 := 0
+		v5 := vc #x
+		loop
+			v3 += 1
+			v5 += 8
+			sprite v5 v4 8
+			i += v6
+			if v3 != v0 then
+		again
+
+		v4 += 8
+		v2 += 1
+		if v2 != v1 then
+	again
+	return
