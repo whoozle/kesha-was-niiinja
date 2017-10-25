@@ -20,6 +20,9 @@ $(PREFIX)/tiles.8o: Makefile ./generate-texture.py assets/*.png assets/tiles/*.p
 		./generate-texture.py assets/tiles/baby.png baby 2 16 >> $@
 		./generate-texture.py assets/tiles/professor.png professor 2 8 >> $@
 		./generate-texture.py assets/tiles/kiosk.png kiosk 2 8 >> $@
+		./generate-texture.py assets/tiles/intro1.png intro1 2 16 >> $@
+		./generate-texture.py assets/tiles/intro2.png intro2 2 16 >> $@
+		./generate-texture.py assets/tiles/intro3.png intro3 2 16 >> $@
 
 
 game.8o: \
