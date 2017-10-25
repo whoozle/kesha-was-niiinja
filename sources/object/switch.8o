@@ -20,27 +20,27 @@
 
 	v0 := 0
 	v1 := 0
-	v2 := screen_1_0_switch_0
+	v2 := screen_2_0_switch_0
 	indicator_update_fish_impl
 
 	v1 := 1
-	v2 := screen_1_0_switch_1
+	v2 := screen_2_0_switch_1
 	indicator_update_fish_impl
 
 	v1 := 2
-	v2 := screen_1_0_switch_2
+	v2 := screen_2_0_switch_2
 	indicator_update_fish_impl
 
 	v1 := 3
-	v2 := screen_1_0_switch_3
+	v2 := screen_2_0_switch_3
 	indicator_update_fish_impl
 
 	v1 := 4
-	v2 := screen_1_0_switch_4
+	v2 := screen_2_0_switch_4
 	indicator_update_fish_impl
 
 	v1 := 5
-	v2 := screen_1_0_switch_5
+	v2 := screen_2_0_switch_5
 	indicator_update_fish_impl
 
 	object_indicator_storage_addr #load i with storage addr
@@ -65,12 +65,12 @@
 	save v0 - v0
 	ninja_action_ok
 
-	if va == screen_1_0_switch_0 then indicator_update_fish
-	if va == screen_1_0_switch_1 then indicator_update_fish
-	if va == screen_1_0_switch_2 then indicator_update_fish
-	if va == screen_1_0_switch_3 then indicator_update_fish
-	if va == screen_1_0_switch_4 then indicator_update_fish
-	if va == screen_1_0_switch_5 then indicator_update_fish
+	if va == screen_2_0_switch_0 then indicator_update_fish
+	if va == screen_2_0_switch_1 then indicator_update_fish
+	if va == screen_2_0_switch_2 then indicator_update_fish
+	if va == screen_2_0_switch_3 then indicator_update_fish
+	if va == screen_2_0_switch_4 then indicator_update_fish
+	if va == screen_2_0_switch_5 then indicator_update_fish
 	return
 
 : object_switch_draw
