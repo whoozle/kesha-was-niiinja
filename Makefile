@@ -37,6 +37,7 @@ game.8o: \
 		cat sources/objects.8o >> $@
 		cat sources/utils.8o >> $@
 		cat sources/map.8o >> $@
+		cat sources/intro.8o >> $@
 		cat sources/object/gem.8o >> $@
 		cat sources/object/teleport.8o >> $@
 		cat sources/object/switch.8o >> $@

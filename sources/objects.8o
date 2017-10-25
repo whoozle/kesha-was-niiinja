@@ -29,6 +29,14 @@
 	jump call_v0_v1
 
 : objects_screen_entered
+	map_get_screen_index
+	if v0 == 0 then
+		draw_intro_1
+	if v0 == 2 then
+		draw_intro_2
+	if v0 == 4 then
+		draw_intro_3
+
 	jump objects_draw
 
 : object_draw_tiles #v0/v1 - width/height

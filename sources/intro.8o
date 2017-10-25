@@ -1,0 +1,27 @@
+: draw_intro_1
+	i := long tile_intro1_data
+	jump draw_fullscreen_tile
+
+: draw_intro_2
+	i := long tile_intro2_data
+	jump draw_fullscreen_tile
+
+: draw_intro_3
+	i := long tile_intro3_data
+
+: draw_fullscreen_tile
+	v0 := 0
+	v2 := 64
+	loop
+		v1 := 0
+		loop
+			sprite v1 v0 0
+			i += v2
+			v1 += 16
+			if v1 != 128 then
+		again
+
+		v0 += 16
+		if v0 != 64 then
+	again
+	return

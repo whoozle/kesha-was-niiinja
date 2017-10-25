@@ -29,7 +29,7 @@
 	0 6 6 4 2 -2 -4 -6 -6
 
 : ninja_last_dir
-	ninja_speed_right
+	2
 
 : ninja_process_input
 	v2 := 0
