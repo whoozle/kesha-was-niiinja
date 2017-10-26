@@ -30,12 +30,21 @@
 
 : objects_screen_entered
 	map_get_screen_index
+	v0 >>= v0 #result is map_index * 2
 	if v0 == 0 then
 		draw_intro_1
-	if v0 == 2 then
+	if v0 == 1 then
 		draw_intro_2
-	if v0 == 4 then
+	if v0 == 2 then
 		draw_intro_3
+
+	i := ninja_flappy_mode
+	v1 := 0
+	if v0 == 44 then #flappy screens
+		v1 := 1
+	if v0 == 45 then
+		v1 := 1
+	save v1 - v1
 
 	jump objects_draw
 

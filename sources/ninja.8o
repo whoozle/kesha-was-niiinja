@@ -20,7 +20,7 @@
 : ninja_can_jump
 	1
 : ninja_flappy_mode #do not move, reading with can_jump
-	1
+	0
 : ninja_action_state
 	0
 
