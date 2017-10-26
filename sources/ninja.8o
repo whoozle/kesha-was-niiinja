@@ -19,6 +19,8 @@
 	4 #speed down
 : ninja_can_jump
 	1
+: ninja_flappy_mode #do not move, reading with can_jump
+	1
 : ninja_action_state
 	0
 
@@ -44,12 +46,17 @@
 	v1 := 5		# W - jump
 	if v1 key begin
 		i := ninja_can_jump
-		load v1 - v1
-		if v1 != 0 begin
-			v1 := 0
-			save v1 - v1
+		load v4 - v5 #can jump, flappy mode
+		v4 |= v5
+		if v4 != 0 begin
+			v4 := 0
+			save v4 - v4
 			i := ninja_jump_counter
 			load v1 - v1
+
+			if v5 != 0 then #flappy mode, restart jump
+				v1 := 0
+
 			if v1 == 0 begin
 				save v1 - v1
 				v1 := ninja_jump_ticks
