@@ -4,6 +4,6 @@
 
 : object_kiosk_draw
 	v0 := 2
-	v1 := 6
+	v1 := 5
 	i := long tile_kiosk_data
 	jump object_draw_tiles
