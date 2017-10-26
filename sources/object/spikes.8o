@@ -1,0 +1,36 @@
+: object_spikes_collide
+	ninja_respawn
+	jump ninja_draw #fixme!
+
+: object_spikes_tick
+	object_spikes_draw
+	v0 += 1
+	if v0 >= 4 then
+		v0 := 0
+	object_spikes_storage_addr
+	save v0 - v0
+	jump object_spikes_draw
+
+: object_spikes_draw
+	v3 := vc
+
+	v4 := 16
+	v5 := 2
+	v5 &= v0
+	if v5 == 2 then
+		v5 := 32
+
+	loop
+		i := long tile_spikes_0_0
+		i += v5
+
+		sprite v3 vd 8
+		v3 += 8
+
+		i += v4
+		sprite v3 vd 8
+		v3 += 8
+
+		if v3 < 0x80 then
+	again
+	return
