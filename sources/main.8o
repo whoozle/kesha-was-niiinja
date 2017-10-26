@@ -1,8 +1,18 @@
-:macro offsetof ADDR {
+:macro offset ADDR {
 	:calc a1 { 0xFF & ADDR >> 8 }
 	:calc a2 { 0xFF & ADDR      }
 	:byte a1
 	:byte a2
+}
+
+:macro offsethi ADDR {
+	:calc a1 { 0xFF & ADDR >> 8 }
+	:byte a1
+}
+
+:macro offsetlo ADDR {
+	:calc a1 { 0xFF & ADDR }
+	:byte a1
 }
 
 : main
