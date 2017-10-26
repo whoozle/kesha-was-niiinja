@@ -5,7 +5,7 @@
 : object_spikes_tick
 	object_spikes_draw
 	v0 += 1
-	if v0 >= 4 then
+	if v0 >= 8 then
 		v0 := 0
 	object_spikes_storage_addr
 	save v0 - v0
@@ -15,9 +15,9 @@
 	v3 := vc
 
 	v4 := 16
-	v5 := 2
+	v5 := 4
 	v5 &= v0
-	if v5 == 2 then
+	if v5 == 4 then
 		v5 := 32
 
 	loop
