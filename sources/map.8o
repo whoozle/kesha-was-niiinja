@@ -392,7 +392,7 @@
 	i := screen_y
 	load v0 - v0
 	if v0 == 7 then
-		return
+		jump ninja_respawn #die
 
 	v0 += 1
 	save v0 - v0

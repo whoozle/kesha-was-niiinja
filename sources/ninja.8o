@@ -3,8 +3,8 @@
 :const ninja_speed_down 4
 
 : screen_pos
-: screen_y 0
-: screen_x 0
+: screen_y 4
+: screen_x 3
 
 : ninja_current_pos
 	8 40
@@ -325,3 +325,14 @@
 	end
 
 	return
+
+: ninja_respawn
+	v0 := 4
+	v1 := 4
+	i := screen_pos
+	save v0 - v1
+	v0 := 32
+	v1 := 40
+	i := ninja_current_pos
+	save v0 - v1
+	jump render_screen
