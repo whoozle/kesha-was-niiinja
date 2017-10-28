@@ -1,18 +1,19 @@
 : object_teleport_draw
 	i := long tile_teleport_0_0
-	v1 := v0
-	v1 <<= v1
-	v1 <<= v1
-	v1 <<= v1
-	v1 <<= v1
-	v1 <<= v1
-	v1 <<= v1
-	i += v1
+	v2 := v1
+	v2 <<= v2
+	v2 <<= v2
+	v2 <<= v2
+	v2 <<= v2
+	v2 <<= v2
+	v2 <<= v2
+	i += v2
 	sprite vc vd 0
 	return
 
 : object_teleport_collide
-	if v0 == 0 then #disabled
+	:breakpoint teleport
+	if v1 == 0 then #disabled
 		return
 
 	i := long teleport_sound
@@ -25,12 +26,12 @@
 	object_teleport_draw
 	object_teleport_storage_addr
 
-	if v0 != 0 then
-		v0 += 1
+	if v1 != 0 then
+		v1 += 1
 
-	if v0 >= 4 then
-		v0 := 1
-	save v0 - v0
+	if v1 >= 4 then
+		v1 := 1
+	save v1 - v1
 	jump object_teleport_draw
 
 : teleport_deactivate
