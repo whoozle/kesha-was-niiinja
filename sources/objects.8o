@@ -1,6 +1,8 @@
 : objects_init
 	va := screen_6_7_teleport_2
 	teleport_activate
+	va := screen_4_0_teleport_0
+	teleport_activate
 	return
 
 : objects_tick

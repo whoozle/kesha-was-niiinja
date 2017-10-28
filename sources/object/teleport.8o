@@ -12,17 +12,13 @@
 	return
 
 : object_teleport_collide
-	if v0 != 0 begin
-		object_teleport_draw
-		object_teleport_storage_addr
-		v0 := 0
-		save v0 - v0
-		object_teleport_draw
-		i := long teleport_sound
-		audio
-		v0 := 10
-		buzzer := v0
-	end
+	if v0 == 0 then #disabled
+		return
+
+	i := long teleport_sound
+	audio
+	v0 := 10
+	buzzer := v0
 	return
 
 : object_teleport_tick
