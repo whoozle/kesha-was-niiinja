@@ -5,30 +5,89 @@
 	teleport_activate
 	return
 
-: objects_tick
-	map_get_screen_index
-	i := long map_tick_objects_list
-	i += v0
-	load v0 - v1
-	jump call_v0_v1
-
-: objects_draw
-	map_get_screen_index
-	i := long map_draw_objects_list
-	i += v0
-	load v0 - v1
-	jump call_v0_v1
-
-: objects_collide
+: objects_loop_generic
 	map_get_screen_index
 
-	i := long map_collide_objects_list
+	i := long map_objects_list
 	i += v0
-	load v0 - v1
 
+	load va - vb
+	v0 := va
+	v0 |= vb
+
+	if v0 == 0 then
+		return
+
+	i := objects_loop_current_object_ptr
+	save va - vb
+	loop
+		0xf0 00
+		: objects_loop_current_object_ptr
+		0 0
+		load va - vb
+		if va == -1 then
+			return
+
+		: object_loop_callback
+		0 0
+
+		i := objects_loop_current_object_ptr
+		load v0 - v1
+		v2 := 2
+		v1 += v2
+		v0 += vf
+		save v0 - v1
+
+	again
+
+: object_tick_impl
+	v9 := vb #type
+
+	v0 := vb
+	object_dispatch_init
+	v0 := v9
+
+	if v1 == -1 then #v1 == state, no object
+		return
+
+	jump object_dispatch_tick
+
+: object_draw_impl
+	v9 := vb #type
+
+	v0 := vb
+	object_dispatch_init
+
+	if v1 == -1 then #v1 == state, no object
+		return
+
+	v0 := v9
+	jump object_dispatch_draw
+
+: object_collide_impl
+	v9 := va
+	v0 := vb
 	i := ninja_current_pos
 	load va - vb
-	jump call_v0_v1
+	jump object_dispatch_collide_v9
+
+: objects_tick
+	:unpack 0x02 object_tick_impl #call
+	i := object_loop_callback
+	save v0 - v1
+	jump objects_loop_generic
+
+: objects_draw
+	:unpack 0x02 object_draw_impl #call
+	i := object_loop_callback
+	save v0 - v1
+	jump objects_loop_generic
+
+: objects_collide
+	:unpack 0x02 object_collide_impl #call
+	i := object_loop_callback
+	save v0 - v1
+	jump objects_loop_generic
 
 : objects_screen_entered
 	map_get_screen_index

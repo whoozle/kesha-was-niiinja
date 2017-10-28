@@ -71,12 +71,11 @@ with open(args.source) as fi, open(map_data_path, 'w') as fmap_data, open(map_he
 
 
 	indices = {}
+	object_types = {}
+	object_list_data = {}
 	object_init_data = {}
 	object_collide_data = {}
-	init = ""
-	tick = ""
-	draw = ""
-	collide = ""
+	init = ''
 	for screen_id in xrange(vscreens * hscreens):
 		if screen_id not in objects:
 			continue
@@ -85,12 +84,11 @@ with open(args.source) as fi, open(map_data_path, 'w') as fmap_data, open(map_he
 		screen_y = screen_id / hscreens
 		screen_x = screen_id % hscreens
 
-		tick += "\n: map_tick_objects_%d\n" %screen_id
-		draw += "\n: map_draw_objects_%d\n" %screen_id
-		collide += "\n: map_collide_objects_%d\n" %screen_id
-		collide += "\ti := ninja_action_state\n\tload v1 - v1\n"
 		for name, x, y, w, h in objects[screen_id]:
+			type_idx = object_types.setdefault(name, len(object_types))
 			idx = indices.setdefault(name, 0)
+			object_list = object_list_data.setdefault(screen_id, [])
+			object_list += (idx, type_idx)
 			if idx == 0: #first object
 				init += """
 : object_{name}_storage_addr
@@ -120,14 +118,15 @@ with open(args.source) as fi, open(map_data_path, 'w') as fmap_data, open(map_he
 		v0 += v4
 		if v0 <= v5 begin
 			va := v9
+
+			i := ninja_action_state
+			load v2 - v2
+
 			object_{name}_init
-			if v0 != -1 begin
+			if v1 != -1 then
 				object_{name}_collide
-				v0 := 1
-			end
 		end
 	end
-	v0 := 0
 	return
 
 : object_{name}_init
@@ -136,7 +135,7 @@ with open(args.source) as fi, open(map_data_path, 'w') as fmap_data, open(map_he
 
 : object_{name}_load_state
 	object_{name}_storage_addr
-	load v0 - v0
+	load v1 - v1
 	return
 
 """.format(name = name)
@@ -146,30 +145,12 @@ with open(args.source) as fi, open(map_data_path, 'w') as fmap_data, open(map_he
 			init_data = object_init_data.setdefault(name, [])
 			init_data += (screen_id, x, y)
 			fmap_header.write(":const screen_%d_%d_%s_%d %d\n" %(screen_y, screen_x, name, local_idx, idx))
-			init += """
-: object_{name}_{idx}_init
-	va := {idx}
-	jump object_{name}_init
-""".format(name = name, idx = idx, screen_id = screen_id, x = x, y = y )
-			tick += "\tobject_%s_%d_init\n\tif v0 != -1 then object_%s_tick\n" %(name, idx, name)
-			draw += "\tobject_%s_%d_init\n\tif v0 != -1 then object_%s_draw\n" %(name, idx, name)
 			collide_data = object_collide_data.setdefault(name, [])
 			collide_data += (w / 2 - x, w, 12 - h / 2 - y, h) # | x - objx | <= 4, [-4; 4], +4 -> [0; 8], +12 for ninja center
-			collide += """
-	v9 := {idx}
-	object_{name}_collide_v9
-	if v0 != 0 then return
-
-""".format(idx = idx, name = name)
 			#print name, idx, x, y, w, h
-		tick += "\treturn\n\n"
-		draw += "\treturn\n\n"
-		collide += "\treturn\n\n"
+		object_list += (-1, -1)
 
 	fmap_header.write(init)
-	fmap_header.write(tick)
-	fmap_header.write(draw)
-	fmap_header.write(collide)
 
 	fmap_data.write(":org 0x%04x\n" %addr)
 	fmap_data.write(': map_data\n')
@@ -194,24 +175,36 @@ with open(args.source) as fi, open(map_data_path, 'w') as fmap_data, open(map_he
 
 	for name, data in object_init_data.iteritems():
 		fmap_data.write(': object_%s_init_data\n%s\n' %(name, ' '.join(map(str, data))))
+	fmap_data.write('\n')
 
 	for name, data in object_collide_data.iteritems():
 		fmap_data.write(': object_%s_collide_data\n%s\n' %(name, ' '.join(map(str, data))))
+	fmap_data.write('\n')
 
-	fmap_data.write('\n: map_tick_objects_list\n')
 	for screen_id in xrange(vscreens * hscreens):
-		fmap_data.write('offset map_tick_objects_%d\n' %screen_id if screen_id in objects else '0 0\n')
+		if screen_id in object_list_data:
+			fmap_data.write(': map_objects_list_%d\n%s\n' %(screen_id, ' '.join(map(str, object_list_data[screen_id]))))
 
-	fmap_data.write('\n\n: map_draw_objects_list\n')
+	fmap_data.write('\n: map_objects_list\n')
 	for screen_id in xrange(vscreens * hscreens):
-		fmap_data.write('offset map_draw_objects_%d\n' %screen_id if screen_id in objects else '0 0\n')
-
-	fmap_data.write('\n\n: map_collide_objects_list\n')
-	for screen_id in xrange(vscreens * hscreens):
-		fmap_data.write('offset map_collide_objects_%d\n' %screen_id if screen_id in objects else '0 0\n')
+		fmap_data.write('offset map_objects_list_%d\n' %screen_id if screen_id in object_list_data else '0 0\n')
 
 	for name, n in indices.iteritems():
 		fmap_data.write(': object_storage_%s\n' %name)
 		for i in xrange(n):
 			fmap_data.write(': object_storage_%s_%d\n' %(name, i))
 			fmap_data.write('0\n')
+
+	types = [None] * len(object_types)
+	for name, idx in object_types.iteritems():
+		types[idx] = name
+
+	def write_type_table(name):
+		fmap_header.write('\n: object_dispatch_%s\nv0 += v0\njump0 object_dispatch_table_%s\n: object_dispatch_table_%s\n' %(name, name, name))
+		for type in types:
+			fmap_header.write('jump object_%s_%s\n' %(type, name))
+
+	write_type_table('init')
+	write_type_table('tick')
+	write_type_table('draw')
+	write_type_table('collide_v9')

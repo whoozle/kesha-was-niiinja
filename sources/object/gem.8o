@@ -4,9 +4,9 @@
 	return
 
 : object_gem_collide
-	v1 := -1
-	save v1 - v1 # remove gem
-	if v0 == 2 then
+	v2 := -1
+	save v2 - v2 # remove gem
+	if v1 == 2 then
 		gem_action_restore
 	object_gem_draw
 	i := long gem_sound
@@ -16,6 +16,7 @@
 	return
 
 : object_gem_tick
+	v0 := v1
 	jump0 gem_actions
 
 : gem_actions

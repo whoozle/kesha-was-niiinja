@@ -15,7 +15,10 @@
 	return
 
 : indicator_update_fish
-	object_indicator_0_init
+	v9 := va
+	va := 0
+	object_indicator_init
+	va := v9
 	object_indicator_draw
 
 	v0 := 0
@@ -53,7 +56,7 @@
 	return
 
 : object_switch_collide
-	if v1 != 1 then #action pressed
+	if v2 != 1 then #action pressed
 		return
 
 	v2 := 1

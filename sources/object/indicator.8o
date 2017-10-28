@@ -3,7 +3,7 @@
 	return
 
 : object_indicator_draw
-	if v0 == 0 then
+	if v1 == 0 then
 		return
 
 	v1 := v0
