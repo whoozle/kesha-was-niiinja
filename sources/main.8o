@@ -27,11 +27,10 @@
 	i := ninja_falling
 	save v0 - v0
 
-	v0 := 0
-	i := redraw_screen
-	save v0 - v0
+	va := 0
+	set_redraw_flag
 
-	render_screen
+	map_render
 	ninja_draw
 
 : main_loop
@@ -48,12 +47,17 @@
 		objects_tick
 		ninja_tick
 		ninja_action_finish
-		i := redraw_screen
+		i := redraw_screen_flag
 		load v0 - v0
 		if v0 != 0 then
 			jump main_redraw
 
 	jump main_loop
 
-: redraw_screen
+: redraw_screen_flag
 	0
+
+: set_redraw_flag
+	i := redraw_screen_flag
+	save va - va
+	return

@@ -347,7 +347,5 @@
 	save v0 - v1
 	i := ninja_current_pos
 	save v2 - v3
-	v0 := 1
-	i := redraw_screen
-	save v0 - v0
-	return
+	va := 1
+	jump set_redraw_flag

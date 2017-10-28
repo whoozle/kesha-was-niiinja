@@ -156,7 +156,7 @@
 	v0 += map_data_hi
 	return
 
-: render_screen
+: map_render
 	clear
 
 	v0 := 16
