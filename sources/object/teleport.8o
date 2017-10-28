@@ -11,8 +11,11 @@
 	sprite vc vd 0
 	return
 
+
+: teleport_fall_start
+	3 0 64 0
+
 : object_teleport_collide
-	:breakpoint teleport
 	if v1 == 0 then #disabled
 		return
 
@@ -20,6 +23,12 @@
 	audio
 	v0 := 10
 	buzzer := v0
+
+	if va == screen_4_0_teleport_0 begin
+		i := teleport_fall_start
+		jump ninja_spawn
+	end
+
 	return
 
 : object_teleport_tick

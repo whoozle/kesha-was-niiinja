@@ -333,13 +333,16 @@
 
 	return
 
+: ninja_respawn_position
+	4 4 32 40
+
 : ninja_respawn
-	v0 := 4
-	v1 := 4
+	i := ninja_respawn_position
+
+: ninja_spawn
+	load v0 - v3
 	i := screen_pos
 	save v0 - v1
-	v0 := 32
-	v1 := 40
 	i := ninja_current_pos
-	save v0 - v1
+	save v2 - v3
 	jump render_screen
