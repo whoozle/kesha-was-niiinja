@@ -253,7 +253,13 @@
 	ninja_draw
 	if v0 != 0 then
 		objects_collide
-	return
+	i := screen_changed
+	load v0 - v0
+	if v0 == 0 then
+		return
+	v0 := 0
+	save v0 - v0
+	jump ninja_draw
 
 : ninja_action_ok
 	i := ninja_action_state

@@ -1,6 +1,5 @@
 : object_spikes_collide
-	ninja_respawn
-	jump ninja_draw #fixme!
+	jump ninja_respawn
 
 : object_spikes_tick
 	object_spikes_draw

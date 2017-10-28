@@ -22,6 +22,10 @@
 	objects_init
 	render_screen
 
+	v0 := 0
+	i := screen_changed
+	save v0 - v0
+
 	va := 10
 	vb := 10
 	ninja_draw
