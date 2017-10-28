@@ -253,13 +253,7 @@
 	ninja_draw
 	if v0 != 0 then
 		objects_collide
-	i := screen_changed
-	load v0 - v0
-	if v0 == 0 then
-		return
-	v0 := 0
-	save v0 - v0
-	jump ninja_draw
+	return
 
 : ninja_action_ok
 	i := ninja_action_state
@@ -292,6 +286,8 @@
 	return
 
 : ninja_draw
+	i := ninja_current_pos
+	load va - vb
 	i := ninja_current_animation_frame
 	load v6 - v6
 	if v6 == 3 then
@@ -351,4 +347,7 @@
 	save v0 - v1
 	i := ninja_current_pos
 	save v2 - v3
-	jump render_screen
+	v0 := 1
+	i := redraw_screen
+	save v0 - v0
+	return

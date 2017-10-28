@@ -156,15 +156,10 @@
 	v0 += map_data_hi
 	return
 
-: screen_changed 0
-
 : render_screen
 	clear
 
 	v0 := 16
-	i := screen_changed
-	save v0 - v0
-
 	i := render_line_count
 	save v0 - v0
 

@@ -15,19 +15,23 @@
 	:byte a1
 }
 
+
 : main
 	hires
 	plane 3
 
 	objects_init
-	render_screen
 
-	v0 := 0
-	i := screen_changed
+: main_redraw
+	v0 := 1
+	i := ninja_falling
 	save v0 - v0
 
-	va := 10
-	vb := 10
+	v0 := 0
+	i := redraw_screen
+	save v0 - v0
+
+	render_screen
 	ninja_draw
 
 : main_loop
@@ -44,5 +48,12 @@
 		objects_tick
 		ninja_tick
 		ninja_action_finish
+		i := redraw_screen
+		load v0 - v0
+		if v0 != 0 then
+			jump main_redraw
 
 	jump main_loop
+
+: redraw_screen
+	0

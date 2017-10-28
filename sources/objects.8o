@@ -31,11 +31,6 @@
 		: object_loop_callback
 		0 0
 
-		i := screen_changed
-		load v0 - v0
-		if v0 != 0 then
-			return
-
 		i := objects_loop_current_object_ptr
 		load v0 - v1
 		v2 := 2
