@@ -20,6 +20,10 @@
 	5 7 16 40
 : teleport_invisible_walls_return
 	4 1 60 16
+: teleport_puzzle_entrance
+	4 2 60 8
+: teleport_puzzle_exit
+	6 7 32 16
 
 : object_teleport_collide
 	if v1 == 0 then #disabled
@@ -37,6 +41,16 @@
 
 	if va == screen_4_1_teleport_0 begin
 		i := teleport_invisible_walls
+		jump ninja_spawn
+	end
+
+	if va == screen_3_2_teleport_1 begin
+		i := teleport_puzzle_exit
+		jump ninja_spawn
+	end
+
+	if va == screen_3_2_teleport_0 begin
+		i := teleport_puzzle_entrance
 		jump ninja_spawn
 	end
 
