@@ -41,6 +41,11 @@
 		if v0 != 0 then
 			jump main_loop
 
+		i := frame_number
+		load v0 - v0
+		v0 += 1
+		save v0 - v0
+
 		v0 := 4
 		delay := v0
 
@@ -53,6 +58,9 @@
 			jump main_redraw
 
 	jump main_loop
+
+: frame_number
+	0
 
 : redraw_screen_flag
 	0

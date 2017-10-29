@@ -1,4 +1,17 @@
 : object_baloon_tick
+	i := frame_number
+	load v0 - v0
+	v8 := 2
+	v8 &= v0
+	if v8 != v1 begin
+		object_baloon_draw
+		v1 := v8
+		object_baloon_storage_addr
+		save v1 - v1
+		v1 >>= v1
+		object_baloon_draw
+	end
+
 : object_baloon_collide
 	return
 
@@ -6,8 +19,7 @@
 	if va == screen_4_7_baloon_0 begin
 		i := long tile_sorry_castle_data
 	end
+	vd += v1
 	v0 := 4
 	v1 := 2
-	:breakpoint x
 	jump object_draw_tiles16
-
