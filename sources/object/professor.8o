@@ -31,6 +31,9 @@
 	v0 := v4
 	v1 += 5
 	draw_digit
+	v1 += 5
+	i := long tile_heart_data
+	sprite v1 v2 8
 	return
 
 : draw_digit
