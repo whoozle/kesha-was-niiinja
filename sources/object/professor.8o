@@ -14,7 +14,7 @@
 
 	i := total_gem_count
 	load v0 - v0
-	v1 := 30
+	v1 := total_gem_required
 	v1 -= v0
 
 	i := professor_hearts

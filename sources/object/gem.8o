@@ -1,3 +1,6 @@
+:const total_gem_required
+	20
+
 : total_gem_count
 	0
 
