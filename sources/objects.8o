@@ -7,6 +7,8 @@
 	teleport_activate
 	va := screen_4_3_teleport_0
 	teleport_activate
+	va := screen_1_0_teleport_0
+	teleport_activate
 	return
 
 : objects_loop_generic

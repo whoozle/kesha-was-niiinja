@@ -45,6 +45,9 @@
 		jump ninja_spawn
 	end
 
+	if va == screen_1_0_teleport_0 then
+		jump ninja_respawn
+
 	return
 
 : object_teleport_tick
