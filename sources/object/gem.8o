@@ -1,3 +1,6 @@
+: total_gem_count
+	0
+
 : object_gem_draw
 	i := long tile_gem_0_0
 	sprite vc vd 8
@@ -9,10 +12,24 @@
 	if v1 == 2 then
 		gem_action_restore
 	object_gem_draw
+
+	i := total_gem_count
+	load v0 - v0
+	v0 += 1
+	save v0 - v0
+
 	i := long gem_sound
 	audio
 	v0 := 2
 	buzzer := v0
+
+	if va == screen_5_7_gem_0 begin
+		va := screen_4_1_teleport_0
+		teleport_deactivate
+		i := teleport_invisible_walls_return
+		jump ninja_spawn
+	end
+
 	return
 
 : object_gem_tick

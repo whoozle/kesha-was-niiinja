@@ -16,6 +16,10 @@
 	3 0 64 0
 : teleport_training_start
 	1 0 16 16
+: teleport_invisible_walls
+	5 7 16 40
+: teleport_invisible_walls_return
+	4 1 60 16
 
 : object_teleport_collide
 	if v1 == 0 then #disabled
@@ -28,6 +32,11 @@
 
 	if va == screen_4_0_teleport_0 begin
 		i := teleport_fall_start
+		jump ninja_spawn
+	end
+
+	if va == screen_4_1_teleport_0 begin
+		i := teleport_invisible_walls
 		jump ninja_spawn
 	end
 
