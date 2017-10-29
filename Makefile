@@ -4,9 +4,6 @@ PREFIX := .compiled
 
 all: game.hex
 
-$(PREFIX)/font.8o $(PREFIX)/font-data.8o: Makefile generate-font.py assets/font/5.font
-		./generate-font.py assets/font/5.font font 1100 $(PREFIX)
-
 $(PREFIX)/map.8o $(PREFIX)/map_data.8o: Makefile generate-map.py assets/map.json
 		./generate-map.py assets/map.json 3000 $(PREFIX)
 
@@ -24,13 +21,13 @@ $(PREFIX)/tiles.8o: Makefile ./generate-texture.py assets/*.png assets/tiles/*.p
 		./generate-texture.py assets/tiles/intro1.png intro1 2 16 >> $@
 		./generate-texture.py assets/tiles/intro2.png intro2 2 16 >> $@
 		./generate-texture.py assets/tiles/intro3.png intro3 2 16 >> $@
+		./generate-texture.py --map1=3 assets/tiles/digits.png digits 2 8 >> $@
 		./generate-texture.py --map1=3 assets/tiles/sorry-castle.png sorry_castle 2 16 >> $@
 		./generate-texture.py --map2=3 assets/tiles/sorry-cloud.png sorry_cloud 2 16 >> $@
 
 
 game.8o: \
 	Makefile assets/* sources/*.8o sources/object/*.8o \
-	$(PREFIX)/font.8o $(PREFIX)/font_data.8o \
 	$(PREFIX)/map_data.8o \
 	$(PREFIX)/tiles.8o
 
@@ -50,9 +47,7 @@ game.8o: \
 		cat sources/object/kiosk.8o >> $@
 		cat sources/object/spikes.8o >> $@
 		cat sources/object/baloon.8o >> $@
-		cat $(PREFIX)/font.8o >> $@
 		cat $(PREFIX)/map_data.8o >> $@
-		cat $(PREFIX)/font_data.8o >> $@
 		cat sources/sounds.8o >> $@
 		echo ":org 0x6000" >> $@
 		cat $(PREFIX)/tiles.8o >> $@
