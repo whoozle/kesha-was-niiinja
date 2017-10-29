@@ -1,0 +1,13 @@
+: object_baloon_tick
+: object_baloon_collide
+	return
+
+: object_baloon_draw
+	if va == screen_4_7_baloon_0 begin
+		i := long tile_sorry_castle_data
+	end
+	v0 := 4
+	v1 := 2
+	:breakpoint x
+	jump object_draw_tiles16
+

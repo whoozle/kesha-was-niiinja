@@ -119,14 +119,35 @@
 		v3 := 0
 		v5 := vc #x
 		loop
+			sprite v5 v4 8
 			v3 += 1
 			v5 += 8
-			sprite v5 v4 8
 			i += v6
 			if v3 != v0 then
 		again
 
 		v4 += 8
+		v2 += 1
+		if v2 != v1 then
+	again
+	return
+
+: object_draw_tiles16 #v0/v1 - width/height
+	v2 := 0
+	v4 := vd #y
+	v6 := 64
+	loop
+		v3 := 0
+		v5 := vc #x
+		loop
+			sprite v5 v4 0
+			v3 += 1
+			v5 += 16
+			i += v6
+			if v3 != v0 then
+		again
+
+		v4 += 16
 		v2 += 1
 		if v2 != v1 then
 	again
