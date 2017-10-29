@@ -2,8 +2,44 @@
 : object_professor_tick
 	return
 
+: professor_hearts
+	0 0 0
+
+
 : object_professor_draw
 	v0 := 4
 	v1 := 6
 	i := long tile_professor_data
-	jump object_draw_tiles
+	object_draw_tiles
+
+	i := total_gem_count
+	load v0 - v0
+	v1 := 30
+	v1 -= v0
+
+	i := professor_hearts
+	bcd v1
+
+	v1 := 1
+	i += v1
+	load v3 - v4
+	v0 := v3
+	v1 := vc
+	v1 += 28
+	v2 := vd
+	draw_digit
+	v0 := v4
+	v1 += 5
+	draw_digit
+	return
+
+: draw_digit
+	i := long tile_digits_data
+	v0 <<= v0
+	v0 <<= v0
+	v0 <<= v0
+	v0 <<= v0
+	i += v0
+	v0 := 0
+	sprite v1 v2 8
+	return
