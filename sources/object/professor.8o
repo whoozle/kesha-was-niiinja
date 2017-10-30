@@ -1,10 +1,27 @@
 : object_professor_collide
+	if v1 == 1 then
+		return
+
+	object_gem_required
+	if v0 <= 0 begin
+		object_professor_storage_addr
+		v0 := 1
+		save v0 - v0
+		#activate portal
+		va := screen_1_6_baloon_0
+		object_baloon_storage_addr
+		v0 := 0
+		save v0 - v0
+		object_baloon_init
+		object_baloon_draw
+	end
+	return
+
 : object_professor_tick
 	return
 
 : professor_hearts
 	0 0 0
-
 
 : object_professor_draw
 	v0 := 4
@@ -12,13 +29,15 @@
 	i := long tile_professor_data
 	object_draw_tiles
 
-	i := total_gem_count
-	load v0 - v0
-	v1 := object_gem_total
-	v1 -= v0
+	object_gem_required
+	if v0 > 0 then
+		jump object_professor_draw_count
 
+	return
+
+: object_professor_draw_count
 	i := professor_hearts
-	bcd v1
+	bcd v0
 
 	v1 := 1
 	i += v1

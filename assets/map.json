@@ -453,8 +453,8 @@
                  "type":"",
                  "visible":true,
                  "width":32,
-                 "x":834.25,
-                 "y":71.75
+                 "x":794,
+                 "y":72
                 }, 
                 {
                  "height":7.66666666666667,
@@ -675,6 +675,17 @@
                  "width":8,
                  "x":496,
                  "y":72
+                }, 
+                {
+                 "height":32,
+                 "id":197,
+                 "name":"baloon",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":826,
+                 "y":64
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -693,7 +704,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":197,
+ "nextobjectid":198,
  "orientation":"orthogonal",
  "renderorder":"left-up",
  "tiledversion":"1.0.3",

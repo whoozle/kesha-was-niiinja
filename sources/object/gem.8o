@@ -1,6 +1,13 @@
 : total_gem_count
 	0
 
+: object_gem_required
+	i := total_gem_count
+	load v1 - v1
+	v0 := object_gem_total
+	v0 -= v1
+	return
+
 : object_gem_draw
 	i := long tile_gem_0_0
 	sprite vc vd 8
