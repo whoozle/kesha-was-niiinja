@@ -3,8 +3,8 @@
 :const ninja_speed_down 4
 
 : screen_pos
-: screen_y 1
-: screen_x 6
+: screen_y 4
+: screen_x 5
 
 : ninja_current_pos
 	16 16
