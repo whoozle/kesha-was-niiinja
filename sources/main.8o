@@ -44,13 +44,30 @@
 
 		if v9 != 0 begin
 			main_process_input
-			scroll-up 2
+
+			v0 := 0xc0
+			i := intensity_1
+			v0 |= v9
+			save v0 - v0
+
+			v0 := 0xd0
+			i := intensity_2
+			v0 |= v9
+			save v0 - v0
+
+			va := 2
+			:next intensity_1
+			scroll-up 1
+
 			i := long shake_sound
 			audio
-			va := 2
 			buzzer := va
+
 			sleep
-			scroll-down 2
+
+			:next intensity_2
+			scroll-down 1
+
 			v0 := 2
 			delay := v0
 		end
