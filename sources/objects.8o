@@ -119,6 +119,12 @@
 	if v0 == 2 then
 		draw_intro_3
 
+	i := shake_screen_flag
+	v1 := 0
+	if v0 == 16 then
+		v1 := 1
+	save v1 - v1
+
 	i := ninja_flappy_mode
 	v1 := 0
 	if v0 == 44 then #flappy screens

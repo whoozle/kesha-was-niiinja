@@ -34,20 +34,32 @@
 	ninja_draw
 
 : main_loop
-		vd := 1
-		ninja_process_input
+		i := shake_screen_flag
+		load v9 - v9
+		if v9 == 0 begin
+			main_process_input
+			v0 := 4
+			delay := v0
+		end
 
-		v0 := delay
-		if v0 != 0 then
-			jump main_loop
+		if v9 != 0 begin
+			main_process_input
+			scroll-up 2
+			i := long shake_sound
+			audio
+			va := 2
+			buzzer := va
+			sleep
+			scroll-down 2
+			v0 := 2
+			delay := v0
+		end
 
 		i := frame_number
 		load v0 - v0
 		v0 += 1
 		save v0 - v0
 
-		v0 := 4
-		delay := v0
 
 		objects_tick
 		ninja_tick
@@ -59,10 +71,21 @@
 
 	jump main_loop
 
+: main_process_input
+	loop
+		ninja_process_input
+
+		v0 := delay
+		if v0 != 0 then
+			again
+	return
+
 : frame_number
 	0
 
 : redraw_screen_flag
+	0
+: shake_screen_flag
 	0
 
 : set_redraw_flag
