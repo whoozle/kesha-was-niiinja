@@ -7,7 +7,14 @@
 		object_professor_storage_addr
 		v0 := 1
 		save v0 - v0
-		#activate portal
+
+		#activating portal
+		va := screen_4_2_portal_0
+		object_portal_storage_addr
+		v0 := 0
+		save v0 - v0
+
+		#showing sorry baloon
 		va := screen_1_6_baloon_0
 		object_baloon_storage_addr
 		v0 := 0

@@ -19,6 +19,10 @@
 	object_baloon_storage_addr
 	v0 := -1
 	save v0 - v0
+	va := screen_4_2_portal_0
+	object_portal_storage_addr
+	v0 := -1
+	save v0 - v0
 	return
 
 : objects_loop_generic
