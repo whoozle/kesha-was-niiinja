@@ -49,6 +49,8 @@
 	object_indicator_storage_addr #load i with storage addr
 
 	save v0 - v0
+
+	v1 := v0
 	object_indicator_draw
 	return
 
