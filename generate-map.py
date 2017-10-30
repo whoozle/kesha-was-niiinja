@@ -190,6 +190,7 @@ with open(args.source) as fi, open(map_data_path, 'w') as fmap_data, open(map_he
 		fmap_data.write('offset map_objects_list_%d\n' %screen_id if screen_id in object_list_data else '0 0\n')
 
 	for name, n in indices.iteritems():
+		fmap_header.write(':const object_%s_total %d\n' %(name, n))
 		fmap_data.write(': object_storage_%s\n' %name)
 		for i in xrange(n):
 			fmap_data.write(': object_storage_%s_%d\n' %(name, i))
