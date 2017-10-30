@@ -24,6 +24,8 @@
 	4 2 60 8
 : teleport_puzzle_exit
 	6 7 32 16
+: teleport_cloud_treetop
+	0 4 108 16
 
 : object_teleport_collide
 	if v1 == 0 then #disabled
@@ -56,6 +58,11 @@
 
 	if va == screen_4_3_teleport_0 begin
 		i := teleport_training_start
+		jump ninja_spawn
+	end
+
+	if va == screen_4_5_teleport_0 begin
+		i := teleport_cloud_treetop
 		jump ninja_spawn
 	end
 
