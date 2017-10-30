@@ -1,0 +1,32 @@
+: object_portal_tick
+	v8 := v1
+	object_portal_draw
+
+	v1 := v8
+	v1 += 1
+	if v1 == 3 then
+		v1 := 0
+	object_portal_storage_addr
+	save v1 - v1
+
+	jump object_portal_draw
+
+: object_portal_collide
+	return
+
+: object_portal_draw
+	i := long tile_portal_data
+	v2 := 0x80
+
+: object_portal_draw_loop
+	if v1 == 0 then
+		jump object_portal_draw_impl
+	i += v2
+	i += v2
+	v1 += -1
+	jump object_portal_draw_loop
+
+: object_portal_draw_impl
+	v0 := 2
+	v1 := 2
+	jump object_draw_tiles16

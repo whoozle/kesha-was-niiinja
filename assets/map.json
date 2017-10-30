@@ -686,6 +686,17 @@
                  "width":64,
                  "x":826,
                  "y":64
+                }, 
+                {
+                 "height":32,
+                 "id":198,
+                 "name":"portal",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":304,
+                 "y":264
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -704,7 +715,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":198,
+ "nextobjectid":199,
  "orientation":"orthogonal",
  "renderorder":"left-up",
  "tiledversion":"1.0.3",
