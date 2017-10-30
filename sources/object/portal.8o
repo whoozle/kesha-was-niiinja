@@ -12,7 +12,8 @@
 	jump object_portal_draw
 
 : object_portal_collide
-	return
+	i := teleport_final_puzzle
+	jump ninja_spawn
 
 : object_portal_draw
 	i := long tile_portal_data

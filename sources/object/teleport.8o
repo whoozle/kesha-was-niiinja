@@ -26,6 +26,8 @@
 	6 7 32 16
 : teleport_cloud_treetop
 	0 4 108 16
+: teleport_final_puzzle
+	2 0 60 40
 
 : object_teleport_collide
 	if v1 == 0 then #disabled
