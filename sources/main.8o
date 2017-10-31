@@ -19,6 +19,7 @@
 : main
 	hires
 	plane 3
+	jump ending_allo
 
 	objects_init
 
@@ -95,11 +96,8 @@
 
 : shake_sound_sync
 	i := long shake_sound
-	audio
-	buzzer := va
-
-	jump sleep
-
+	vf := 2
+	jump audio_play_sync_vf
 
 : frame_number
 	0
@@ -170,6 +168,24 @@
 
 : ending_allo
 	clear
+
+	v9 := 0
+	va := 30
+	loop
+		vf := 40
+		i := long dial_tone_sound
+		audio_play_sync_vf
+		sleep
+		v9 += 1
+		if v9 != 2 then
+	again
+
+	sleep
+	i := long click_sound
+	audio_play_sync
+	va := 60
+	sleep
+
 	i := long tile_allo_data
 	v0 := 8
 	v1 := 4
