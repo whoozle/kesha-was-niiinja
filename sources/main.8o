@@ -116,7 +116,7 @@
 	v2 := 0
 	save v2 - v2
 
-	v9 := 10
+	v9 := 120
 	va := 2
 	loop
 		v0 := random 3
