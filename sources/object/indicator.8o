@@ -22,7 +22,6 @@
 
 	i := long tile_indicator_0_0
 	:next indicator_height1
-	:breakpoint sprite
 	sprite vc v2 1
 
 	v0 := v1
