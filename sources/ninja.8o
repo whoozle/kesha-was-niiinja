@@ -3,7 +3,7 @@
 :const ninja_speed_down 4
 
 : screen_pos
-: screen_y 2
+: screen_y 7
 : screen_x 0
 
 : ninja_current_pos

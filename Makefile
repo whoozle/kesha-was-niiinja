@@ -35,6 +35,7 @@ game.8o: \
 	$(PREFIX)/tiles.8o
 
 		cat sources/main.8o > $@
+		cat sources/ending.8o >> $@
 		cat $(PREFIX)/map.8o >> $@
 		cat sources/ninja.8o >> $@
 		cat sources/objects.8o >> $@
