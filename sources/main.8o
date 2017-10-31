@@ -119,7 +119,7 @@
 	v2 := 0
 	save v2 - v2
 
-	v9 := 120
+	v9 := 10
 	va := 2
 	loop
 		v0 := random 3
@@ -167,3 +167,13 @@
 
 	i := teleport_ending
 	jump ninja_spawn
+
+: ending_allo
+	clear
+	i := long tile_allo_data
+	v0 := 8
+	v1 := 4
+	vc := 0
+	vd := 0
+	object_draw_tiles16
+	loop again

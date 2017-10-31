@@ -3,3 +3,8 @@
 	v1 := 5
 	i := long tile_kiosk_data
 	jump object_draw_tiles
+
+: object_kiosk_collide
+	if va == screen_7_1_kiosk_0 then
+		jump ending_allo
+	return
