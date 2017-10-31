@@ -95,7 +95,8 @@
 
 : shake_sound_sync
 	i := long shake_sound
-	jump audio_play_sync
+	vf := va
+	jump audio_play_sync_vf
 
 : frame_number
 	0
