@@ -15,10 +15,8 @@
 	return
 
 : indicator_update_fish
-	v9 := va
 	va := 0
 	object_indicator_init
-	va := v9
 	object_indicator_draw
 
 	v0 := 0
@@ -47,12 +45,15 @@
 	indicator_update_fish_impl
 
 	object_indicator_storage_addr #load i with storage addr
+	save v0 - v0
+	v1 := v0
 
+	i := shake_screen_flag
+	if v0 != 0 then
+		v0 := 1
 	save v0 - v0
 
-	v1 := v0
-	object_indicator_draw
-	return
+	jump object_indicator_draw
 
 : object_switch_tick
 	return
@@ -61,21 +62,21 @@
 	if v2 != 1 then #action pressed
 		return
 
-	v2 := 1
 	object_switch_draw
-	v0 ^= v2
+	v2 := 1
+	v1 ^= v2
 	object_switch_draw
 
 	object_switch_storage_addr
-	save v0 - v0
+	save v1 - v1
 	ninja_action_ok
 
-	if va == screen_2_0_switch_0 then indicator_update_fish
-	if va == screen_2_0_switch_1 then indicator_update_fish
-	if va == screen_2_0_switch_2 then indicator_update_fish
-	if va == screen_2_0_switch_3 then indicator_update_fish
-	if va == screen_2_0_switch_4 then indicator_update_fish
-	if va == screen_2_0_switch_5 then indicator_update_fish
+	if va == screen_2_0_switch_0 then jump indicator_update_fish
+	if va == screen_2_0_switch_1 then jump indicator_update_fish
+	if va == screen_2_0_switch_2 then jump indicator_update_fish
+	if va == screen_2_0_switch_3 then jump indicator_update_fish
+	if va == screen_2_0_switch_4 then jump indicator_update_fish
+	if va == screen_2_0_switch_5 then jump indicator_update_fish
 	return
 
 : object_switch_draw

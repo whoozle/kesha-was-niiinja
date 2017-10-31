@@ -6,38 +6,39 @@
 	if v1 == 0 then
 		return
 
-	v1 := v0
-	if v1 > 8 then
-		v1 := 8 #height
+	v0 := v1
+	if v0 > 8 then
+		v0 := 8 #height
 
 	v2 := 8 #y
-	v2 -= v1
+	v2 -= v0
 	v2 += vd
 
 	v3 := 0x20
-	v3 |= v1
+	v3 |= v0
 
 	i := indicator_height1
 	save v3 - v3
 
 	i := long tile_indicator_0_0
 	:next indicator_height1
+	:breakpoint sprite
 	sprite vc v2 1
 
+	v0 := v1
 	if v0 < 9 then
 		return
 
-	v1 := v0
-	v1 += -8 #height
-	if v1 > 8 then
-		v1 := 8
+	v0 += -8 #height
+	if v0 > 8 then
+		v0 := 8
 
 	v2 := 8
-	v2 -= v1
+	v2 -= v0
 	v2 += vd
 
 	v3 := 0x20
-	v3 |= v1
+	v3 |= v0
 
 	i := indicator_height2
 	save v3 - v3
