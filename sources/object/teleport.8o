@@ -34,6 +34,8 @@
 	0 4 108 16
 : teleport_final_puzzle
 	2 0 60 40
+: teleport_ending
+	7 0 80 40
 
 : object_teleport_collide
 	if v1 == 0 then #disabled

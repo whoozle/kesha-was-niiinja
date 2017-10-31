@@ -24,9 +24,6 @@
 	end
 	return
 
-: object_professor_tick
-	return
-
 : professor_hearts
 	0 0 0
 

@@ -54,10 +54,11 @@
 		v2 := 1
 	save v2 - v2
 
-	jump object_indicator_draw
-
-: object_switch_tick
-	return
+	object_indicator_draw
+	:breakpoint INDI
+	if v1 != 8 then
+		return
+	jump main_ending
 
 : object_switch_collide
 	if v2 != 1 then #action pressed

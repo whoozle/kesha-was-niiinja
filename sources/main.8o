@@ -109,3 +109,11 @@
 	i := redraw_screen_flag
 	save va - va
 	return
+
+: main_ending
+	i := shake_screen_flag
+	v2 := 0
+	save v2 - v2
+
+	i := teleport_ending
+	jump ninja_spawn

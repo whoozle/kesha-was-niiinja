@@ -3,11 +3,11 @@
 
 : object_spikes_tick
 	object_spikes_draw
-	v0 += 1
-	if v0 >= 8 then
-		v0 := 0
+	v1 += 1
+	if v1 >= 8 then
+		v1 := 0
 	object_spikes_storage_addr
-	save v0 - v0
+	save v1 - v1
 	jump object_spikes_draw
 
 : object_spikes_draw

@@ -1,7 +1,3 @@
-: object_kiosk_collide
-: object_kiosk_tick
-	return
-
 : object_kiosk_draw
 	v0 := 2
 	v1 := 5

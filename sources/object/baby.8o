@@ -1,8 +1,5 @@
-: object_baby_collide
-: object_baby_tick
-	return
-
 : object_baby_draw
 	i := long tile_baby_data
 	sprite vc vd 0
 	return
+

@@ -50,6 +50,7 @@ game.8o: \
 		cat sources/object/spikes.8o >> $@
 		cat sources/object/baloon.8o >> $@
 		cat sources/object/portal.8o >> $@
+		cat sources/object/unused.8o >> $@
 		cat $(PREFIX)/map_data.8o >> $@
 		cat sources/sounds.8o >> $@
 		echo ":org 0x6000" >> $@

@@ -1,0 +1,8 @@
+: object_switch_tick
+: object_professor_tick
+: object_baby_collide
+: object_baby_tick
+: object_kiosk_collide
+: object_kiosk_tick
+	return
+
