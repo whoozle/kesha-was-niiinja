@@ -59,11 +59,7 @@
 			:next intensity_1
 			scroll-up 1
 
-			i := long shake_sound
-			audio
-			buzzer := va
-
-			sleep
+			shake_sound_sync
 
 			:next intensity_2
 			scroll-down 1
@@ -97,6 +93,14 @@
 			again
 	return
 
+: shake_sound_sync
+	i := long shake_sound
+	audio
+	buzzer := va
+
+	jump sleep
+
+
 : frame_number
 	0
 
@@ -114,6 +118,52 @@
 	i := shake_screen_flag
 	v2 := 0
 	save v2 - v2
+
+	v9 := 120
+	va := 2
+	loop
+		v0 := random 3
+		v0 += v0
+		jump0 ending_shake_table
+: ending_shake_table
+		jump ending_shake_left
+		jump ending_shake_right
+		jump ending_shake_up
+		jump ending_shake_down
+
+: ending_shake_left
+		scroll-left
+		shake_sound_sync
+		scroll-right
+		shake_sound_sync
+		jump ending_shake_next
+
+: ending_shake_right
+		scroll-right
+		shake_sound_sync
+		scroll-left
+		shake_sound_sync
+		jump ending_shake_next
+
+: ending_shake_up
+		scroll-up 4
+		shake_sound_sync
+		scroll-down 4
+		shake_sound_sync
+		jump ending_shake_next
+
+: ending_shake_down
+		scroll-down 4
+		shake_sound_sync
+		scroll-up 4
+		shake_sound_sync
+
+: ending_shake_next
+		v9 += -1
+		if v9 == 40 then
+			clear
+		if v9 != 0 then
+	again
 
 	i := teleport_ending
 	jump ninja_spawn
