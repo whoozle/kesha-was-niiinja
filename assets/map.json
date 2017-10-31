@@ -601,17 +601,6 @@
                 }, 
                 {
                  "height":8,
-                 "id":190,
-                 "name":"gem",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":8,
-                 "x":848,
-                 "y":304
-                }, 
-                {
-                 "height":8,
                  "id":191,
                  "name":"gem",
                  "rotation":0,
@@ -697,6 +686,17 @@
                  "width":32,
                  "x":304,
                  "y":264
+                }, 
+                {
+                 "height":8,
+                 "id":199,
+                 "name":"gem",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":8,
+                 "x":755,
+                 "y":358
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -715,7 +715,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":199,
+ "nextobjectid":200,
  "orientation":"orthogonal",
  "renderorder":"left-up",
  "tiledversion":"1.0.3",
