@@ -22,6 +22,9 @@
 	if va == screen_1_6_baloon_0 begin
 		i := long tile_sorry_reality_data
 	end
+	if va == screen_6_5_baloon_0 begin
+		i := long tile_sorry_cloud_data
+	end
 	vd += v1
 	v0 := 4
 	v1 := 2

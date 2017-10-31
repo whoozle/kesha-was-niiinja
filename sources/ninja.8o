@@ -3,11 +3,11 @@
 :const ninja_speed_down 4
 
 : screen_pos
-: screen_y 4
-: screen_x 3
+: screen_y 6
+: screen_x 5
 
 : ninja_current_pos
-	32 40
+	32 -8
 
 : ninja_current_animation_frame
 	0

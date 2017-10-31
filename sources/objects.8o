@@ -127,6 +127,11 @@
 		v1 := 1
 	save v1 - v1
 
+	if v0 == 61 then
+		jump ninja_respawn
+	if v0 == 60 then
+		jump ninja_respawn
+
 	jump objects_draw
 
 : object_draw_tiles #v0/v1 - width/height
