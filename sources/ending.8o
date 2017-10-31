@@ -67,6 +67,8 @@
 		v0 &= vb
 		if v0 != 0 then
 			sleep
+		if v0 != 0 then
+			sleep
 		v9 += 1
 		if v9 != 6 then
 	again
