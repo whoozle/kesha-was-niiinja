@@ -64,6 +64,11 @@
 	if v2 != 1 then #action pressed
 		return
 
+	i := long click_sound
+	audio
+	v0 := 2
+	buzzer := v0
+
 	object_switch_draw
 	v2 := 1
 	v1 ^= v2
