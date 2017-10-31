@@ -723,12 +723,23 @@
                 {
                  "height":40,
                  "id":202,
-                 "name":"",
+                 "name":"kiosk",
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":16,
                  "x":232,
+                 "y":464
+                }, 
+                {
+                 "height":40,
+                 "id":203,
+                 "name":"kiosk",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":64,
                  "y":464
                 }],
          "opacity":1,
@@ -748,7 +759,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":203,
+ "nextobjectid":204,
  "orientation":"orthogonal",
  "renderorder":"left-up",
  "tiledversion":"1.0.3",
