@@ -21,9 +21,15 @@
 : teleport_invisible_walls_return
 	4 1 60 16
 : teleport_puzzle_entrance
-	4 2 60 8
+	6 7 32 40
 : teleport_puzzle_exit
-	6 7 32 16
+	4 2 60 8
+: teleport_puzzle_2
+	6 7 32 8
+: teleport_puzzle_3
+	7 7 60 40
+: teleport_puzzle_win
+	7 7 60 8
 : teleport_cloud_treetop
 	0 4 108 16
 : teleport_final_puzzle
@@ -37,6 +43,9 @@
 	audio
 	v0 := 10
 	buzzer := v0
+
+	if va == screen_1_0_teleport_0 then #return teleport from training camp
+		jump ninja_respawn
 
 	if va == screen_4_0_teleport_0 begin
 		i := teleport_fall_start
@@ -68,10 +77,96 @@
 		jump ninja_spawn
 	end
 
-	if va == screen_1_0_teleport_0 then
-		jump ninja_respawn
+	if va == screen_6_7_teleport_2 begin #first teleport of teleport puzzle
+		va := screen_6_7_teleport_0
+		teleport_activate
+		va := screen_6_7_teleport_1
+		teleport_activate
+		va := screen_6_7_teleport_2
+		teleport_deactivate
+		i := teleport_puzzle_entrance
+		jump ninja_spawn
+	end
 
+	if va == screen_6_7_teleport_0 begin #left ground floor
+		va := screen_6_7_teleport_3 #left first floor
+		teleport_activate
+		va := screen_6_7_teleport_5 #right first floor
+		teleport_activate
+		i := teleport_puzzle_2
+		jump ninja_spawn
+	end
+
+	if va == screen_6_7_teleport_1 then
+		jump teleport_puzzle_reset #right ground floor, wrong
+
+	if va == screen_6_7_teleport_3 then #left first floor, wrong
+		jump teleport_puzzle_reset
+
+	if va == screen_6_7_teleport_5 begin #right first floor, wrong
+		va := screen_6_7_teleport_3
+		teleport_deactivate
+		va := screen_6_7_teleport_5
+		teleport_deactivate
+		va := screen_6_7_teleport_4 # center, first floor
+		teleport_activate
+		i := teleport_puzzle_2
+		jump ninja_spawn
+	end
+
+	if va == screen_6_7_teleport_4 begin
+		va := screen_7_7_teleport_0
+		teleport_activate
+		va := screen_7_7_teleport_2
+		teleport_activate
+		i := teleport_puzzle_3
+		jump ninja_spawn
+	end
+
+	if va == screen_7_7_teleport_2 then
+		jump teleport_puzzle_reset #upper floor, left
+
+	if va == screen_7_7_teleport_0 begin
+		va := screen_7_7_teleport_1
+		teleport_activate
+		i := teleport_puzzle_win
+		jump ninja_spawn
+	end
+
+	if va == screen_7_7_teleport_1 begin
+		teleport_puzzle_reset_impl #no respawn
+		ninja_respawn
+	end
+
+	:breakpoint teleport
 	return
+
+: teleport_puzzle_reset_impl
+	va := screen_6_7_teleport_0
+	teleport_deactivate
+	va := screen_6_7_teleport_1
+	teleport_deactivate
+	va := screen_6_7_teleport_2
+	teleport_activate
+
+	va := screen_6_7_teleport_3
+	teleport_deactivate
+	va := screen_6_7_teleport_4
+	teleport_deactivate
+	va := screen_6_7_teleport_5
+	teleport_deactivate
+
+	va := screen_7_7_teleport_0
+	teleport_deactivate
+	va := screen_7_7_teleport_1
+	teleport_deactivate
+	va := screen_7_7_teleport_2
+	jump teleport_deactivate
+
+: teleport_puzzle_reset
+	teleport_puzzle_reset_impl
+	i := teleport_puzzle_entrance
+	jump ninja_spawn
 
 : object_teleport_tick
 	object_teleport_draw
