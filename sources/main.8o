@@ -19,7 +19,6 @@
 : main
 	hires
 	plane 3
-	jump ending_allo
 
 	objects_init
 
@@ -96,8 +95,7 @@
 
 : shake_sound_sync
 	i := long shake_sound
-	vf := 2
-	jump audio_play_sync_vf
+	jump audio_play_sync
 
 : frame_number
 	0
