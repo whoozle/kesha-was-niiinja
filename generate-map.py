@@ -82,7 +82,7 @@ with open(args.source) as fi, open(map_data_path, 'w') as fmap_data, open(map_he
 	i += va
 	return
 
-: _collide_prep
+: _collide_impl
 	i += v9
 	i += v9
 	i += v9
@@ -91,6 +91,21 @@ with open(args.source) as fi, open(map_data_path, 'w') as fmap_data, open(map_he
 
 	v0 := va
 	v0 += v2
+
+	v1 := 0
+
+	if v0 <= v3 begin
+		v0 := vb
+		v0 += v4
+		if v0 <= v5 begin
+			va := v9
+
+			i := ninja_action_state
+			load v2 - v2
+
+			v1 := 1
+		end
+	end
 	return
 
 """
@@ -120,20 +135,11 @@ with open(args.source) as fi, open(map_data_path, 'w') as fmap_data, open(map_he
 
 : object_{name}_collide_v9
 	i := long object_{name}_collide_data
-	_collide_prep
-	if v0 <= v3 begin
-		v0 := vb
-		v0 += v4
-		if v0 <= v5 begin
-			va := v9
-
-			i := ninja_action_state
-			load v2 - v2
-
-			object_{name}_init
-			if v1 != -1 then
-				object_{name}_collide
-		end
+	_collide_impl
+	if v1 != 0 begin
+		object_{name}_init
+		if v1 != -1 then
+			object_{name}_collide
 	end
 	return
 
