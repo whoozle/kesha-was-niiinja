@@ -2,51 +2,57 @@
 : object_indicator_tick
 	return
 
+: tile_indicator_green
+	0x00 0xff
+: tile_indicator_red
+	0xff 0x00
+
 : object_indicator_draw
 	if v1 == 0 then
 		return
 
-	v0 := v1
-	if v0 > 8 then
-		v0 := 8 #height
+	v3 := v1
+	if v3 > 8 then
+		v3 := 8 #height
 
 	v2 := 8 #y
-	v2 -= v0
+	v2 -= v3
 	v2 += vd
 
-	v3 := 0x20
-	v3 |= v0
+	loop
+		if v3 == 0 then
+			jump indicator_draw_red
 
-	i := indicator_height1
-	save v3 - v3
+		i := tile_indicator_green
+		sprite vc v2 1
+		v2 += 1
+		v3 += -1
+	again
 
-	i := long tile_indicator_0_0
-	:next indicator_height1
-	sprite vc v2 1
-
-	v0 := v1
-	if v0 < 9 then
+: indicator_draw_red
+	v3 := v1
+	if v3 < 9 then
 		return
 
-	v0 += -8 #height
-	if v0 > 8 then
-		v0 := 8
+	:breakpoint red
+
+	v3 += -8 #height
+	if v3 > 8 then
+		v3 := 8
 
 	v2 := 8
-	v2 -= v0
+	v2 -= v3
 	v2 += vd
-
-	v3 := 0x20
-	v3 |= v0
-
-	i := indicator_height2
-	save v3 - v3
 
 	v4 := vc
 	v4 += 8
 
-	i := long tile_indicator_0_1
-	:next indicator_height2
-	sprite v4 v2 1
+	loop
+		if v3 == 0 then
+			return
 
-	return
+		i := tile_indicator_red
+		sprite v4 v2 1
+		v2 += 1
+		v3 += -1
+	again

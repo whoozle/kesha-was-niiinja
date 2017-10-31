@@ -82,7 +82,7 @@
 
 : object_switch_draw
 	i := long tile_switch_0_0
-	if v0 == 1 begin
+	if v1 == 1 begin
 		i := long tile_switch_0_1
 	end
 	sprite vc vd 8
