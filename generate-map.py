@@ -75,7 +75,25 @@ with open(args.source) as fi, open(map_data_path, 'w') as fmap_data, open(map_he
 	object_list_data = {}
 	object_init_data = {}
 	object_collide_data = {}
-	init = ''
+	init = """
+: _iadd_3va
+	i += va
+	i += va
+	i += va
+	return
+
+: _collide_prep
+	i += v9
+	i += v9
+	i += v9
+	i += v9
+	load v2 - v5 # dx, w, dy, h
+
+	v0 := va
+	v0 += v2
+	return
+
+"""
 	for screen_id in xrange(vscreens * hscreens):
 		if screen_id not in objects:
 			continue
@@ -98,21 +116,11 @@ with open(args.source) as fi, open(map_data_path, 'w') as fmap_data, open(map_he
 
 : object_{name}_init_addr
 	i := long object_{name}_init_data
-	i += va
-	i += va
-	i += va
-	return
+	jump _iadd_3va
 
 : object_{name}_collide_v9
 	i := long object_{name}_collide_data
-	i += v9
-	i += v9
-	i += v9
-	i += v9
-	load v2 - v5 # dx, w, dy, h
-
-	v0 := va
-	v0 += v2
+	_collide_prep
 	if v0 <= v3 begin
 		v0 := vb
 		v0 += v4
