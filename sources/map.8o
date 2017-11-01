@@ -269,6 +269,7 @@
 	i := map_current_offset
 	save v0 - v1
 
+	music_play_sync
 	:next map_scroll_generic_count
 	vc := 0
 	loop
