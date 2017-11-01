@@ -31,11 +31,14 @@ $(PREFIX)/tiles.8o: Makefile ./generate-texture.py assets/*.png assets/tiles/*.p
 $(PREFIX)/audio.8o: Makefile ./generate-audio.py assets/music/ninja.wav
 		./generate-audio.py assets/music/ninja.wav 8000 music -c 0.25 -l4 -o $(PREFIX)/audio.wav > $@
 
+$(PREFIX)/signature.8o: Makefile ./generate-string.py
+		./generate-string.py --right-align=39000 "NO FISH HERE, GO AWAY" > $@
 
 game.8o: \
 	Makefile assets/* sources/*.8o sources/object/*.8o \
 	$(PREFIX)/map_data.8o \
 	$(PREFIX)/tiles.8o \
+	$(PREFIX)/signature.8o \
 	$(PREFIX)/audio.8o
 
 		cat sources/main.8o > $@
@@ -64,6 +67,7 @@ game.8o: \
 		cat $(PREFIX)/audio.8o >> $@
 		echo ":org 0x4000" >> $@
 		cat $(PREFIX)/tiles.8o >> $@
+		cat $(PREFIX)/signature.8o >> $@
 
 game.bin: game.8o
 	./octo/octo game.8o $@
