@@ -279,6 +279,7 @@
 		:next map_scroll_scroll_2
 		scroll-left
 		sleep
+		music_play
 
 		:next map_scroll_line_x
 		va := 0

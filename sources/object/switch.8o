@@ -55,7 +55,6 @@
 	save v2 - v2
 
 	object_indicator_draw
-	:breakpoint INDI
 	if v1 != 8 then
 		return
 	jump main_ending

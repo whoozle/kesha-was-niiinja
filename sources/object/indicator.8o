@@ -34,8 +34,6 @@
 	if v3 < 9 then
 		return
 
-	:breakpoint red
-
 	v3 += -8 #height
 	if v3 > 8 then
 		v3 := 8

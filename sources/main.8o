@@ -85,12 +85,20 @@
 	jump main_loop
 
 : main_process_input
+	music_play
+	loop
+		ninja_process_input
+
+		v0 := delay
+		if v0 > 2 then
+	again
+	music_play
 	loop
 		ninja_process_input
 
 		v0 := delay
 		if v0 != 0 then
-			again
+	again
 	return
 
 : shake_sound_sync

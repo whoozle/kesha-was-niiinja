@@ -137,10 +137,9 @@
 
 	if va == screen_7_7_teleport_1 begin
 		teleport_puzzle_reset_impl #no respawn
-		ninja_respawn
+		jump ninja_respawn
 	end
 
-	:breakpoint teleport
 	return
 
 : teleport_puzzle_reset_impl

@@ -1,10 +1,6 @@
 :const music_dt 2
 
 : music_play_impl
-	v0 := delay
-	if v0 != 0 then
-		return
-
 	v2 := 2 #index increment
 	v3 := music_dt
 	i := current_music_index_pos
@@ -39,7 +35,6 @@
 	0 0
 
 	buzzer := v3
-	delay := v3
 
 	return
 
