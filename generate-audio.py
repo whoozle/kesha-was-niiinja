@@ -98,10 +98,12 @@ def compress(data):
 
 	def compare(pack, next, pos, n):
 		bits = 0
+		next_is_zero = sum(next) == 0
+		level = args.level if not next_is_zero else 0 #zero tolerance
 		for i in xrange(1, n):
 			if pack[pos + i] != next[i]:
 				bits += bin(pack[pos + i] ^ next[i]).count('1')
-				if bits > args.level:
+				if bits > level:
 					return False
 		return True
 

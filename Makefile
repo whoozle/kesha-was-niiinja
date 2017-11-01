@@ -29,7 +29,7 @@ $(PREFIX)/tiles.8o: Makefile ./generate-texture.py assets/*.png assets/tiles/*.p
 		./generate-texture.py --map2=3 assets/tiles/allo.png allo 2 16 >> $@
 
 $(PREFIX)/audio.8o: Makefile ./generate-audio.py assets/music/ninja.wav
-		./generate-audio.py assets/music/ninja-cut.wav 8000 music -c -0.25 -l4 -o $(PREFIX)/audio.wav > $@
+		./generate-audio.py assets/music/ninja.wav 8000 music -c 0.25 -l4 -o $(PREFIX)/audio.wav > $@
 
 
 game.8o: \
