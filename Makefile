@@ -5,7 +5,7 @@ PREFIX := .compiled
 all: game.hex
 
 $(PREFIX)/map.8o $(PREFIX)/map_data.8o: Makefile generate-map.py assets/map.json
-		./generate-map.py assets/map.json 3000 $(PREFIX)
+		./generate-map.py assets/map.json 1000 $(PREFIX)
 
 $(PREFIX)/tiles.8o: Makefile ./generate-texture.py assets/*.png assets/tiles/*.png
 		./generate-texture.py assets/tileset.png tileset 2 8 > $@
@@ -29,7 +29,7 @@ $(PREFIX)/tiles.8o: Makefile ./generate-texture.py assets/*.png assets/tiles/*.p
 		./generate-texture.py --map2=3 assets/tiles/allo.png allo 2 16 >> $@
 
 $(PREFIX)/audio.8o: Makefile ./generate-audio.py assets/music/ninja.wav
-		./generate-audio.py assets/music/ninja-cut.wav 6000 music -c -0.25 -l4 -o $(PREFIX)/audio.wav > $@
+		./generate-audio.py assets/music/ninja-cut.wav 8000 music -c -0.25 -l4 -o $(PREFIX)/audio.wav > $@
 
 
 game.8o: \
@@ -61,6 +61,7 @@ game.8o: \
 		cat $(PREFIX)/map_data.8o >> $@
 		cat sources/sounds.8o >> $@
 		cat $(PREFIX)/audio.8o >> $@
+		echo ":org 0x4000" >> $@
 		cat $(PREFIX)/tiles.8o >> $@
 
 game.bin: game.8o
