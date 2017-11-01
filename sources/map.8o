@@ -304,6 +304,7 @@
 		vc += -1
 		if vc != 0 then
 	again
+	music_play_sync
 	jump objects_screen_entered
 
 : map_scroll_left
