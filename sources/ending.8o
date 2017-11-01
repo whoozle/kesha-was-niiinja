@@ -85,6 +85,8 @@
 	vc := 0
 	vd := 0
 	object_draw_tiles16
+	va := 2
 	loop
+		delay := va
 		music_play_sync
 	again
