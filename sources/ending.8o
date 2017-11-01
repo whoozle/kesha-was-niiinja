@@ -85,4 +85,6 @@
 	vc := 0
 	vd := 0
 	object_draw_tiles16
-	loop again
+	loop
+		music_play_sync
+	again
