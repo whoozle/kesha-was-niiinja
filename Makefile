@@ -32,7 +32,7 @@ $(PREFIX)/audio.8o: Makefile ./generate-audio.py assets/music/ninja.wav
 		./generate-audio.py assets/music/ninja.wav 8000 music -c 0.25 -l4 -o $(PREFIX)/audio.wav > $@
 
 $(PREFIX)/signature.8o: Makefile ./generate-string.py
-		./generate-string.py --right-align=39000 "NO FISH HERE, GO AWAY" > $@
+		./generate-string.py --right-align=39000 "NO FISH HERE, GO AWAY  ©COWNAMEDSQUIRREL 2017" > $@
 
 game.8o: \
 	Makefile assets/* sources/*.8o sources/object/*.8o \
