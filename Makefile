@@ -28,11 +28,15 @@ $(PREFIX)/tiles.8o: Makefile ./generate-texture.py assets/*.png assets/tiles/*.p
 		./generate-texture.py assets/tiles/portal.png portal 2 16 >> $@
 		./generate-texture.py --map2=3 assets/tiles/allo.png allo 2 16 >> $@
 
+$(PREFIX)/audio.8o: Makefile ./generate-audio.py assets/music/ninja.wav
+		./generate-audio.py assets/music/ninja-cut.wav 6000 music -c -0.25 -l4 -o $(PREFIX)/audio.wav > $@
+
 
 game.8o: \
 	Makefile assets/* sources/*.8o sources/object/*.8o \
 	$(PREFIX)/map_data.8o \
-	$(PREFIX)/tiles.8o
+	$(PREFIX)/tiles.8o \
+	$(PREFIX)/audio.8o
 
 		cat sources/main.8o > $@
 		cat sources/ending.8o >> $@
@@ -56,7 +60,7 @@ game.8o: \
 		cat sources/object/unused.8o >> $@
 		cat $(PREFIX)/map_data.8o >> $@
 		cat sources/sounds.8o >> $@
-		echo ":org 0x6000" >> $@
+		cat $(PREFIX)/audio.8o >> $@
 		cat $(PREFIX)/tiles.8o >> $@
 
 game.bin: game.8o
