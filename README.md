@@ -2,8 +2,8 @@
 
 ## About
 
-First metroidvania game in KESHA universe. Control fearless ninja,
-kill enemies, use abilities and objects.
+Biggest platformer game in KESHA universe. Control fearless ninja,
+kill enemies(lolwut), use abilities(wut) and objects(wuuut).
 
 ## Palette
 
