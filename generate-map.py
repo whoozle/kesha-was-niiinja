@@ -4,7 +4,7 @@ import argparse
 import json
 import os.path
 
-parser = argparse.ArgumentParser(description='Decompile bin to hex')
+parser = argparse.ArgumentParser(description='Generate code for tmx map')
 parser.add_argument('source', help='input file')
 parser.add_argument('address', help='address to load from')
 parser.add_argument('prefix', help='destination directory')
